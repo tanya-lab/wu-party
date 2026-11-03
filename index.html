@@ -268,6 +268,23 @@ body.no-effects #snow{display:none}
 .section__row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:clamp(24px,4vw,40px)}
 .section__row .section__head{margin-bottom:0}
 
+/* ---------- program ---------- */
+.program-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:16px;align-items:start}
+.program-card{min-width:0;padding:clamp(16px,2.2vw,24px);border:1px solid var(--line);background:#fff}
+.program-card h3{margin:0 0 14px;font-family:var(--slab);font-size:1.1rem;line-height:1.3}
+.program-picks{display:grid;gap:10px}
+.program-pick{padding:13px 14px;background:#F4FAFC;border-left:3px solid var(--wu)}
+.program-pick b{display:block;margin:0 0 5px;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+.program-pick p{margin:0;font-size:13px;line-height:1.5}
+.program-pick p+p{margin-top:8px;padding-top:8px;border-top:1px solid rgba(11,128,167,.12)}
+.program-timeline{display:grid}
+.program-item{display:grid;grid-template-columns:106px minmax(0,1fr);gap:12px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.program-item:first-child{padding-top:2px}
+.program-item:last-child{border-bottom:0;padding-bottom:0}
+.program-time{font-family:var(--slab);font-size:14px;font-weight:800;line-height:1.5;color:var(--wu);white-space:nowrap}
+.program-item p{margin:0;font-size:13px;line-height:1.55}
+.program-status{display:inline-block;margin:0 0 6px;padding:3px 7px;background:rgba(217,165,33,.12);color:#8B6710;font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+
 /* ---------- stats strip ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .stats div{padding:22px 18px;border-right:1px solid var(--line);min-width:0}
@@ -604,6 +621,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
 }
 @media (max-width:1000px){
   .map-wrap{grid-template-columns:1fr}
+  .program-grid{grid-template-columns:minmax(0,1fr)}
   .map-side{border-left:0;border-top:1px solid var(--line);max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side__item{border-right:1px solid var(--line-soft)}
   .calc{grid-template-columns:1fr}
@@ -680,6 +698,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
     <nav class="nav" id="nav" aria-label="Sections">
       <a href="#map" class="active" data-i18n="navMap">Карта</a>
       <a href="#overview" data-i18n="navOverview">Обзор</a>
+      <a href="#program" data-i18n="navProgram">Програма</a>
       <a href="#calc" data-i18n="navCalc">Бюджет</a>
       <a href="#compare" data-i18n="navCompare">Сравнение</a>
       <a href="#sources" data-i18n="navSources">Документи</a>
@@ -760,6 +779,58 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
       </div>
       <p class="status-hint" data-i18n="ovHint">Click a venue name to open its details right here</p>
       <div class="status-list" id="status-list"></div>
+    </div>
+  </section>
+
+  <section class="section" id="program">
+    <div class="container">
+      <div class="section__row">
+        <div class="section__head">
+          <p class="eyebrow" data-i18n="progEyebrow">Програма</p>
+          <h2 data-i18n="progTitle">Идеи и план за вечерта</h2>
+          <p data-i18n="progLead">Работна версия за обсъждане — темата и кратката активност са предложения, а демонстрацията на техники за контрол на гласа е непотвърдена.</p>
+        </div>
+      </div>
+      <div class="program-grid">
+        <div class="program-card program-card--ideas">
+          <h3 data-i18n="progIdeasTitle">Идеи за вечерта</h3>
+          <div class="program-picks">
+            <div class="program-pick">
+              <b data-i18n="progThemeTitle">Тема на партито</b>
+              <p data-i18n="progThemeBalkan">Balkan Falsch — закачка с името на заведението.</p>
+              <p data-i18n="progThemeBW">Black &amp; White — семпла, ненатоварваща тема.</p>
+            </div>
+            <div class="program-pick">
+              <b data-i18n="progPhotoTitle">Фотоъгъл за спомен</b>
+              <p data-i18n="progPhotoText">Дребни аксесоари от Jumbo — например очила, шапки и други забавни неща.</p>
+            </div>
+          </div>
+        </div>
+        <div class="program-card program-card--timeline">
+          <h3 data-i18n="progScheduleTitle">План за вечерта</h3>
+          <div class="program-timeline">
+            <div class="program-item">
+              <time class="program-time">19:00–19:30</time>
+              <p data-i18n="progWelcome">Посрещане на гостите</p>
+            </div>
+            <div class="program-item">
+              <time class="program-time">19:30–20:30</time>
+              <p data-i18n="progDinner">Вечеря, нетуоркинг и кратка, ненатоварваща игра за разчупване на леда.</p>
+            </div>
+            <div class="program-item">
+              <time class="program-time">20:30–21:00</time>
+              <div>
+                <span class="program-status" data-i18n="progPending">Непотвърдено</span>
+                <p data-i18n="progVoice">Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.</p>
+              </div>
+            </div>
+            <div class="program-item">
+              <time class="program-time">21:00–TBD</time>
+              <p data-i18n="progParty">Парти — крайният час предстои да се уточни.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -864,7 +935,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
 const UI = {
   bg: {
     fxLabel: "Сняг", brandSub: "вт, 1 декември · София", menu: "Меню",
-    navOverview: "Обзор", navMap: "Карта", navCalc: "Бюджет",
+    navOverview: "Обзор", navMap: "Карта", navProgram: "Програма", navCalc: "Бюджет",
     navCompare: "Сравнение", navSources: "Документи", navContact: "Контакти",
     heroKicker: "WU Alumni · X-mas Party",
     heroTitle: "X-mas Party", heroSub: "1 декември 2026 · София",
@@ -881,6 +952,19 @@ const UI = {
     ovHint: "Натисни върху името на мястото, за да отвориш детайлите му тук.",
     mapEyebrow: "Карта", mapTitle: "Две места, един град",
     mapLead: "Кликни pin или име, за да отвориш детайлите. Упътванията се отварят в Google Maps.",
+    progEyebrow: "Програма", progTitle: "Идеи и план за вечерта",
+    progLead: "Работна версия за обсъждане — темата и кратката активност са предложения, а демонстрацията на техники за контрол на гласа е непотвърдена.",
+    progIdeasTitle: "Идеи за вечерта", progThemeTitle: "Тема на партито",
+    progThemeBalkan: "Balkan Falsch — закачка с името на заведението.",
+    progThemeBW: "Black & White — семпла, ненатоварваща тема.",
+    progPhotoTitle: "Фотоъгъл за спомен",
+    progPhotoText: "Дребни аксесоари от Jumbo — например очила, шапки и други забавни неща.",
+    progScheduleTitle: "План за вечерта",
+    progWelcome: "Посрещане на гостите",
+    progDinner: "Вечеря, нетуоркинг и кратка, ненатоварваща игра за разчупване на леда.",
+    progPending: "Непотвърдено",
+    progVoice: "Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.",
+    progParty: "Парти — крайният час предстои да се уточни.",
     calcEyebrow: "Бюджет", calcTitle: "Колко струва на гост",
     calcLead: "Промени броя гости. Предложената блок маса цели общо 28 € на гост, включително 10% сервиз и наем 200 €. Цената от Kitchen59 се очаква.",
     lblGuests: "Гости", hintGuests: "Офертата е за 30 души. Храната е на човек, наемът е фиксиран.",
@@ -910,7 +994,7 @@ const UI = {
   },
   en: {
     fxLabel: "Snow", brandSub: "Tue, 1 December · Sofia", menu: "Menu",
-    navOverview: "Overview", navMap: "Map", navCalc: "Budget",
+    navOverview: "Overview", navMap: "Map", navProgram: "Program", navCalc: "Budget",
     navCompare: "Compare", navSources: "Documents", navContact: "Contacts",
     heroKicker: "WU Alumni · X-mas Party",
     heroTitle: "X-mas Party", heroSub: "1 December 2026 · Sofia",
@@ -927,6 +1011,19 @@ const UI = {
     ovHint: "Click a venue name to expand its details here.",
     mapEyebrow: "Map", mapTitle: "Two venues, one city",
     mapLead: "Click a pin or a name to open details. Directions open in Google Maps.",
+    progEyebrow: "Program", progTitle: "Ideas and evening schedule",
+    progLead: "Draft for discussion—the theme and short activity are suggestions; the voice-control demonstration is unconfirmed.",
+    progIdeasTitle: "Ideas for the evening", progThemeTitle: "Party theme",
+    progThemeBalkan: "Balkan Falsch—a playful nod to the venue’s name.",
+    progThemeBW: "Black & White—a simple, low-effort alternative.",
+    progPhotoTitle: "Photo corner",
+    progPhotoText: "Small props from Jumbo, such as glasses, hats, and other fun accessories.",
+    progScheduleTitle: "Evening schedule",
+    progWelcome: "Welcome guests",
+    progDinner: "Dinner, networking, and a brief, low-pressure icebreaker game.",
+    progPending: "Unconfirmed",
+    progVoice: "Tanya will ask an acquaintance about a short demonstration of voice-control techniques. If it doesn’t work out, we’ll choose another brief activity.",
+    progParty: "Party—the end time is still to be decided.",
     calcEyebrow: "Budget", calcTitle: "What it costs per guest",
     calcLead: "Adjust the headcount. The proposed block table targets €28 per guest total, including 10% service and the €200 hall. Kitchen59 pricing is pending.",
     lblGuests: "Guests", hintGuests: "The offer is written for 30. Food is priced per person; the hall is fixed.",
