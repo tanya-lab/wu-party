@@ -678,8 +678,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
     </a>
     <button class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav" data-i18n="menu">Menu</button>
     <nav class="nav" id="nav" aria-label="Sections">
-      <a href="#overview" class="active" data-i18n="navOverview">Обзор</a>
-      <a href="#map" data-i18n="navMap">Карта</a>
+      <a href="#map" class="active" data-i18n="navMap">Карта</a>
+      <a href="#overview" data-i18n="navOverview">Обзор</a>
       <a href="#calc" data-i18n="navCalc">Бюджет</a>
       <a href="#compare" data-i18n="navCompare">Сравнение</a>
       <a href="#sources" data-i18n="navSources">Документи</a>
@@ -732,20 +732,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
     </div>
   </section>
 
-  <section class="section section--fog" id="overview">
-    <div class="container">
-      <div class="section__row">
-        <div class="section__head">
-          <p class="eyebrow" data-i18n="ovEyebrow">Overview</p>
-          <h2 data-i18n="ovTitle">Where things stand</h2>
-          <p data-i18n="ovLead">Balkan Falsch has a full written offer; Kitchen59 is a new option and we are awaiting its details and pricing.</p>
-        </div>
-      </div>
-      <p class="status-hint" data-i18n="ovHint">Click a venue name to open its details right here</p>
-      <div class="status-list" id="status-list"></div>
-    </div>
-  </section>
-
   <section class="section" id="map">
     <div class="container">
       <div class="section__row">
@@ -760,6 +746,20 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
         <div class="map-side" id="map-side"></div>
       </div>
       <div class="map-legend" id="map-legend"></div>
+    </div>
+  </section>
+
+  <section class="section section--fog" id="overview">
+    <div class="container">
+      <div class="section__row">
+        <div class="section__head">
+          <p class="eyebrow" data-i18n="ovEyebrow">Overview</p>
+          <h2 data-i18n="ovTitle">Where things stand</h2>
+          <p data-i18n="ovLead">Balkan Falsch has a full written offer; Kitchen59 is a new option and we are awaiting its details and pricing.</p>
+        </div>
+      </div>
+      <p class="status-hint" data-i18n="ovHint">Click a venue name to open its details right here</p>
+      <div class="status-list" id="status-list"></div>
     </div>
   </section>
 
@@ -991,7 +991,7 @@ const VENUES = [
     concept: { bg: "Покривна зала с гледка, DJ setup, озвучаване и микрофони", en: "Rooftop venue with views, DJ setup, sound system and microphones" },
     notes: { bg: "Официалната информация посочва 300 м², до 180 души при ексклузивно ползване и до 80 при споделено. Зоната и условията за конкретната дата трябва да се потвърдят.", en: "Official event info lists 300 m², up to 180 guests with exclusive use or 80 shared. Confirm the area and terms for the date." },
     contact: { name: "Kitchen59 Events", email: "info@kitchen59.bg", phone: "+359 2 439 9959" },
-    contacted: "—", owner: "Tanya",
+    contacted: "—", owner: "Andon",
     next: { bg: "Да се поиска оферта за 30 гости и наличност за 1 декември 2026 г.", en: "Request availability and a quote for 30 guests on 1 December 2026." },
     docs: ["kitchen59Events"]
   }
