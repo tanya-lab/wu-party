@@ -896,7 +896,7 @@ const UI = {
     footTop: "↑ Обратно горе", footContacts: "Контакти", footLinks: "Файлове",
     footDisclaimer: "Неофициална страница за WU Alumni събитие; не е официален сайт на WU Wien. Блок масата за 28 €/гост е наше предложение и трябва да се потвърди със заведението.",
     st: { offer: "Получена оферта", progress: "В процес", waiting: "Чакаме", unlikely: "Малко вероятно", unavailable: "Заето" },
-    f: { capacity: "Капацитет", price: "Цена / наем", drinks: "Напитки", catering: "Кетъринг", parking: "Паркинг", concept: "Концепция", notes: "Забележки", contact: "Контакт", contacted: "Контакт на", next: "Следваща стъпка" },
+    f: { capacity: "Капацитет", price: "Цена / наем", drinks: "Напитки", catering: "Кетъринг", parking: "Паркинг", concept: "Концепция", notes: "Забележки", contact: "Контакт", contacted: "Контакт на", next: "Следваща стъпка", venueDetails: "Информация за мястото" },
     a: { directions: "Упътвания", details: "Виж на картата", email: "Имейл", phone: "Телефон", more: "Виж детайли", less: "Скрий" },
     offer: { title: "Пълна оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
       block: "Блок маса", mix: "Микс", adjustment: "Корекция до целта", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", belowCap: "под лимита 60 €/гост", gramNote: "Цената включва мини сладките: 60 × 2 € = 120 € в пълното блок меню и 29 × 2 € = 58 € в предложението. Грамажът им е изключен само от сметката за грамаж, защото теглото на брой не е посочено. Единичните цени дават 582 € храна; с 10% сервиз и наем сумата е 840,20 €. Корекция −0,20 € (за потвърждение) дава целта 840 € / 28 € на гост.",
@@ -942,7 +942,7 @@ const UI = {
     footTop: "↑ Back to top", footContacts: "Contacts", footLinks: "Files",
     footDisclaimer: "Unofficial WU Alumni event page; not an official WU Wien website. The €28/guest block table is our proposal and should be confirmed with the venue.",
     st: { offer: "Offer received", progress: "In progress", waiting: "Waiting", unlikely: "Unlikely", unavailable: "Unavailable" },
-    f: { capacity: "Capacity", price: "Price / rental", drinks: "Drinks", catering: "Catering", parking: "Parking", concept: "Party concept", notes: "Notes", contact: "Contact", contacted: "Contacted", next: "Next step" },
+    f: { capacity: "Capacity", price: "Price / rental", drinks: "Drinks", catering: "Catering", parking: "Parking", concept: "Party concept", notes: "Notes", contact: "Contact", contacted: "Contacted", next: "Next step", venueDetails: "Venue details" },
     a: { directions: "Directions", details: "Show on map", email: "Email", phone: "Phone", more: "Show details", less: "Hide" },
     offer: { title: "Full offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
       block: "Block table", mix: "Mixed", adjustment: "Target adjustment", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", belowCap: "under €60/guest cap", gramNote: "Dessert cost is included: 60 × €2 = €120 in the full Block Table menu, and 29 × €2 = €58 in this proposal. Sweets are excluded only from the gram estimate because piece weight isn't listed. Listed prices total €582 food; with 10% service and hall, €840.20. A proposed −€0.20 adjustment (to confirm) reaches €840 / €28 per guest.",
@@ -1469,19 +1469,23 @@ const SOURCES = [
 
     return '<div class="card__body">' +
       (v.detail === "balkan" ? offerHtml() : "") +
-      factsHtml(v) +
-      '<p class="card__note"><strong>' + esc(t("f.next")) + '</strong>' + esc(pick(v.next)) + '</p>' +
-      '<div class="card__actions">' +
-        '<a class="btn" href="' + mapsUrl(v) + '" target="_blank" rel="noopener">' + esc(t("a.directions")) + ' ↗</a>' +
-        (v.contact.email ? '<a class="btn btn--ghost" href="mailto:' + esc(v.contact.email) + '">' + esc(t("a.email")) + '</a>' : '') +
-        (v.contact.phone ? '<a class="btn btn--ghost" href="tel:' + esc(v.contact.phone.replace(/\s+/g, "")) + '">' + esc(t("a.phone")) + '</a>' : '') +
-        docs +
-      '</div>' +
-      '<div class="card__meta">' +
-        '<span><b>' + esc(t("f.contact")) + '</b> ' + esc(v.contact.name) + '</span>' +
-        '<span><b>' + esc(t("f.contacted")) + '</b> ' + esc(v.contacted) + '</span>' +
-        '<span><b>' + esc(tr("Отговорник", "Owner")) + '</b> ' + esc(v.owner) + '</span>' +
-      '</div>' +
+      '<details class="acc venue-info"><summary>' + esc(t("f.venueDetails")) + '</summary>' +
+        '<div class="acc__body">' +
+          factsHtml(v) +
+          '<p class="card__note"><strong>' + esc(t("f.next")) + '</strong>' + esc(pick(v.next)) + '</p>' +
+          '<div class="card__actions">' +
+            '<a class="btn" href="' + mapsUrl(v) + '" target="_blank" rel="noopener">' + esc(t("a.directions")) + ' ↗</a>' +
+            (v.contact.email ? '<a class="btn btn--ghost" href="mailto:' + esc(v.contact.email) + '">' + esc(t("a.email")) + '</a>' : '') +
+            (v.contact.phone ? '<a class="btn btn--ghost" href="tel:' + esc(v.contact.phone.replace(/\s+/g, "")) + '">' + esc(t("a.phone")) + '</a>' : '') +
+            docs +
+          '</div>' +
+          '<div class="card__meta">' +
+            '<span><b>' + esc(t("f.contact")) + '</b> ' + esc(v.contact.name) + '</span>' +
+            '<span><b>' + esc(t("f.contacted")) + '</b> ' + esc(v.contacted) + '</span>' +
+            '<span><b>' + esc(tr("Отговорник", "Owner")) + '</b> ' + esc(v.owner) + '</span>' +
+          '</div>' +
+        '</div>' +
+      '</details>' +
       photoHtml(v) +
     '</div>';
   }
