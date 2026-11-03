@@ -1436,13 +1436,15 @@ const SOURCES = [
           '<b>' + esc(tr("Виж снимки в Google Maps ↗", "See photos on Google Maps ↗")) + '</b></span>' +
         '</a>';
     }
-    return '<div class="gallery gallery--' + v.id + '">' + body +
+    var gallery = '<div class="gallery gallery--' + v.id + '">' + body +
       (credit ? '<p class="gallery__credit">' +
         (credit.url ? (credit.source ? esc(pick(credit.label)) + ' · ' : '') +
           '<a href="' + credit.url + '" target="_blank" rel="noopener">' +
           esc(pick(credit.source || credit.label)) + ' ↗</a>' : esc(pick(credit.label))) +
         '</p>' : '') +
       '</div>';
+    return '<details class="acc photo-acc"><summary>' + esc(tr("Снимки", "Photos")) +
+      ' · ' + shots.length + '</summary><div class="acc__body">' + gallery + '</div></details>';
   }
 
   /* ---------- venue cards ---------- */
@@ -1542,7 +1544,7 @@ const SOURCES = [
 
     var terms = OFFER.terms.map(function (x) { return '<li>' + esc(pick(x)) + '</li>'; }).join("");
 
-    return '<details class="acc"><summary>' + esc(t("offer.title")) + '</summary>' +
+    return '<details class="acc" open><summary>' + esc(t("offer.title")) + '</summary>' +
       '<div class="acc__body">' +
         '<div class="offer-plans">' + plans + '</div>' +
         '<p class="offer-gram-note">' + esc(t("offer.gramNote")) + '</p>' +
