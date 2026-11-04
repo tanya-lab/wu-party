@@ -576,37 +576,6 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .shot--empty .shot__txt{font-size:11.5px;line-height:1.5;letter-spacing:.03em}
 .shot--empty b{display:block;margin-top:3px;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
 
-/* ---------- calculator ---------- */
-.calc{display:grid;grid-template-columns:320px 1fr;border:1px solid var(--line);background:#fff}
-.calc__controls{padding:22px;border-right:1px solid var(--line);background:var(--fog-2)}
-.ctrl{margin-bottom:24px}
-.ctrl:last-child{margin-bottom:0}
-.ctrl label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--ink-soft);margin-bottom:8px}
-.ctrl label output{font-family:var(--slab);font-size:18px;color:var(--wu);letter-spacing:0;text-transform:none}
-input[type=range]{
-  -webkit-appearance:none;appearance:none;width:100%;height:3px;background:var(--line);outline:none;margin:8px 0 0;
-}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--wu);cursor:pointer;border-radius:0}
-input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);cursor:pointer;border:0;border-radius:0}
-.ctrl .hint{font-size:11px;color:var(--ink-soft);margin:8px 0 0;line-height:1.45}
-.ctrl input[type=number]{
-  width:100%;padding:8px 10px;border:1px solid var(--line);font-family:var(--ui);font-size:14px;background:#fff;
-}
-.calc__results{padding:22px}
-.calc__results h3{font-size:1.05rem;margin-bottom:4px}
-.calc__results>p{font-size:12px;color:var(--ink-soft);margin:0 0 18px}
-.calc-row{padding:12px 0;border-bottom:1px solid var(--line-soft)}
-.calc-row:last-child{border-bottom:0}
-.calc-row__top{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:7px}
-.calc-row__name{font-weight:700;font-size:13.5px}
-.calc-row__name small{display:block;font-weight:500;font-size:11px;color:var(--ink-soft);letter-spacing:.02em}
-.calc-row__val{font-family:var(--slab);font-weight:700;font-size:15px;white-space:nowrap}
-.calc-row__val small{display:block;font-family:var(--ui);font-weight:500;font-size:10.5px;color:var(--ink-soft);text-align:right}
-.bar{height:6px;background:var(--fog);position:relative;overflow:hidden}
-.bar i{position:absolute;inset:0 auto 0 0;background:var(--wu);width:0;transition:width .35s ease}
-.bar.is-best i{background:var(--st-offer)}
-.calc-note{font-size:11.5px;color:var(--ink-soft);line-height:1.55;border-top:1px solid var(--line-soft);margin-top:16px;padding-top:12px}
-
 /* ---------- comparison table ---------- */
 .cmp-wrap{border:1px solid var(--line);background:#fff;overflow-x:auto}
 .cmp{width:100%;border-collapse:collapse;min-width:920px;font-size:13px}
@@ -685,8 +654,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
   .offer-plans{grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side{border-left:0;border-top:1px solid var(--line);max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side__item{border-right:1px solid var(--line-soft)}
-  .calc{grid-template-columns:1fr}
-  .calc__controls{border-right:0;border-bottom:1px solid var(--line)}
   .status-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:8px}
   .status-row>*{min-width:0}
   .status-row .badge{justify-self:start;white-space:normal}
@@ -720,7 +687,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
 }
 @media (max-width:560px){.offer-plans{grid-template-columns:minmax(0,1fr)}}
 @media print{
-  .topbar,.site-head,#snow,.garland,.map-wrap,.calc__controls{display:none!important}
+  .topbar,.site-head,#snow,.garland,.map-wrap{display:none!important}
   body{font-size:11pt}
   .section{padding:12pt 0}
 }
@@ -758,9 +725,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
     <button class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav" data-i18n="menu">Menu</button>
     <nav class="nav" id="nav" aria-label="Sections">
       <a href="#map" class="active" data-i18n="navMap">Карта</a>
-      <a href="#overview" data-i18n="navOverview">Обзор</a>
+      <a href="#offers" data-i18n="navOffers">Оферти</a>
       <a href="#program" data-i18n="navProgram">Програма</a>
-      <a href="#calc" data-i18n="navCalc">Бюджет</a>
       <a href="#compare" data-i18n="navCompare">Сравнение</a>
       <a href="#sources" data-i18n="navSources">Документи</a>
       <a href="#contact" data-i18n="navContact">Контакти</a>
@@ -829,12 +795,12 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
     </div>
   </section>
 
-  <section class="section section--fog" id="overview">
+  <section class="section section--fog" id="offers">
     <div class="container">
       <div class="section__row">
         <div class="section__head">
-          <p class="eyebrow" data-i18n="ovEyebrow">Overview</p>
-          <h2 data-i18n="ovTitle">Where things stand</h2>
+          <p class="eyebrow" data-i18n="offersEyebrow">Offers</p>
+          <h2 data-i18n="ovTitle">Venue offers</h2>
           <p data-i18n="ovLead">Balkan Falsch has a full written offer; Kitchen59 is a new option and we are awaiting its details and pricing.</p>
         </div>
       </div>
@@ -890,36 +856,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
               <p data-i18n="progParty">Парти — крайният час предстои да се уточни.</p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="calc">
-    <div class="container">
-      <div class="section__row">
-        <div class="section__head">
-          <p class="eyebrow" data-i18n="calcEyebrow">Budget</p>
-          <h2 data-i18n="calcTitle">What it costs per guest</h2>
-          <p data-i18n="calcLead">Adjust the headcount. The proposed block table targets €28 per guest total, including 10% service and the €200 hall. Kitchen59 pricing is pending.</p>
-        </div>
-      </div>
-      <div class="calc">
-        <div class="calc__controls">
-          <div class="ctrl">
-            <label for="guests"><span data-i18n="lblGuests">Guests</span><output id="guests-out" for="guests">30</output></label>
-            <input id="guests" type="range" min="15" max="60" step="1" value="30">
-            <p class="hint" data-i18n="hintGuests">The offer is written for 30. Food is priced per person; the hall is fixed.</p>
-          </div>
-          <div class="ctrl">
-            <button class="btn btn--ghost" id="calc-reset" data-i18n="reset">Reset</button>
-          </div>
-        </div>
-        <div class="calc__results">
-          <h3 data-i18n="calcResTitle">Total and per guest</h3>
-          <p data-i18n="calcResLead">Sorted cheapest first. Alcohol is excluded everywhere unless stated.</p>
-          <div id="calc-body"></div>
-          <p class="calc-note" data-i18n="calcNote">Estimate only. The proposed menu quantities and price should be confirmed with Balkan Falsch. Alcohol is extra.</p>
         </div>
       </div>
     </div>
@@ -996,7 +932,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
 const UI = {
   bg: {
     fxLabel: "Сняг", brandSub: "вт, 1 декември · София", menu: "Меню",
-    navOverview: "Обзор", navMap: "Карта", navProgram: "Програма", navCalc: "Бюджет",
+    navOffers: "Оферти", navMap: "Карта", navProgram: "Програма",
     navCompare: "Сравнение", navSources: "Документи", navContact: "Контакти",
     heroKicker: "WU Alumni · X-mas Party",
     heroTitle: "X-mas Party", heroSub: "1 декември 2026 · София",
@@ -1008,7 +944,7 @@ const UI = {
     bandNote: "2 опции · 1 пълна оферта · 1 очаква оферта",
     statVenues: "варианта за място", statOffers: "варианта за Balkan Falsch",
     statCheapest: "най-ниско общо с напитки при избрания брой гости", statDate: "вторник · 19:00–24:00",
-    ovEyebrow: "Обзор", ovTitle: "Къде сме в момента",
+    offersEyebrow: "Оферти", ovTitle: "Оферти от местата",
     ovLead: "Balkan Falsch има пълна писмена оферта; Kitchen59 е нов вариант и очакваме информация и цена.",
     ovHint: "Натисни върху името на мястото, за да отвориш детайлите му тук.",
     mapEyebrow: "Карта", mapTitle: "Две места, един град",
@@ -1026,12 +962,6 @@ const UI = {
     progPending: "В процес",
     progVoice: "Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.",
     progParty: "Парти — крайният час предстои да се уточни.",
-    calcEyebrow: "Бюджет", calcTitle: "Колко струва на гост",
-    calcLead: "Промени броя гости, количествата и часовете/цената на наема за персонализираната маса — крайната сума и остатъкът за подаръци се преизчисляват.",
-    lblGuests: "Гости", hintGuests: "Офертата е за 30 души. Наемът в офертната блок маса е фиксиран; при персонализираната се редактират часовете и цената на час.",
-    reset: "Нулирай",
-    calcResTitle: "Общо и на гост", calcResLead: "Подредено от най-евтино. Алкохолът е изключен навсякъде, освен ако не е посочено.",
-    calcNote: "Ориентировъчно. Количествата и наемът в персонализираната маса трябва да се потвърдят със Balkan Falsch. Алкохолът се плаща отделно.",
     cmpEyebrow: "Сравнение", cmpTitle: "Две опции една до друга",
     cmpLead: "Кликни върху заглавие на колона, за да сортираш. €/гост включва избраните напитки и е изчислено за 30 гости.",
     cmpLegend: "Предложената блок маса е персонализируема; цената от Kitchen59 се очаква.",
@@ -1056,7 +986,7 @@ const UI = {
   },
   en: {
     fxLabel: "Snow", brandSub: "Tue, 1 December · Sofia", menu: "Menu",
-    navOverview: "Overview", navMap: "Map", navProgram: "Program", navCalc: "Budget",
+    navOffers: "Offers", navMap: "Map", navProgram: "Program",
     navCompare: "Compare", navSources: "Documents", navContact: "Contacts",
     heroKicker: "WU Alumni · X-mas Party",
     heroTitle: "X-mas Party", heroSub: "1 December 2026 · Sofia",
@@ -1068,7 +998,7 @@ const UI = {
     bandNote: "2 options · 1 complete offer · 1 quote pending",
     statVenues: "venue options", statOffers: "Balkan Falsch options",
     statCheapest: "lowest total including drinks at selected headcount", statDate: "Tuesday · 19:00–24:00",
-    ovEyebrow: "Overview", ovTitle: "Where things stand",
+    offersEyebrow: "Offers", ovTitle: "Venue offers",
     ovLead: "Balkan Falsch has a full written offer; Kitchen59 is a new option and we are awaiting its details and pricing.",
     ovHint: "Click a venue name to expand its details here.",
     mapEyebrow: "Map", mapTitle: "Two venues, one city",
@@ -1086,12 +1016,6 @@ const UI = {
     progPending: "In progress",
     progVoice: "Tanya will ask an acquaintance about a short demonstration of voice-control techniques. If it doesn’t work out, we’ll choose another brief activity.",
     progParty: "Party—the end time is still to be decided.",
-    calcEyebrow: "Budget", calcTitle: "What it costs per guest",
-    calcLead: "Adjust the headcount, menu quantities, and the personalised table's rental hours/rate; the final total and present budget update automatically.",
-    lblGuests: "Guests", hintGuests: "The offer is for 30 guests. Quoted block-table rent is fixed; the personalised table's hours and hourly rate are editable.",
-    reset: "Reset",
-    calcResTitle: "Total and per guest", calcResLead: "Sorted cheapest first. Alcohol is excluded everywhere unless stated.",
-    calcNote: "Estimate only. Confirm the personalised table's quantities and rent with Balkan Falsch. Alcohol is extra.",
     cmpEyebrow: "Compare", cmpTitle: "Two options, side by side",
     cmpLead: "Click a column header to sort. €/guest includes selected drinks and is calculated for 30 guests.",
     cmpLegend: "The proposed block table is editable; Kitchen59 pricing is pending.",
@@ -2208,65 +2132,11 @@ const SOURCES = [
 
   /* ---------- calculator ---------- */
   function readCalc() {
-    var g = parseInt($("#guests").value, 10);
-    if (isNaN(g)) g = 30;
-    return { g: g };
-  }
-
-  function calcRows(c) {
-    var rows = [];
-    OFFER.alt.forEach(function (a) {
-      var metrics = offerMetrics(a, c.g);
-      rows.push({
-        id: "balkan-" + a.id,
-        name: "Balkan Falsch · " + pick(a.name),
-        sub: a.id === "budgetBlock" ?
-          tr("персонализируемо меню · храна + сервиз + наем", "editable menu · food + service + hall") :
-          tr("храна + 10% сервиз + 200 € наем", "food + 10% service + €200 hall"),
-        total: metrics.total, pp: metrics.perGuest, full: true
-      });
-    });
-    rows.push({
-      id: "kitchen59", name: "Kitchen59",
-      sub: tr("офертата се очаква", "quote pending"),
-      total: null, pp: null, full: false
-    });
-    return rows.sort(function (a, b) {
-      if (a.total == null) return b.total == null ? 0 : 1;
-      if (b.total == null) return -1;
-      return a.total - b.total;
-    });
+    return { g: OFFER.guests };
   }
 
   function renderCalc() {
-    var c = readCalc();
-    var outG = $("#guests-out");
-    if (outG) outG.textContent = c.g;
-
-    var rows = calcRows(c);
-    var max = rows.reduce(function (m, r) { return Math.max(m, r.total); }, 1);
-    var best = rows.filter(function (r) { return r.full; })
-                   .reduce(function (m, r) { return Math.min(m, r.total); }, Infinity);
-
-    var host = $("#calc-body");
-    if (!host) return;
-    host.innerHTML = rows.map(function (r) {
-      var w = Math.max(3, Math.round(r.total / max * 100));
-      var isBest = r.full && r.total === best;
-      return '<div class="calc-row">' +
-        '<div class="calc-row__top">' +
-          '<span class="calc-row__name">' + esc(r.name) +
-            (isBest ? ' <span class="tag" style="border-color:var(--st-offer);color:var(--st-offer)">' + esc(t("best")) + '</span>' : '') +
-            '<small>' + esc(r.sub) + '</small>' +
-          '</span>' +
-          '<span class="calc-row__val">' + money(r.total) +
-            '<small>' + money(r.pp) + ' ' + esc(t("calc.perGuest")) + '</small>' +
-          '</span>' +
-        '</div>' +
-        '<div class="bar' + (isBest ? " is-best" : "") + '"><i style="width:' + w + '%"></i></div>' +
-      '</div>';
-    }).join("");
-    updateOfferPlanMetrics(c.g);
+    updateOfferPlanMetrics(readCalc().g);
   }
 
   /* ---------- comparison ---------- */
@@ -2448,16 +2318,6 @@ const SOURCES = [
     $$("main section[id]").forEach(function (s) { spy.observe(s); });
   }
 
-  var calcInputs = ["guests"];
-  calcInputs.forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) el.addEventListener("input", renderCalc);
-  });
-  var reset = $("#calc-reset");
-  if (reset) reset.addEventListener("click", function () {
-    $("#guests").value = 30;
-    renderCalc();
-  });
 })();
 </script>
 
