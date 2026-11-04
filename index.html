@@ -466,50 +466,25 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__menu .tbl td,.offer-plan__menu .tbl th{padding:5px 4px;font-size:10px}
 .offer-plan__menu .tbl td:first-child{min-width:110px}
 .custom-menu{display:grid;border-top:1px solid var(--line-soft)}
-.custom-menu__row{padding:7px 0;border-bottom:1px solid var(--line-soft)}
-.custom-menu__name{width:100%;min-width:0;margin:0 0 5px;padding:5px 6px;border:1px solid var(--line-soft);background:#fff;font:500 10px/1.3 var(--ui);color:var(--ink)}
-.custom-menu__controls{display:grid;grid-template-columns:repeat(3,minmax(42px,1fr)) minmax(58px,1.15fr) 24px;gap:5px;align-items:end}
-.custom-menu__field{display:grid;gap:3px;min-width:0}
-.custom-menu__field span,.custom-menu__line small{font-size:7.5px;line-height:1.2;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
-.custom-menu__field input{width:100%;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink)}
-.custom-menu__edit-trigger{width:100%;min-width:0;padding:4px 3px;border:1px dashed var(--line);background:#fff;color:var(--ink);font:600 10px var(--ui);text-align:left;white-space:nowrap;cursor:text}
-.custom-menu__edit-trigger:hover,.custom-menu__edit-trigger:focus-visible{border-color:var(--wu);outline:0;background:#F4FAFC}
-.custom-menu__edit-input[hidden]{display:none}
-.custom-menu__line{text-align:right;display:grid;gap:3px;min-width:0}
-.custom-menu__line b{font-size:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.custom-menu__hint{margin:0;padding:7px 0;color:var(--ink-soft);font-size:9px;line-height:1.4}
+.custom-menu__table{table-layout:fixed}
+.custom-menu__table th:first-child{width:54%}
+.custom-menu__table th:nth-child(2){width:23%}
+.custom-menu__table th:nth-child(3){width:23%}
+.custom-menu__table td{padding:5px 3px!important;font-size:10px!important;vertical-align:middle}
+.custom-menu__item{display:flex;align-items:flex-start;gap:3px;min-width:0}
+.custom-menu__item-name{flex:1;min-width:0;overflow-wrap:anywhere;line-height:1.35}
+.custom-menu__name-select{width:100%;min-width:0;padding:4px 2px;border:1px solid var(--line-soft);background:#fff;font:500 9px/1.3 var(--ui);color:var(--ink)}
+.custom-menu__qty{display:flex;justify-content:flex-end;align-items:center;gap:2px;white-space:nowrap}
+.custom-menu__qty input{width:35px;min-width:0;padding:4px 2px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink);text-align:right}
+.custom-menu__unit{font-size:8px;color:var(--ink-soft);white-space:nowrap}
+.custom-menu__price{display:grid;justify-items:end;gap:2px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.custom-menu__price small{font-size:8px;color:var(--ink-soft)}
 .custom-menu__remove{width:24px;height:26px;padding:0;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer}
 .custom-menu__remove:hover{border-color:var(--st-unavailable);color:var(--st-unavailable)}
 .custom-menu__actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .custom-menu__actions button{padding:6px 8px;border:1px solid var(--line);background:#fff;color:var(--wu);font:700 8px var(--ui);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
 .custom-menu__actions button:hover{border-color:var(--wu);background:#F4FAFC}
-.budget-menu{display:grid;border-top:1px solid var(--line-soft)}
-.budget-menu__row{padding:7px 0;border-bottom:1px solid var(--line-soft)}
-.budget-menu__name{width:100%;min-width:0;margin:0 0 5px;padding:5px 6px;border:1px solid var(--line-soft);background:#fff;font:500 10px/1.3 var(--ui);color:var(--ink)}
-.budget-menu__controls{display:grid;grid-template-columns:repeat(3,minmax(42px,1fr)) minmax(58px,1.15fr) 24px;gap:5px;align-items:end}
-.budget-menu__field{display:grid;gap:3px;min-width:0}
-.budget-menu__field span,.budget-menu__line small{font-size:7.5px;line-height:1.2;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
-.budget-menu__field input{width:100%;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink)}
-.budget-menu__line{text-align:right;display:grid;gap:3px;min-width:0}
-.budget-menu__line b{font-size:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
-.budget-menu__remove{width:24px;height:26px;padding:0;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer}
-.budget-menu__remove:hover{border-color:var(--st-unavailable);color:var(--st-unavailable)}
-.budget-menu__actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-.budget-menu__actions button{padding:6px 8px;border:1px solid var(--line);background:#fff;color:var(--wu);font:700 8px var(--ui);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
-.budget-menu__actions button:hover{border-color:var(--wu);background:#F4FAFC}
-.budget-menu{display:grid}
-.budget-menu__row{padding:7px 0;border-bottom:1px solid var(--line-soft)}
-.budget-menu__name{width:100%;min-width:0;margin:0 0 5px;padding:5px 6px;border:1px solid var(--line-soft);background:#fff;font:500 10px/1.3 var(--ui);color:var(--ink)}
-.budget-menu__controls{display:grid;grid-template-columns:repeat(3,minmax(42px,1fr)) minmax(60px,1.25fr) 24px;gap:5px;align-items:end}
-.budget-menu__field{display:grid;gap:3px;min-width:0}
-.budget-menu__field span,.budget-menu__line small{font-size:7.5px;line-height:1.2;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
-.budget-menu__field input{width:100%;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink)}
-.budget-menu__line{text-align:right;display:grid;gap:3px;min-width:0}
-.budget-menu__line b{font-size:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
-.budget-menu__remove{width:24px;height:26px;padding:0;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer}
-.budget-menu__remove:hover{border-color:var(--st-unavailable);color:var(--st-unavailable)}
-.budget-menu__actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
-.budget-menu__actions button{padding:6px 8px;border:1px solid var(--line);background:#fff;color:var(--wu);font:700 8px var(--ui);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
-.budget-menu__actions button:hover{border-color:var(--wu);background:#F4FAFC}
 .offer-plan__drinks{margin-top:8px;padding-top:8px;border-top:1px solid var(--line-soft)}
 .offer-plan__drinks>summary{list-style:none;cursor:pointer;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
 .offer-plan__drinks>summary::-webkit-details-marker{display:none}
@@ -1026,8 +1001,8 @@ const UI = {
     f: { capacity: "Капацитет", price: "Цена / наем", drinks: "Напитки", catering: "Кетъринг", parking: "Паркинг", concept: "Концепция", notes: "Забележки", contact: "Контакт", contacted: "Контакт на", next: "Следваща стъпка", venueDetails: "Информация за мястото" },
     a: { directions: "Упътвания", details: "Виж на картата", email: "Имейл", phone: "Телефон", more: "Виж детайли", less: "Скрий" },
     offer: { title: "Пълна оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
-      block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", belowCap: "под лимита 60 €/гост", gramNote: "Предложението за блок маса е интерактивно: промени количествата и цената, сервизът, сумата на гост и грамажът се преизчисляват. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
-      menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", resetMenu: "Върни предложените количества", menuBuilderHint: "Редактирай количеството директно. Двоен клик върху грамажа или цената отваря поле за редакция.",
+      block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", belowCap: "под лимита 60 €/гост", gramNote: "Количеството може да се променя; грамажът и единичната цена са фиксирани. Общата цена и грамажът на гост се преизчисляват автоматично. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
+      menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо", addMenuItem: "Добави ястие", chooseMenuItem: "Избери ястие от менюто", removeMenuItem: "Премахни", resetMenu: "Върни предложените количества", menuBuilderHint: "Променяй само количеството. За нов ред избери ястие от менюто „Блок маса“ или „Микс“; цената и грамажът се попълват автоматично.",
       alcohol: "Алкохол · преференциални цени за бутилка", terms: "Условия",
        perGuest: "на гост", serviceIncl: "вкл. 10% сервиз" },
     calc: { perGuest: "на гост", total: "общо", minimum: "минимум", noguest: "без фиксирана цена", guests: "гости" },
@@ -1085,8 +1060,8 @@ const UI = {
     f: { capacity: "Capacity", price: "Price / rental", drinks: "Drinks", catering: "Catering", parking: "Parking", concept: "Party concept", notes: "Notes", contact: "Contact", contacted: "Contacted", next: "Next step", venueDetails: "Venue details" },
     a: { directions: "Directions", details: "Show on map", email: "Email", phone: "Phone", more: "Show details", less: "Hide" },
     offer: { title: "Full offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
-      block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", belowCap: "under €60/guest cap", gramNote: "The proposed block table is editable: change quantities and its food cost, service, total per guest, and grams recalculate. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
-      menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Line total", addMenuItem: "Add dish", removeMenuItem: "Remove", resetMenu: "Reset suggested quantities", menuBuilderHint: "Edit quantity directly. Double-click weight or unit price to open an editing field.",
+      block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", belowCap: "under €60/guest cap", gramNote: "Only quantities are editable; unit weights and prices are fixed. The food total and grams per guest recalculate automatically. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
+      menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Line total", addMenuItem: "Add dish", chooseMenuItem: "Choose a dish from the menu", removeMenuItem: "Remove", resetMenu: "Reset suggested quantities", menuBuilderHint: "Only quantity is editable. To add a row, choose a dish from the Block Table or Mix menu; its price and weight fill in automatically.",
       alcohol: "Alcohol · preferential price per bottle", terms: "Terms",
        perGuest: "per guest", serviceIncl: "incl. 10% service" },
     calc: { perGuest: "per guest", total: "total", minimum: "minimum", noguest: "no fixed price", guests: "guests" },
@@ -1144,7 +1119,7 @@ const OFFER = {
   alt: [
     { id: "block",   name: { bg: "Блок маса", en: "Block table" },      food: 1193, service: 119.30, hall: 200, total: 1512.30, pp: 50.41 },
     { id: "mix",     name: { bg: "Микс", en: "Mixed" },                 food: 1010, service: 101.00, hall: 200, total: 1311.00, pp: 43.70 },
-    { id: "budgetBlock", name: { bg: "Предложена блок маса · редактор", en: "Custom Block Table" } }
+    { id: "budgetBlock", name: { bg: "Блок маса · персонализирана", en: "Custom block table" } }
   ],
   alcohol: [
     { id: "brut", n: { bg: "Пенливо вино Brut", en: "Sparkling Brut" }, size: "750 ml", price: 11 },
@@ -1290,10 +1265,14 @@ const SOURCES = [
   function parseMenuQuantity(q) {
     var weightMatch = String(q || "").match(/^\s*(\d+)\s*[×x]\s*(\d+)\s*(?:г|g)\s*$/i);
     if (weightMatch) {
-      return { count: parseInt(weightMatch[1], 10), grams: parseFloat(weightMatch[2]) };
+      return { count: parseInt(weightMatch[1], 10), grams: parseFloat(weightMatch[2]), unit: "grams" };
     }
     var pieceMatch = String(q || "").match(/^\s*(\d+)\s*(?:бр|pcs)\s*$/i);
-    return { count: pieceMatch ? parseInt(pieceMatch[1], 10) : 0, grams: 0 };
+    return {
+      count: pieceMatch ? parseInt(pieceMatch[1], 10) : 0,
+      grams: 0,
+      unit: pieceMatch ? "pieces" : ""
+    };
   }
 
   function initialBudgetMenuItems() {
@@ -1301,9 +1280,9 @@ const SOURCES = [
       var quantity = parseMenuQuantity(item.q);
       return {
         name: item,
-        customName: null,
         quantity: quantity.count,
         grams: quantity.grams,
+        unit: quantity.unit,
         price: Number(item.p) || 0
       };
     });
@@ -1340,6 +1319,25 @@ const SOURCES = [
       totalWithDrinks: perGuest + drinkTotal / count,
       capHeadroom: 60 - (perGuest + drinkTotal / count)
     };
+  }
+
+  function addableMenuItems() {
+    var options = [];
+    var seen = {};
+    ["block", "mix"].forEach(function (menuId) {
+      (BALKAN_MENU[menuId] || []).forEach(function (item) {
+        var quantity = parseMenuQuantity(item.q);
+        var key = item.en + "|" + quantity.grams + "|" + item.p;
+        if (seen[key]) return;
+        seen[key] = true;
+        options.push({
+          name: item, quantity: quantity.count,
+          grams: quantity.grams, unit: quantity.unit,
+          price: Number(item.p) || 0
+        });
+      });
+    });
+    return options;
   }
 
   function offerMetrics(offer, guests) {
@@ -1812,30 +1810,37 @@ const SOURCES = [
   function customBudgetMenuHtml() {
     return '<div class="custom-menu">' +
       '<p class="custom-menu__hint">' + esc(t("offer.menuBuilderHint")) + '</p>' +
-      budgetMenuItems.map(function (item, i) {
-      var name = item.customName == null ? pick(item.name) : item.customName;
-      return '<div class="custom-menu__row">' +
-        '<input class="custom-menu__name" type="text" data-budget-field="name" data-budget-index="' + i + '"' +
-          ' aria-label="' + esc(t("offer.menuItem")) + ' ' + (i + 1) + '" value="' + esc(name) + '" placeholder="' + esc(t("offer.menuItem")) + '">' +
-        '<div class="custom-menu__controls">' +
-          '<label class="custom-menu__field"><span>' + esc(t("offer.menuQty")) + '</span>' +
-            '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '"></label>' +
-          '<div class="custom-menu__field"><span>' + esc(t("offer.menuWeight")) + '</span>' +
-            '<button type="button" class="custom-menu__edit-trigger" data-budget-toggle="grams" data-budget-display="grams" data-budget-index="' + i + '"' +
-              ' title="' + esc(t("offer.menuBuilderHint")) + '" aria-label="' + esc(t("offer.menuWeight")) + ' · ' + esc(name) + '">' +
-              (item.grams ? esc(item.grams) + ' ' + esc(tr("г", "g")) : '—') + '</button>' +
-            '<input type="number" class="custom-menu__edit-input" min="0" max="5000" step="1" inputmode="decimal" data-budget-field="grams" data-budget-index="' + i + '" value="' + (item.grams ? esc(item.grams) : '') + '" hidden></div>' +
-          '<div class="custom-menu__field"><span>' + esc(t("offer.menuUnitPrice")) + '</span>' +
-            '<button type="button" class="custom-menu__edit-trigger" data-budget-toggle="price" data-budget-display="price" data-budget-index="' + i + '"' +
-              ' title="' + esc(t("offer.menuBuilderHint")) + '" aria-label="' + esc(t("offer.menuUnitPrice")) + ' · ' + esc(name) + '">' + money(item.price) + '</button>' +
-            '<input type="number" class="custom-menu__edit-input" min="0" max="10000" step="0.01" inputmode="decimal" data-budget-field="price" data-budget-index="' + i + '" value="' + esc(item.price) + '" hidden></div>' +
-          '<div class="custom-menu__line"><small>' + esc(t("offer.menuLineTotal")) + '</small>' +
-            '<b data-budget-line="' + i + '">' + money(item.quantity * item.price) + '</b></div>' +
-          '<button class="custom-menu__remove" type="button" data-budget-remove="' + i + '" aria-label="' +
-            esc(t("offer.removeMenuItem")) + '">×</button>' +
-        '</div>' +
-      '</div>';
-    }).join("") +
+      '<table class="tbl tbl--tight custom-menu__table"><thead><tr>' +
+        '<th>' + esc(tr("Позиция", "Item")) + '</th>' +
+        '<th class="num">' + esc(t("offer.menuQty")) + '</th>' +
+        '<th class="num">' + esc(tr("€ / бр.", "€ / pc")) + '</th>' +
+      '</tr></thead><tbody>' + budgetMenuItems.map(function (item, i) {
+        var name = item.name ? pick(item.name) : "";
+        var nameField = item.needsSelection ?
+          '<select class="custom-menu__name-select" data-budget-select="' + i + '" aria-label="' + esc(t("offer.menuItem")) + '">' +
+            '<option value="">' + esc(t("offer.chooseMenuItem")) + '</option>' +
+            addableMenuItems().map(function (option, optionIndex) {
+              return '<option value="' + optionIndex + '">' + esc(pick(option.name)) + '</option>';
+            }).join("") +
+          '</select>' :
+          '<span class="custom-menu__item-name">' + esc(name) + '</span>';
+        var unit = item.unit === "grams" ?
+          '× ' + num(item.grams) + ' ' + esc(tr("г", "g")) :
+          (item.unit === "pieces" ? esc(tr("бр.", "pcs")) : "");
+        return '<tr>' +
+          '<td><div class="custom-menu__item">' + nameField +
+            '<button class="custom-menu__remove" type="button" data-budget-remove="' + i + '" aria-label="' +
+              esc(t("offer.removeMenuItem")) + '">×</button></div></td>' +
+          '<td class="num"><div class="custom-menu__qty">' +
+            '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.menuQty")) + ' · ' + esc(name || t("offer.chooseMenuItem")) + '">' +
+            (unit ? '<span class="custom-menu__unit">' + unit + '</span>' : '') +
+          '</div></td>' +
+          '<td class="num"><div class="custom-menu__price">' +
+            '<span>' + money(item.price) + '</span>' +
+            '<small title="' + esc(t("offer.menuLineTotal")) + '">Σ <span data-budget-line="' + i + '">' + money(item.quantity * item.price) + '</span></small>' +
+          '</div></td>' +
+        '</tr>';
+      }).join("") + '</tbody></table>' +
       '<div class="custom-menu__actions">' +
         '<button type="button" data-budget-add>+ ' + esc(t("offer.addMenuItem")) + '</button>' +
         '<button type="button" data-budget-reset>' + esc(t("offer.resetMenu")) + '</button>' +
@@ -1856,58 +1861,30 @@ const SOURCES = [
 
   function bindCustomMenu(root) {
     if (!root) return;
-    $$("[data-budget-toggle]", root).forEach(function (button) {
-      function editValue() {
-        var field = button.getAttribute("data-budget-toggle");
-        var index = button.getAttribute("data-budget-index");
-        var input = $('.custom-menu__edit-input[data-budget-field="' + field + '"][data-budget-index="' + index + '"]', root);
-        if (!input) return;
-        button.hidden = true;
-        input.hidden = false;
-        input.focus();
-        input.select();
-      }
-      button.addEventListener("dblclick", function (event) {
-        event.preventDefault();
-        editValue();
-      });
-      button.addEventListener("keydown", function (event) {
-        if (event.key !== "Enter" && event.key !== " ") return;
-        event.preventDefault();
-        editValue();
+    $$('[data-budget-select]', root).forEach(function (select) {
+      select.addEventListener("change", function () {
+        var index = parseInt(select.getAttribute("data-budget-select"), 10);
+        var option = addableMenuItems()[parseInt(select.value, 10)];
+        var item = budgetMenuItems[index];
+        if (!option || !item) return;
+        item.name = option.name;
+        item.quantity = 1;
+        item.grams = option.grams;
+        item.unit = option.unit;
+        item.price = option.price;
+        delete item.needsSelection;
+        refreshCustomMenu(root);
       });
     });
     $$("[data-budget-field]", root).forEach(function (input) {
       input.addEventListener("input", function () {
         var i = parseInt(input.getAttribute("data-budget-index"), 10);
-        var field = input.getAttribute("data-budget-field");
         var item = budgetMenuItems[i];
         if (!item) return;
-        if (field === "name") item.customName = input.value;
-        else if (field === "quantity") item.quantity = Math.max(0, parseInt(input.value, 10) || 0);
-        else if (field === "grams") item.grams = Math.max(0, parseFloat(input.value) || 0);
-        else if (field === "price") item.price = Math.max(0, parseFloat(input.value) || 0);
+        item.quantity = Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
         renderCalc();
         renderCompare();
       });
-      if (input.getAttribute("data-budget-field") === "grams" || input.getAttribute("data-budget-field") === "price") {
-        input.addEventListener("keydown", function (event) {
-          if (event.key === "Enter") input.blur();
-          if (event.key === "Escape") {
-            var i = parseInt(input.getAttribute("data-budget-index"), 10);
-            var item = budgetMenuItems[i];
-            if (item) input.value = input.getAttribute("data-budget-field") === "grams" ? item.grams : item.price;
-            input.blur();
-          }
-        });
-        input.addEventListener("blur", function () {
-          input.hidden = true;
-          var index = input.getAttribute("data-budget-index");
-          var field = input.getAttribute("data-budget-field");
-          var button = $('.custom-menu__edit-trigger[data-budget-toggle="' + field + '"][data-budget-index="' + index + '"]', root);
-          if (button) button.hidden = false;
-        });
-      }
     });
     $$("[data-budget-remove]", root).forEach(function (button) {
       button.addEventListener("click", function () {
@@ -1919,8 +1896,8 @@ const SOURCES = [
     var add = $("[data-budget-add]", root);
     if (add) add.addEventListener("click", function () {
       budgetMenuItems.push({
-        name: { bg: "Ново ястие", en: "New dish" }, customName: "",
-        quantity: 1, grams: 0, price: 0
+        name: null, needsSelection: true,
+        quantity: 0, grams: 0, unit: "", price: 0
       });
       refreshCustomMenu(root);
     });
@@ -1980,14 +1957,6 @@ const SOURCES = [
         var i = parseInt(line.getAttribute("data-budget-line"), 10);
         var item = budgetMenuItems[i];
         if (item) line.textContent = money(item.quantity * item.price);
-      });
-      $$("[data-budget-display]", card).forEach(function (button) {
-        var i = parseInt(button.getAttribute("data-budget-index"), 10);
-        var field = button.getAttribute("data-budget-display");
-        var item = budgetMenuItems[i];
-        if (!item) return;
-        button.textContent = field === "grams" ?
-          (item.grams ? num(item.grams) + " " + tr("г", "g") : "—") : money(item.price);
       });
     });
   }
