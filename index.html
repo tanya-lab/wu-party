@@ -1034,7 +1034,7 @@ const UI = {
     a: { directions: "Упътвания", details: "Виж на картата", email: "Имейл", phone: "Телефон", more: "Виж детайли", less: "Скрий" },
     offer: { title: "Пълна оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
       block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", menuPerGuest: "Меню, сервиз и наем / гост", drinksPerGuestLabel: "Напитки / гост", presentsBudget: "Остават за подаръци (от 60 €/гост)", overPresentsBudget: "Над лимита от 60 €/гост с", belowCap: "под лимита 60 €/гост", gramNote: "Количеството може да се променя; грамажът и единичната цена са фиксирани. Общата цена и грамажът на гост се преизчисляват автоматично. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
-       menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо за ястието", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", saveMenuItem: "Добави ред", resetMenu: "Върни предложените количества", menuBuilderHint: "В съществуващите редове се променя само количеството. При добавяне въведи име, количество, грамаж за брой и цена за брой.",
+        menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо за ястието", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", saveMenuItem: "Добави ред", resetMenu: "Върни предложените количества",
        drinkName: "Напитка", drinkQty: "Бутилки", drinkQtyShort: "Бут.", drinkSize: "Размер бутилка", drinkSizeShort: "Обем", drinkUnitPrice: "€ / бутилка", drinkUnitPriceShort: "€ / бут.", addDrink: "Добави напитка", removeDrink: "Премахни напитка", saveDrink: "Запази напитка", resetDrinks: "Върни предложените напитки", drinkBuilderHint: "Всеки вариант има собствен списък напитки. Променяй броя бутилки. За нова напитка въведи име, брой бутилки, размер и цена за бутилка.",
       alcohol: "Алкохол · преференциални цени за бутилка", terms: "Условия",
        perGuest: "на гост", serviceIncl: "вкл. 10% сервиз" },
@@ -1094,7 +1094,7 @@ const UI = {
     a: { directions: "Directions", details: "Show on map", email: "Email", phone: "Phone", more: "Show details", less: "Hide" },
     offer: { title: "Full offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
       block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", menuPerGuest: "Menu, service and hall / guest", drinksPerGuestLabel: "Drinks / guest", presentsBudget: "Remaining for presents (from €60/guest)", overPresentsBudget: "Over the €60/guest cap by", belowCap: "under €60/guest cap", gramNote: "Only quantities are editable; unit weights and prices are fixed. The food total and grams per guest recalculate automatically. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
-       menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities", menuBuilderHint: "For existing rows, only quantity can be changed. To add a row, enter its name, quantity, grams per dish and price per dish.",
+       menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities",
        drinkName: "Drink", drinkQty: "Bottles", drinkQtyShort: "Btls", drinkSize: "Bottle size", drinkSizeShort: "Size", drinkUnitPrice: "€ / bottle", drinkUnitPriceShort: "€ / btl", addDrink: "Add drink", removeDrink: "Remove drink", saveDrink: "Save drink", resetDrinks: "Reset suggested drinks", drinkBuilderHint: "Each menu option has its own drinks list. Change the bottle count. To add a drink, enter its name, bottle count, size and price per bottle.",
       alcohol: "Alcohol · preferential price per bottle", terms: "Terms",
        perGuest: "per guest", serviceIncl: "incl. 10% service" },
@@ -1947,7 +1947,6 @@ const SOURCES = [
 
   function customBudgetMenuHtml() {
     return '<div class="custom-menu">' +
-      '<p class="custom-menu__hint">' + esc(t("offer.menuBuilderHint")) + '</p>' +
       '<table class="tbl tbl--tight custom-menu__table"><thead><tr>' +
         '<th>' + esc(tr("Позиция", "Item")) + '</th>' +
         '<th class="num">' + esc(t("offer.menuQty")) + '</th>' +
