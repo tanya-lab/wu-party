@@ -495,6 +495,18 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .custom-menu__actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .custom-menu__actions button{padding:6px 8px;border:1px solid var(--line);background:#fff;color:var(--wu);font:700 8px var(--ui);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
 .custom-menu__actions button:hover{border-color:var(--wu);background:#F4FAFC}
+.drink-menu__table th:first-child{width:34%}
+.drink-menu__table th:nth-child(2){width:14%}
+.drink-menu__table th:nth-child(3){width:16%}
+.drink-menu__table th:nth-child(4){width:23%}
+.drink-menu__table th:nth-child(5){width:13%}
+.drink-menu__table td:first-child{min-width:0}
+.drink-menu__qty{display:flex;justify-content:flex-end;align-items:center;gap:3px;white-space:nowrap}
+.drink-menu__qty input{width:38px;min-width:0;padding:4px 2px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);text-align:right}
+.drink-menu__unit{font-size:8px;color:var(--ink-soft)}
+.drink-menu__size{white-space:nowrap;color:var(--ink-soft);font-size:9px}
+.drink-menu__draft-size input{width:48px;min-width:0;padding:4px 2px;border:1px solid var(--line);background:#fff;font:500 9px var(--ui)}
+.drink-menu__draft-price input{width:48px}
 .offer-plan__drinks{margin-top:8px;padding-top:8px;border-top:1px solid var(--line-soft)}
 .offer-plan__drinks>summary{list-style:none;cursor:pointer;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
 .offer-plan__drinks>summary::-webkit-details-marker{display:none}
@@ -1012,7 +1024,8 @@ const UI = {
     a: { directions: "Упътвания", details: "Виж на картата", email: "Имейл", phone: "Телефон", more: "Виж детайли", less: "Скрий" },
     offer: { title: "Пълна оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
       block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", belowCap: "под лимита 60 €/гост", gramNote: "Количеството може да се променя; грамажът и единичната цена са фиксирани. Общата цена и грамажът на гост се преизчисляват автоматично. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
-      menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо за ястието", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", saveMenuItem: "Добави ред", resetMenu: "Върни предложените количества", menuBuilderHint: "В съществуващите редове се променя само количеството. При добавяне въведи име, количество, грамаж за брой и цена за брой.",
+       menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо за ястието", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", saveMenuItem: "Добави ред", resetMenu: "Върни предложените количества", menuBuilderHint: "В съществуващите редове се променя само количеството. При добавяне въведи име, количество, грамаж за брой и цена за брой.",
+       drinkName: "Напитка", drinkQty: "Бутилки", drinkSize: "Бутилка", drinkUnitPrice: "€ / бутилка", addDrink: "Добави напитка", removeDrink: "Премахни напитка", saveDrink: "Запази напитка", resetDrinks: "Върни предложените напитки", drinkBuilderHint: "Променяй броя бутилки. За нова напитка въведи име, брой бутилки, размер и цена за бутилка.", noDrinksSelected: "Няма избрани напитки.",
       alcohol: "Алкохол · преференциални цени за бутилка", terms: "Условия",
        perGuest: "на гост", serviceIncl: "вкл. 10% сервиз" },
     calc: { perGuest: "на гост", total: "общо", minimum: "минимум", noguest: "без фиксирана цена", guests: "гости" },
@@ -1071,7 +1084,8 @@ const UI = {
     a: { directions: "Directions", details: "Show on map", email: "Email", phone: "Phone", more: "Show details", less: "Hide" },
     offer: { title: "Full offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
       block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", belowCap: "under €60/guest cap", gramNote: "Only quantities are editable; unit weights and prices are fixed. The food total and grams per guest recalculate automatically. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
-      menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities", menuBuilderHint: "For existing rows, only quantity can be changed. To add a row, enter its name, quantity, grams per dish and price per dish.",
+       menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities", menuBuilderHint: "For existing rows, only quantity can be changed. To add a row, enter its name, quantity, grams per dish and price per dish.",
+       drinkName: "Drink", drinkQty: "Bottles", drinkSize: "Bottle size", drinkUnitPrice: "€ / bottle", addDrink: "Add drink", removeDrink: "Remove drink", saveDrink: "Save drink", resetDrinks: "Reset suggested drinks", drinkBuilderHint: "Change the bottle count. To add a drink, enter its name, bottle count, size and price per bottle.", noDrinksSelected: "No drinks selected.",
       alcohol: "Alcohol · preferential price per bottle", terms: "Terms",
        perGuest: "per guest", serviceIncl: "incl. 10% service" },
     calc: { perGuest: "per guest", total: "total", minimum: "minimum", noguest: "no fixed price", guests: "guests" },
@@ -1300,7 +1314,44 @@ const SOURCES = [
 
   var budgetMenuItems = initialBudgetMenuItems();
 
+  function initialDrinkMenuItems() {
+    return OFFER.alcohol.map(function (drink) {
+      var bottles = 0;
+      DRINK_PACKAGE.forEach(function (item) {
+        if (drink.id && item.id === drink.id) bottles = item.bottles;
+      });
+      return {
+        name: drink.n, customName: null, quantity: bottles,
+        size: drink.size, price: Number(drink.price) || 0
+      };
+    });
+  }
+
+  var drinkMenuItems = initialDrinkMenuItems();
+
   function roundMoney(value) { return Math.round((value + Number.EPSILON) * 100) / 100; }
+
+  function drinksTotal() {
+    return roundMoney(drinkMenuItems.reduce(function (sum, item) {
+      if (item.isDraft) return sum;
+      return sum + Math.max(0, Number(item.quantity) || 0) * Math.max(0, Number(item.price) || 0);
+    }, 0));
+  }
+
+  function drinkSummaryRowsHtml() {
+    var selected = drinkMenuItems.filter(function (item) {
+      return !item.isDraft && (Number(item.quantity) || 0) > 0;
+    });
+    if (!selected.length) {
+      return '<li class="offer-drink-list__empty">' + esc(t("offer.noDrinksSelected")) + '</li>';
+    }
+    return selected.map(function (item) {
+      var name = item.customName != null ? item.customName : pick(item.name);
+      var quantity = Number(item.quantity) || 0;
+      return '<li><span>' + num(quantity) + ' × ' + esc(name) + ' · ' + esc(qty(item.size)) + '</span>' +
+        '<b>' + money(quantity * item.price) + '</b></li>';
+    }).join("");
+  }
 
   function budgetMenuMetrics(guests) {
     var count = Math.max(1, parseInt(guests, 10) || OFFER.guests);
@@ -1316,12 +1367,7 @@ const SOURCES = [
     var service = roundMoney(food * 0.1);
     var hall = 200;
     var total = roundMoney(food + service + hall);
-    var drinkTotal = DRINK_PACKAGE.reduce(function (sum, p) {
-      for (var i = 0; i < OFFER.alcohol.length; i++) {
-        if (OFFER.alcohol[i].id === p.id) return sum + OFFER.alcohol[i].price * p.bottles;
-      }
-      return sum;
-    }, 0);
+    var drinkTotal = drinksTotal();
     var perGuest = total / count;
     return {
       guests: count, food: food, service: service, hall: hall, total: total,
@@ -1338,12 +1384,7 @@ const SOURCES = [
     var food = offer.food * count / OFFER.guests;
     var service = roundMoney(food * 0.1);
     var total = roundMoney(food + service + offer.hall);
-    var drinkTotal = DRINK_PACKAGE.reduce(function (sum, p) {
-      for (var i = 0; i < OFFER.alcohol.length; i++) {
-        if (OFFER.alcohol[i].id === p.id) return sum + OFFER.alcohol[i].price * p.bottles;
-      }
-      return sum;
-    }, 0);
+    var drinkTotal = drinksTotal();
     var perGuest = total / count;
     return {
       guests: count, food: food, service: service, hall: offer.hall, total: total,
@@ -1433,6 +1474,7 @@ const SOURCES = [
       panel.removeAttribute("hidden");
       var customPlan = $('.offer-plan[data-plan-id="budgetBlock"]', panel);
       bindCustomMenu(customPlan);
+      bindDrinkMenu(panel);
       openPanels[id] = true;
     } else {
       panel.innerHTML = "";
@@ -1468,6 +1510,7 @@ const SOURCES = [
       btn.addEventListener("click", function () { toggleVenue(btn.getAttribute("data-venue")); });
     });
     $$(".venue-panel:not([hidden]) .offer-plan[data-plan-id=\"budgetBlock\"]", host).forEach(bindCustomMenu);
+    $$(".venue-panel:not([hidden])", host).forEach(bindDrinkMenu);
   }
 
   function openVenueDetails(id) {
@@ -1703,16 +1746,8 @@ const SOURCES = [
 
   /* Balkan Falsch — three priced alternatives, alcohol, terms */
   function offerHtml() {
-    var alcoholById = {};
-    OFFER.alcohol.forEach(function (d) { alcoholById[d.id] = d; });
-    var drinkTotal = DRINK_PACKAGE.reduce(function (sum, p) {
-      return sum + alcoholById[p.id].price * p.bottles;
-    }, 0);
-    var drinkRows = DRINK_PACKAGE.map(function (p) {
-      var d = alcoholById[p.id];
-      return '<li><span>' + p.bottles + ' × ' + esc(pick(d.n)) + ' · ' + esc(qty(d.size)) +
-        '</span><b>' + money(d.price * p.bottles, 0) + '</b></li>';
-    }).join("");
+    var drinkTotal = drinksTotal();
+    var drinkRows = drinkSummaryRowsHtml();
 
     var guestCount = readCalc().g;
     var initialMetrics = OFFER.alt.map(function (a) { return offerMetrics(a, guestCount); });
@@ -1722,8 +1757,8 @@ const SOURCES = [
       var best = metrics.total === lowestTotal;
       var grams = Math.round(metrics.gramsPerGuest);
       var menuRows = a.id === "budgetBlock" ? customBudgetMenuHtml() : menuTable(BALKAN_MENU[a.id]);
-      var allInWithDrinks = metrics.perGuest + drinkTotal / guestCount;
-      var capHeadroom = 60 - allInWithDrinks;
+      var allInWithDrinks = metrics.totalWithDrinks;
+      var capHeadroom = metrics.capHeadroom;
       return '<article class="offer-plan' + (best ? ' offer-plan--best' : '') + '" data-plan-id="' + a.id + '">' +
         '<div class="offer-plan__head"><h4>' + esc(pick(a.name)) + '</h4>' +
           '<span class="offer-plan__badge" data-best-badge' + (best ? '' : ' hidden') + '>' + esc(t("offer.lowest")) + '</span>' +
@@ -1741,9 +1776,9 @@ const SOURCES = [
         '</dl>' +
         '<div class="offer-plan__menu"><h5 class="offer-plan__menu-title">' + esc(t("offer.menuTitle")) + '</h5>' + menuRows + '</div>' +
         '<details class="offer-plan__drinks"><summary>' + esc(t("offer.drinksSuggestion")) + '</summary>' +
-          '<div class="offer-plan__drinks-body"><ul class="offer-drink-list">' + drinkRows + '</ul>' +
+          '<div class="offer-plan__drinks-body"><ul class="offer-drink-list" data-drink-summary>' + drinkRows + '</ul>' +
             '<p class="offer-drinks__total"><strong>' + esc(t("offer.drinksTotal")) + '</strong> · ' +
-              money(drinkTotal, 0) + ' · <span data-budget-value="drinksPerGuest">' + money(drinkTotal / guestCount) + '</span> / ' + esc(t("calc.perGuest")) + '</p>' +
+              '<span data-budget-value="drinkTotal">' + money(drinkTotal, drinkTotal % 1 ? 2 : 0) + '</span> · <span data-budget-value="drinksPerGuest">' + money(drinkTotal / guestCount) + '</span> / ' + esc(t("calc.perGuest")) + '</p>' +
             '<p class="offer-drinks__allin"><strong>' + esc(t("offer.totalWithDrinks")) + '</strong> · ' +
               '<span data-budget-value="withDrinks">' + money(allInWithDrinks) + '</span> / ' + esc(t("calc.perGuest")) + ' · ' +
               '<span data-budget-value="capHeadroom">' + money(capHeadroom) + '</span> ' + esc(t("offer.belowCap")) + '</p>' +
@@ -1752,10 +1787,7 @@ const SOURCES = [
       '</article>';
     }).join("");
 
-    var alcohol = OFFER.alcohol.map(function (a) {
-      return '<tr><td>' + esc(pick(a.n)) + '</td><td class="num">' + esc(qty(a.size)) + '</td>' +
-        '<td class="num">' + money(a.price) + '</td></tr>';
-    }).join("");
+    var alcohol = drinkMenuHtml();
 
     var terms = OFFER.terms.map(function (x) { return '<li>' + esc(pick(x)) + '</li>'; }).join("");
 
@@ -1764,7 +1796,7 @@ const SOURCES = [
         '<div class="offer-plans">' + plans + '</div>' +
         '<p class="offer-gram-note">' + esc(t("offer.gramNote")) + '</p>' +
         '<div class="menu-cols" style="margin-top:16px">' +
-          '<div><h4>' + esc(t("offer.alcohol")) + '</h4><table class="tbl tbl--tight"><tbody>' + alcohol + '</tbody></table></div>' +
+          '<div><h4>' + esc(t("offer.alcohol")) + '</h4>' + alcohol + '</div>' +
           '<div><h4>' + esc(t("offer.terms")) + '</h4><ul style="margin:0;padding-left:16px;font-size:12.5px;line-height:1.6">' + terms + '</ul></div>' +
         '</div>' +
       '</div>' +
@@ -1800,6 +1832,113 @@ const SOURCES = [
             '<small title="' + esc(t("offer.menuLineTotal")) + '">Σ ' + money(quantity * Number(m.p)) + '</small>' +
           '</div></td></tr>';
       }).join("") + '</tbody></table>';
+  }
+
+  function drinkMenuHtml() {
+    return '<div class="custom-menu drink-menu">' +
+      '<p class="custom-menu__hint">' + esc(t("offer.drinkBuilderHint")) + '</p>' +
+      '<table class="tbl tbl--tight custom-menu__table drink-menu__table"><thead><tr>' +
+        '<th>' + esc(t("offer.drinkName")) + '</th>' +
+        '<th class="num">' + esc(t("offer.drinkQty")) + '</th>' +
+        '<th>' + esc(t("offer.drinkSize")) + '</th>' +
+        '<th class="num">' + esc(t("offer.drinkUnitPrice")) + '</th><th></th>' +
+      '</tr></thead><tbody>' + drinkMenuItems.map(function (item, i) {
+        if (item.isDraft) {
+          return '<tr class="custom-menu__draft drink-menu__draft">' +
+            '<td><input type="text" class="custom-menu__draft-name" maxlength="120" data-drink-field="draft-name" data-drink-index="' + i + '" value="' + esc(item.customName || "") + '" placeholder="' + esc(t("offer.drinkName")) + '" aria-label="' + esc(t("offer.drinkName")) + '"></td>' +
+            '<td class="num"><div class="drink-menu__qty"><input type="number" min="0" max="500" step="1" inputmode="numeric" data-drink-field="draft-quantity" data-drink-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.drinkQty")) + '"></div></td>' +
+            '<td><label class="drink-menu__draft-size"><input type="text" maxlength="40" data-drink-field="draft-size" data-drink-index="' + i + '" value="' + esc(item.size) + '" placeholder="750 ml" aria-label="' + esc(t("offer.drinkSize")) + '"></label></td>' +
+            '<td class="num"><div class="custom-menu__price drink-menu__draft-price">' +
+              '<input type="number" min="0" max="10000" step="0.01" inputmode="decimal" data-drink-field="draft-price" data-drink-index="' + i + '" value="' + esc(item.price) + '" aria-label="' + esc(t("offer.drinkUnitPrice")) + '">' +
+              '<small title="' + esc(t("offer.menuLineTotal")) + '">Σ <span data-drink-line="' + i + '">' + money(item.quantity * item.price) + '</span></small>' +
+            '</div></td>' +
+            '<td class="custom-menu__actions-cell"><button class="custom-menu__commit" type="button" data-drink-commit="' + i + '" aria-label="' + esc(t("offer.saveDrink")) + '" title="' + esc(t("offer.saveDrink")) + '">✓</button>' +
+              '<button class="custom-menu__remove" type="button" data-drink-remove="' + i + '" aria-label="' + esc(t("offer.removeDrink")) + '">×</button></td>' +
+          '</tr>';
+        }
+        var name = item.customName != null ? item.customName : pick(item.name);
+        return '<tr>' +
+          '<td><span class="custom-menu__item-name">' + esc(name) + '</span></td>' +
+          '<td class="num"><div class="drink-menu__qty"><input type="number" min="0" max="500" step="1" inputmode="numeric" data-drink-field="quantity" data-drink-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.drinkQty")) + ' · ' + esc(name) + '"></div></td>' +
+          '<td><span class="drink-menu__size">' + esc(qty(item.size)) + '</span></td>' +
+          '<td class="num"><div class="custom-menu__price"><span>' + money(item.price) + '</span>' +
+            '<small title="' + esc(t("offer.menuLineTotal")) + '">Σ <span data-drink-line="' + i + '">' + money(item.quantity * item.price) + '</span></small></div></td>' +
+          '<td class="custom-menu__actions-cell"><button class="custom-menu__remove" type="button" data-drink-remove="' + i + '" aria-label="' + esc(t("offer.removeDrink")) + '">×</button></td>' +
+        '</tr>';
+      }).join("") + '</tbody></table>' +
+      '<div class="custom-menu__actions"><button type="button" data-drink-add>+ ' + esc(t("offer.addDrink")) + '</button>' +
+        '<button type="button" data-drink-reset>' + esc(t("offer.resetDrinks")) + '</button></div>' +
+    '</div>';
+  }
+
+  function refreshDrinkMenu(root) {
+    var menu = $(".drink-menu", root);
+    if (!menu) return;
+    menu.outerHTML = drinkMenuHtml();
+    bindDrinkMenu(root);
+    renderCalc();
+    renderCompare();
+  }
+
+  function bindDrinkMenu(root) {
+    if (!root) return;
+    $$('[data-drink-field]', root).forEach(function (input) {
+      input.addEventListener("input", function () {
+        var i = parseInt(input.getAttribute("data-drink-index"), 10);
+        var item = drinkMenuItems[i];
+        if (!item) return;
+        var field = input.getAttribute("data-drink-field");
+        if (field === "quantity") item.quantity = Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
+        else if (field === "draft-name") item.customName = input.value;
+        else if (field === "draft-quantity") item.quantity = input.value === "" ? "" : Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
+        else if (field === "draft-size") item.size = input.value;
+        else if (field === "draft-price") item.price = input.value === "" ? "" : Math.min(10000, Math.max(0, parseFloat(input.value) || 0));
+        renderCalc();
+        renderCompare();
+      });
+    });
+    $$('[data-drink-commit]', root).forEach(function (button) {
+      button.addEventListener("click", function () {
+        var i = parseInt(button.getAttribute("data-drink-commit"), 10);
+        var item = drinkMenuItems[i];
+        if (!item || !item.isDraft) return;
+        var name = $('[data-drink-field="draft-name"][data-drink-index="' + i + '"]', root);
+        var quantity = $('[data-drink-field="draft-quantity"][data-drink-index="' + i + '"]', root);
+        var size = $('[data-drink-field="draft-size"][data-drink-index="' + i + '"]', root);
+        var price = $('[data-drink-field="draft-price"][data-drink-index="' + i + '"]', root);
+        if (!name || !name.value.trim()) { if (name) name.focus(); return; }
+        if (!quantity || quantity.value === "") { if (quantity) quantity.focus(); return; }
+        if (!size || !size.value.trim()) { if (size) size.focus(); return; }
+        if (!price || price.value === "") { if (price) price.focus(); return; }
+        item.customName = name.value.trim();
+        item.quantity = Math.min(500, Math.max(0, parseInt(quantity.value, 10) || 0));
+        item.size = size.value.trim();
+        item.price = Math.min(10000, Math.max(0, parseFloat(price.value) || 0));
+        item.isDraft = false;
+        refreshDrinkMenu(root);
+      });
+    });
+    $$('[data-drink-remove]', root).forEach(function (button) {
+      button.addEventListener("click", function () {
+        drinkMenuItems.splice(parseInt(button.getAttribute("data-drink-remove"), 10), 1);
+        refreshDrinkMenu(root);
+      });
+    });
+    var add = $("[data-drink-add]", root);
+    if (add) add.addEventListener("click", function () {
+      drinkMenuItems.push({
+        name: null, customName: "", isDraft: true,
+        quantity: 1, size: "", price: ""
+      });
+      refreshDrinkMenu(root);
+      var names = $$(".drink-menu__draft [data-drink-field='draft-name']", root);
+      if (names.length) names[names.length - 1].focus();
+    });
+    var reset = $("[data-drink-reset]", root);
+    if (reset) reset.addEventListener("click", function () {
+      drinkMenuItems = initialDrinkMenuItems();
+      refreshDrinkMenu(root);
+    });
   }
 
   function customBudgetMenuHtml() {
@@ -1961,6 +2100,7 @@ const SOURCES = [
         food: money(m.food, m.food % 1 ? 2 : 0),
         service: money(m.service),
         hall: money(m.hall, 0),
+        drinkTotal: money(m.drinkTotal, m.drinkTotal % 1 ? 2 : 0),
         drinksPerGuest: money(m.drinkTotal / m.guests),
         withDrinks: money(m.totalWithDrinks),
         capHeadroom: money(m.capHeadroom)
@@ -1974,6 +2114,14 @@ const SOURCES = [
         var item = budgetMenuItems[i];
         if (item) line.textContent = money(item.quantity * item.price);
       });
+    });
+    $$('[data-drink-line]').forEach(function (line) {
+      var i = parseInt(line.getAttribute("data-drink-line"), 10);
+      var item = drinkMenuItems[i];
+      if (item) line.textContent = money((Number(item.quantity) || 0) * (Number(item.price) || 0));
+    });
+    $$('[data-drink-summary]').forEach(function (list) {
+      list.innerHTML = drinkSummaryRowsHtml();
     });
   }
 
