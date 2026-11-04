@@ -438,7 +438,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .tbl .row-total td{background:#F4FAFC;font-weight:800;border-top:1px solid var(--line)}
 .tbl--tight td,.tbl--tight th{padding:6px 8px;font-size:12px}
 .menu-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 26px}
-.offer-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.offer-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .offer-plan{
   min-width:0;display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);
   background:#fff;box-shadow:0 3px 12px rgba(0,0,0,.035)
@@ -665,7 +665,6 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
   .map-wrap{grid-template-columns:1fr}
   .program-grid{grid-template-columns:minmax(0,1fr)}
   .offer-plans{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .offer-plans{grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side{border-left:0;border-top:1px solid var(--line);max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side__item{border-right:1px solid var(--line-soft)}
   .calc{grid-template-columns:1fr}
@@ -788,7 +787,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
     <div class="container">
       <div class="stats">
         <div><b>2</b><span data-i18n="statVenues">venue options</span></div>
-        <div><b>3</b><span data-i18n="statOffers">Balkan Falsch options</span></div>
+        <div><b>2</b><span data-i18n="statOffers">Balkan Falsch options</span></div>
         <div><b id="stat-cheapest-value">€840.20</b><span data-i18n="statCheapest">lowest total at selected headcount</span></div>
         <div><b>01.12.2026</b><span data-i18n="statDate">Tuesday · 19:00–24:00</span></div>
       </div>
@@ -1146,7 +1145,6 @@ const OFFER = {
   guests: 30,
   alt: [
     { id: "block",   name: { bg: "Блок маса", en: "Block table" },      food: 1193, service: 119.30, hall: 200, total: 1512.30, pp: 50.41 },
-    { id: "mix",     name: { bg: "Микс", en: "Mixed" },                 food: 1010, service: 101.00, hall: 200, total: 1311.00, pp: 43.70 },
     { id: "budgetBlock", name: { bg: "Блок маса · персонализирана", en: "Custom block table" } }
   ],
   alcohol: [
