@@ -461,14 +461,52 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__breakdown dt{color:var(--ink-soft)}
 .offer-plan__breakdown dd{margin:0;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
 .offer-plan__adjustment dd{color:#9A7412}
-.offer-plan__menu{margin-top:auto;padding-top:10px;border-top:1px solid var(--line-soft)}
-.offer-plan__menu>summary{list-style:none;cursor:pointer;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
-.offer-plan__menu>summary::-webkit-details-marker{display:none}
-.offer-plan__menu>summary::before{content:"+";display:inline-block;width:16px;font-size:14px;line-height:1;color:var(--wu)}
-.offer-plan__menu[open]>summary::before{content:"−"}
-.offer-plan__menu-body{max-height:250px;overflow:auto;margin-top:8px}
+.offer-plan__menu{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft)}
+.offer-plan__menu-title{margin:0 0 8px;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
 .offer-plan__menu .tbl td,.offer-plan__menu .tbl th{padding:5px 4px;font-size:10px}
-.offer-plan__menu .tbl td:first-child{min-width:125px}
+.offer-plan__menu .tbl td:first-child{min-width:110px}
+.custom-menu{display:grid;border-top:1px solid var(--line-soft)}
+.custom-menu__row{padding:7px 0;border-bottom:1px solid var(--line-soft)}
+.custom-menu__name{width:100%;min-width:0;margin:0 0 5px;padding:5px 6px;border:1px solid var(--line-soft);background:#fff;font:500 10px/1.3 var(--ui);color:var(--ink)}
+.custom-menu__controls{display:grid;grid-template-columns:repeat(3,minmax(42px,1fr)) minmax(58px,1.15fr) 24px;gap:5px;align-items:end}
+.custom-menu__field{display:grid;gap:3px;min-width:0}
+.custom-menu__field span,.custom-menu__line small{font-size:7.5px;line-height:1.2;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+.custom-menu__field input{width:100%;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink)}
+.custom-menu__line{text-align:right;display:grid;gap:3px;min-width:0}
+.custom-menu__line b{font-size:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.custom-menu__remove{width:24px;height:26px;padding:0;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer}
+.custom-menu__remove:hover{border-color:var(--st-unavailable);color:var(--st-unavailable)}
+.custom-menu__actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.custom-menu__actions button{padding:6px 8px;border:1px solid var(--line);background:#fff;color:var(--wu);font:700 8px var(--ui);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.custom-menu__actions button:hover{border-color:var(--wu);background:#F4FAFC}
+.budget-menu{display:grid;border-top:1px solid var(--line-soft)}
+.budget-menu__row{padding:7px 0;border-bottom:1px solid var(--line-soft)}
+.budget-menu__name{width:100%;min-width:0;margin:0 0 5px;padding:5px 6px;border:1px solid var(--line-soft);background:#fff;font:500 10px/1.3 var(--ui);color:var(--ink)}
+.budget-menu__controls{display:grid;grid-template-columns:repeat(3,minmax(42px,1fr)) minmax(58px,1.15fr) 24px;gap:5px;align-items:end}
+.budget-menu__field{display:grid;gap:3px;min-width:0}
+.budget-menu__field span,.budget-menu__line small{font-size:7.5px;line-height:1.2;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+.budget-menu__field input{width:100%;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink)}
+.budget-menu__line{text-align:right;display:grid;gap:3px;min-width:0}
+.budget-menu__line b{font-size:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.budget-menu__remove{width:24px;height:26px;padding:0;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer}
+.budget-menu__remove:hover{border-color:var(--st-unavailable);color:var(--st-unavailable)}
+.budget-menu__actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.budget-menu__actions button{padding:6px 8px;border:1px solid var(--line);background:#fff;color:var(--wu);font:700 8px var(--ui);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.budget-menu__actions button:hover{border-color:var(--wu);background:#F4FAFC}
+.budget-menu{display:grid}
+.budget-menu__row{padding:7px 0;border-bottom:1px solid var(--line-soft)}
+.budget-menu__name{width:100%;min-width:0;margin:0 0 5px;padding:5px 6px;border:1px solid var(--line-soft);background:#fff;font:500 10px/1.3 var(--ui);color:var(--ink)}
+.budget-menu__controls{display:grid;grid-template-columns:repeat(3,minmax(42px,1fr)) minmax(60px,1.25fr) 24px;gap:5px;align-items:end}
+.budget-menu__field{display:grid;gap:3px;min-width:0}
+.budget-menu__field span,.budget-menu__line small{font-size:7.5px;line-height:1.2;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+.budget-menu__field input{width:100%;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink)}
+.budget-menu__line{text-align:right;display:grid;gap:3px;min-width:0}
+.budget-menu__line b{font-size:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.budget-menu__remove{width:24px;height:26px;padding:0;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer}
+.budget-menu__remove:hover{border-color:var(--st-unavailable);color:var(--st-unavailable)}
+.budget-menu__actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.budget-menu__actions button{padding:6px 8px;border:1px solid var(--line);background:#fff;color:var(--wu);font:700 8px var(--ui);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+.budget-menu__actions button:hover{border-color:var(--wu);background:#F4FAFC}
 .offer-plan__drinks{margin-top:8px;padding-top:8px;border-top:1px solid var(--line-soft)}
 .offer-plan__drinks>summary{list-style:none;cursor:pointer;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
 .offer-plan__drinks>summary::-webkit-details-marker{display:none}
@@ -622,6 +660,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
 @media (max-width:1000px){
   .map-wrap{grid-template-columns:1fr}
   .program-grid{grid-template-columns:minmax(0,1fr)}
+  .offer-plans{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .offer-plans{grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side{border-left:0;border-top:1px solid var(--line);max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side__item{border-right:1px solid var(--line-soft)}
   .calc{grid-template-columns:1fr}
@@ -714,8 +754,8 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
     <h1><span data-i18n="heroTitle">X-mas Party</span><em data-i18n="heroSub">1 December 2026 · Sofia</em></h1>
     <div class="hero__meta">
       <span><b data-i18n="metaVenues">2 venues</b> <span data-i18n="metaVenues2">shortlisted in Sofia</span></span>
-      <span><b>30</b> <span data-i18n="metaGuests">guests (offer basis)</span></span>
-      <span><b>€28.00–€50.41</b> <span data-i18n="metaPerGuest">per guest, all-in at 30 guests</span></span>
+      <span><b id="meta-guests">30</b> <span data-i18n="metaGuests">guests (offer basis)</span></span>
+      <span><b id="meta-price-range">€28.01–€50.41</b> <span data-i18n="metaPerGuest">per guest, all-in</span></span>
     </div>
     <div class="hero__card">
       <div class="hero__logo"><b>WU</b><span data-i18n="logoCaption">WU Alumni X-mas Party 2026<br>1 December · Sofia</span></div>
@@ -745,7 +785,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
       <div class="stats">
         <div><b>2</b><span data-i18n="statVenues">venue options</span></div>
         <div><b>3</b><span data-i18n="statOffers">Balkan Falsch options</span></div>
-        <div><b>€840</b><span data-i18n="statCheapest">lowest planned total · block table · 30 guests</span></div>
+        <div><b id="stat-cheapest-value">€840.20</b><span data-i18n="statCheapest">lowest total at selected headcount</span></div>
         <div><b>01.12.2026</b><span data-i18n="statDate">Tuesday · 19:00–24:00</span></div>
       </div>
     </div>
@@ -940,13 +980,13 @@ const UI = {
     heroKicker: "WU Alumni · X-mas Party",
     heroTitle: "X-mas Party", heroSub: "1 декември 2026 · София",
     metaVenues: "2 места", metaVenues2: "в София", metaGuests: "гости (база на офертата)",
-    metaPerGuest: "на гост, общо при 30 души",
+    metaPerGuest: "на гост, общо",
     logoCaption: "WU Alumni X-mas Party 2026<br>1 декември · София",
     cdDays: "дни", cdHours: "часа", cdMins: "мин",
     bandTitle: "Къде празнуваме на 1 декември?",
     bandNote: "2 опции · 1 пълна оферта · 1 очаква оферта",
     statVenues: "варианта за място", statOffers: "варианта за Balkan Falsch",
-    statCheapest: "най-ниска планирана обща цена · блок маса · 30 души", statDate: "вторник · 19:00–24:00",
+    statCheapest: "най-ниска обща цена при избрания брой гости", statDate: "вторник · 19:00–24:00",
     ovEyebrow: "Обзор", ovTitle: "Къде сме в момента",
     ovLead: "Balkan Falsch има пълна писмена оферта; Kitchen59 е нов вариант и очакваме информация и цена.",
     ovHint: "Натисни върху името на мястото, за да отвориш детайлите му тук.",
@@ -966,27 +1006,27 @@ const UI = {
     progVoice: "Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.",
     progParty: "Парти — крайният час предстои да се уточни.",
     calcEyebrow: "Бюджет", calcTitle: "Колко струва на гост",
-    calcLead: "Промени броя гости. Предложената блок маса цели общо 28 € на гост, включително 10% сервиз и наем 200 €. Цената от Kitchen59 се очаква.",
+    calcLead: "Промени броя гости и количествата в предложената блок маса — цената и грамажът се преизчисляват автоматично. Цената от Kitchen59 се очаква.",
     lblGuests: "Гости", hintGuests: "Офертата е за 30 души. Храната е на човек, наемът е фиксиран.",
     reset: "Нулирай",
     calcResTitle: "Общо и на гост", calcResLead: "Подредено от най-евтино. Алкохолът е изключен навсякъде, освен ако не е посочено.",
     calcNote: "Ориентировъчно. Количествата и цената на предложеното меню трябва да се потвърдят със Balkan Falsch. Алкохолът се плаща отделно.",
     cmpEyebrow: "Сравнение", cmpTitle: "Две опции една до друга",
     cmpLead: "Кликни върху заглавие на колона, за да сортираш. €/гост е изчислено за 30 гости.",
-    cmpLegend: "Блок масата за 28 €/гост е предложена обща целева цена; цената от Kitchen59 се очаква.",
+    cmpLegend: "Предложената блок маса е персонализируема; цената от Kitchen59 се очаква.",
     srcEyebrow: "Документи", srcTitle: "Източници",
     srcLead: "Офертата на Balkan Falsch и официалната информация за събития в Kitchen59.",
     footAbout: "X-mas Party 2026 · София. Планираща страница за организаторите: две места, оферти и бюджет.",
     footTop: "↑ Обратно горе", footContacts: "Контакти", footLinks: "Файлове",
-    footDisclaimer: "Неофициална страница за WU Alumni събитие; не е официален сайт на WU Wien. Блок масата за 28 €/гост е наше предложение и трябва да се потвърди със заведението.",
+    footDisclaimer: "Неофициална страница за WU Alumni събитие; не е официален сайт на WU Wien. Персонализираното меню за блок маса трябва да се потвърди със заведението.",
     st: { offer: "Получена оферта", progress: "В процес", waiting: "Чакаме", unlikely: "Малко вероятно", unavailable: "Заето" },
     f: { capacity: "Капацитет", price: "Цена / наем", drinks: "Напитки", catering: "Кетъринг", parking: "Паркинг", concept: "Концепция", notes: "Забележки", contact: "Контакт", contacted: "Контакт на", next: "Следваща стъпка", venueDetails: "Информация за мястото" },
     a: { directions: "Упътвания", details: "Виж на картата", email: "Имейл", phone: "Телефон", more: "Виж детайли", less: "Скрий" },
     offer: { title: "Пълна оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
-      block: "Блок маса", mix: "Микс", adjustment: "Корекция до целта", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", belowCap: "под лимита 60 €/гост", gramNote: "Цената включва мини сладките: 60 × 2 € = 120 € в пълното блок меню и 29 × 2 € = 58 € в предложението. Грамажът им е изключен само от сметката за грамаж, защото теглото на брой не е посочено. Единичните цени дават 582 € храна; с 10% сервиз и наем сумата е 840,20 €. Корекция −0,20 € (за потвърждение) дава целта 840 € / 28 € на гост.",
+      block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", belowCap: "под лимита 60 €/гост", gramNote: "Предложението за блок маса е интерактивно: промени количествата и цената, сервизът, сумата на гост и грамажът се преизчисляват. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
+      menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", resetMenu: "Върни предложените количества", menuBuilderHint: "Променяй количеството, теглото на порция и цената за единица. Полетата за грамаж са нужни за сметката г/гост.",
       alcohol: "Алкохол · преференциални цени за бутилка", terms: "Условия",
-      menuDetails: "Виж подробното меню",
-      perGuest: "на гост", serviceIncl: "вкл. 10% сервиз" },
+       perGuest: "на гост", serviceIncl: "вкл. 10% сервиз" },
     calc: { perGuest: "на гост", total: "общо", minimum: "минимум", noguest: "без фиксирана цена", guests: "гости" },
     cmp: { venue: "Място", status: "Статус", area: "Район", capacity: "Капацитет", hall: "Наем / цена", minspend: "Мин. консумация", drinks: "Напитки", catering: "Кетъринг", parking: "Паркинг", pp: "€/гост", contact: "Контакт" },
     legend: { offer: "Получена оферта", progress: "В процес" },
@@ -999,13 +1039,13 @@ const UI = {
     heroKicker: "WU Alumni · X-mas Party",
     heroTitle: "X-mas Party", heroSub: "1 December 2026 · Sofia",
     metaVenues: "2 venues", metaVenues2: "shortlisted in Sofia", metaGuests: "guests (offer basis)",
-    metaPerGuest: "per guest, all-in at 30 guests",
+    metaPerGuest: "per guest, all-in",
     logoCaption: "WU Alumni X-mas Party 2026<br>1 December · Sofia",
     cdDays: "days", cdHours: "hours", cdMins: "min",
     bandTitle: "Where do we celebrate on 1 December?",
     bandNote: "2 options · 1 complete offer · 1 quote pending",
     statVenues: "venue options", statOffers: "Balkan Falsch options",
-    statCheapest: "lowest planned total · block table · 30 guests", statDate: "Tuesday · 19:00–24:00",
+    statCheapest: "lowest total at selected headcount", statDate: "Tuesday · 19:00–24:00",
     ovEyebrow: "Overview", ovTitle: "Where things stand",
     ovLead: "Balkan Falsch has a full written offer; Kitchen59 is a new option and we are awaiting its details and pricing.",
     ovHint: "Click a venue name to expand its details here.",
@@ -1025,27 +1065,27 @@ const UI = {
     progVoice: "Tanya will ask an acquaintance about a short demonstration of voice-control techniques. If it doesn’t work out, we’ll choose another brief activity.",
     progParty: "Party—the end time is still to be decided.",
     calcEyebrow: "Budget", calcTitle: "What it costs per guest",
-    calcLead: "Adjust the headcount. The proposed block table targets €28 per guest total, including 10% service and the €200 hall. Kitchen59 pricing is pending.",
+    calcLead: "Adjust the headcount and the proposed block-table quantities; price and grams update automatically. Kitchen59 pricing is pending.",
     lblGuests: "Guests", hintGuests: "The offer is written for 30. Food is priced per person; the hall is fixed.",
     reset: "Reset",
     calcResTitle: "Total and per guest", calcResLead: "Sorted cheapest first. Alcohol is excluded everywhere unless stated.",
     calcNote: "Estimate only. Confirm the proposed menu quantities and price with Balkan Falsch. Alcohol is extra.",
     cmpEyebrow: "Compare", cmpTitle: "Two options, side by side",
     cmpLead: "Click a column header to sort. €/guest is calculated for 30 guests.",
-    cmpLegend: "The €28/guest Balkan Falsch block table is a proposed all-in target; Kitchen59 pricing is pending.",
+    cmpLegend: "The proposed block table is editable; Kitchen59 pricing is pending.",
     srcEyebrow: "Documents", srcTitle: "Sources",
     srcLead: "The Balkan Falsch offer and Kitchen59’s official event information.",
     footAbout: "X-mas Party 2026 · Sofia. A planning page for the organising team: two venues, offers and budget.",
     footTop: "↑ Back to top", footContacts: "Contacts", footLinks: "Files",
-    footDisclaimer: "Unofficial WU Alumni event page; not an official WU Wien website. The €28/guest block table is our proposal and should be confirmed with the venue.",
+    footDisclaimer: "Unofficial WU Alumni event page; not an official WU Wien website. Confirm the custom block-table menu with the venue.",
     st: { offer: "Offer received", progress: "In progress", waiting: "Waiting", unlikely: "Unlikely", unavailable: "Unavailable" },
     f: { capacity: "Capacity", price: "Price / rental", drinks: "Drinks", catering: "Catering", parking: "Parking", concept: "Party concept", notes: "Notes", contact: "Contact", contacted: "Contacted", next: "Next step", venueDetails: "Venue details" },
     a: { directions: "Directions", details: "Show on map", email: "Email", phone: "Phone", more: "Show details", less: "Hide" },
     offer: { title: "Full offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
-      block: "Block table", mix: "Mixed", adjustment: "Target adjustment", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", belowCap: "under €60/guest cap", gramNote: "Dessert cost is included: 60 × €2 = €120 in the full Block Table menu, and 29 × €2 = €58 in this proposal. Sweets are excluded only from the gram estimate because piece weight isn't listed. Listed prices total €582 food; with 10% service and hall, €840.20. A proposed −€0.20 adjustment (to confirm) reaches €840 / €28 per guest.",
+      block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", belowCap: "under €60/guest cap", gramNote: "The proposed block table is editable: change quantities and its food cost, service, total per guest, and grams recalculate. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
+      menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Line total", addMenuItem: "Add dish", removeMenuItem: "Remove", resetMenu: "Reset suggested quantities", menuBuilderHint: "Edit quantity, weight per serving and unit price. Weights are needed to calculate grams per guest.",
       alcohol: "Alcohol · preferential price per bottle", terms: "Terms",
-      menuDetails: "View full menu",
-      perGuest: "per guest", serviceIncl: "incl. 10% service" },
+       perGuest: "per guest", serviceIncl: "incl. 10% service" },
     calc: { perGuest: "per guest", total: "total", minimum: "minimum", noguest: "no fixed price", guests: "guests" },
     cmp: { venue: "Venue", status: "Status", area: "Area", capacity: "Capacity", hall: "Rental / price", minspend: "Min. spend", drinks: "Drinks", catering: "Catering", parking: "Parking", pp: "€/guest", contact: "Contact" },
     legend: { offer: "Offer received", progress: "In progress" },
@@ -1063,7 +1103,7 @@ const VENUES = [
     coords: [42.6633249, 23.2860736],
     status: "offer", detail: "balkan",
     capacity: { bg: "Малка зала · до 40 седящи (оферта за 30)", en: "Small hall · up to 40 seated (offer for 30)" },
-    price: { bg: "840 € предложена цел – 1 512 € според офертата за 30 души · храна + сервиз + наем", en: "€840 proposed target – €1 512 quoted for 30 guests · food + service + hall" },
+    price: { bg: "Блок маса: текущата цена се калкулира от количествата; офертни варианти: 1 311–1 512 €", en: "Block table: total recalculates from quantities; quoted options: €1,311–€1,512" },
     drinks: { bg: "Алкохол по консумация, преференциални цени (вино от 11 €/бутилка)", en: "Alcohol on consumption, preferential prices (wine from €11/bottle)" },
     catering: { bg: "Собствена кухня · 2 офертни варианта + 1 наше предложение", en: "Own kitchen · 2 quoted options + 1 proposal" },
     parking: { bg: "2 места", en: "2 spaces" },
@@ -1101,7 +1141,7 @@ const OFFER = {
   alt: [
     { id: "block",   name: { bg: "Блок маса", en: "Block table" },      food: 1193, service: 119.30, hall: 200, total: 1512.30, pp: 50.41 },
     { id: "mix",     name: { bg: "Микс", en: "Mixed" },                 food: 1010, service: 101.00, hall: 200, total: 1311.00, pp: 43.70 },
-    { id: "budgetBlock", name: { bg: "Предложена блок маса · 28 €", en: "Proposed Block Table · €28" }, food: 582, service: 58.20, hall: 200, adjustment: -0.20, total: 840, pp: 28 }
+    { id: "budgetBlock", name: { bg: "Предложена блок маса · редактор", en: "Custom Block Table" } }
   ],
   alcohol: [
     { id: "brut", n: { bg: "Пенливо вино Brut", en: "Sparkling Brut" }, size: "750 ml", price: 11 },
@@ -1244,6 +1284,84 @@ const SOURCES = [
     return Number(n).toLocaleString("en-US", { maximumFractionDigits: 0 }).replace(/,/g, " ");
   }
 
+  function parseMenuQuantity(q) {
+    var weightMatch = String(q || "").match(/^\s*(\d+)\s*[×x]\s*(\d+)\s*(?:г|g)\s*$/i);
+    if (weightMatch) {
+      return { count: parseInt(weightMatch[1], 10), grams: parseFloat(weightMatch[2]) };
+    }
+    var pieceMatch = String(q || "").match(/^\s*(\d+)\s*(?:бр|pcs)\s*$/i);
+    return { count: pieceMatch ? parseInt(pieceMatch[1], 10) : 0, grams: 0 };
+  }
+
+  function initialBudgetMenuItems() {
+    return BALKAN_MENU.budgetBlock.map(function (item) {
+      var quantity = parseMenuQuantity(item.q);
+      return {
+        name: item,
+        customName: null,
+        quantity: quantity.count,
+        grams: quantity.grams,
+        price: Number(item.p) || 0
+      };
+    });
+  }
+
+  var budgetMenuItems = initialBudgetMenuItems();
+
+  function roundMoney(value) { return Math.round((value + Number.EPSILON) * 100) / 100; }
+
+  function budgetMenuMetrics(guests) {
+    var count = Math.max(1, parseInt(guests, 10) || OFFER.guests);
+    var food = 0;
+    var grams = 0;
+    budgetMenuItems.forEach(function (item) {
+      var quantity = Math.max(0, Number(item.quantity) || 0);
+      food += quantity * Math.max(0, Number(item.price) || 0);
+      grams += quantity * Math.max(0, Number(item.grams) || 0);
+    });
+    food = roundMoney(food);
+    var service = roundMoney(food * 0.1);
+    var hall = 200;
+    var total = roundMoney(food + service + hall);
+    var drinkTotal = DRINK_PACKAGE.reduce(function (sum, p) {
+      for (var i = 0; i < OFFER.alcohol.length; i++) {
+        if (OFFER.alcohol[i].id === p.id) return sum + OFFER.alcohol[i].price * p.bottles;
+      }
+      return sum;
+    }, 0);
+    var perGuest = total / count;
+    return {
+      guests: count, food: food, service: service, hall: hall, total: total,
+      foodPerGuest: food / count, perGuest: perGuest,
+      gramsPerGuest: grams / count, drinkTotal: drinkTotal,
+      totalWithDrinks: perGuest + drinkTotal / count,
+      capHeadroom: 60 - (perGuest + drinkTotal / count)
+    };
+  }
+
+  function offerMetrics(offer, guests) {
+    if (offer.id === "budgetBlock") return budgetMenuMetrics(guests);
+    var count = Math.max(1, parseInt(guests, 10) || OFFER.guests);
+    var food = offer.food * count / OFFER.guests;
+    var service = roundMoney(food * 0.1);
+    var total = roundMoney(food + service + offer.hall);
+    var drinkTotal = DRINK_PACKAGE.reduce(function (sum, p) {
+      for (var i = 0; i < OFFER.alcohol.length; i++) {
+        if (OFFER.alcohol[i].id === p.id) return sum + OFFER.alcohol[i].price * p.bottles;
+      }
+      return sum;
+    }, 0);
+    var perGuest = total / count;
+    return {
+      guests: count, food: food, service: service, hall: offer.hall, total: total,
+      foodPerGuest: food / count,
+      gramsPerGuest: gramsPerGuest(BALKAN_MENU[offer.id], OFFER.guests),
+      perGuest: perGuest, drinkTotal: drinkTotal,
+      totalWithDrinks: perGuest + drinkTotal / count,
+      capHeadroom: 60 - (perGuest + drinkTotal / count)
+    };
+  }
+
   var STATUS_RANK = { offer: 0, progress: 1, waiting: 2, unlikely: 3, unavailable: 4 };
   var DOCS = {
     balkanOffer: {
@@ -1320,6 +1438,8 @@ const SOURCES = [
     if (willOpen) {
       panel.innerHTML = bodyHtml(v);
       panel.removeAttribute("hidden");
+      var customPlan = $('.offer-plan[data-plan-id="budgetBlock"]', panel);
+      bindCustomMenu(customPlan);
       openPanels[id] = true;
     } else {
       panel.innerHTML = "";
@@ -1354,6 +1474,7 @@ const SOURCES = [
     $$(".status-name", host).forEach(function (btn) {
       btn.addEventListener("click", function () { toggleVenue(btn.getAttribute("data-venue")); });
     });
+    $$(".venue-panel:not([hidden]) .offer-plan[data-plan-id=\"budgetBlock\"]", host).forEach(bindCustomMenu);
   }
 
   function openVenueDetails(id) {
@@ -1600,39 +1721,39 @@ const SOURCES = [
         '</span><b>' + money(d.price * p.bottles, 0) + '</b></li>';
     }).join("");
 
+    var guestCount = readCalc().g;
+    var initialMetrics = OFFER.alt.map(function (a) { return offerMetrics(a, guestCount); });
+    var lowestTotal = initialMetrics.reduce(function (m, x) { return Math.min(m, x.total); }, Infinity);
     var plans = OFFER.alt.map(function (a) {
-      var best = a.id === "budgetBlock";
-      var totalLabel = lang === "en" ? "total for " : "общо за ";
-      var grams = gramsPerGuest(BALKAN_MENU[a.id], OFFER.guests);
-      var menuRows = menuTable(BALKAN_MENU[a.id]);
-      var allInWithDrinks = a.pp + drinkTotal / OFFER.guests;
+      var metrics = offerMetrics(a, guestCount);
+      var best = metrics.total === lowestTotal;
+      var grams = Math.round(metrics.gramsPerGuest);
+      var menuRows = a.id === "budgetBlock" ? customBudgetMenuHtml() : menuTable(BALKAN_MENU[a.id]);
+      var allInWithDrinks = metrics.perGuest + drinkTotal / guestCount;
       var capHeadroom = 60 - allInWithDrinks;
-      return '<article class="offer-plan' + (best ? ' offer-plan--best' : '') + '">' +
+      return '<article class="offer-plan' + (best ? ' offer-plan--best' : '') + '" data-plan-id="' + a.id + '">' +
         '<div class="offer-plan__head"><h4>' + esc(pick(a.name)) + '</h4>' +
-          (best ? '<span class="offer-plan__badge">' + esc(t("offer.lowest")) + '</span>' : '') +
+          '<span class="offer-plan__badge" data-best-badge' + (best ? '' : ' hidden') + '>' + esc(t("offer.lowest")) + '</span>' +
         '</div>' +
-        '<p class="offer-plan__price"><span class="offer-plan__amount">' + money(a.pp) + '</span> <small>' + esc(t("offer.pp")) + '</small></p>' +
-        '<p class="offer-plan__total"><b>' + money(a.total, a.total % 1 ? 2 : 0) + '</b> ' +
-          esc(totalLabel + OFFER.guests + (lang === "en" ? " guests" : " гости")) + '</p>' +
-        '<p class="offer-plan__foodpp"><b>' + money(a.food / OFFER.guests) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
-        '<p class="offer-plan__weight">≈ ' + grams + ' ' + esc(lang === "en" ? "g" : "г") +
+        '<p class="offer-plan__price"><span class="offer-plan__amount" data-budget-value="perGuest">' + money(metrics.perGuest) + '</span> <small>' + esc(t("offer.pp")) + '</small></p>' +
+        '<p class="offer-plan__total"><b data-budget-value="total">' + money(metrics.total, metrics.total % 1 ? 2 : 0) + '</b> ' +
+          esc((lang === "en" ? "total for " : "общо за ") + guestCount + (lang === "en" ? " guests" : " гости")) + '</p>' +
+        '<p class="offer-plan__foodpp"><b data-budget-value="foodPerGuest">' + money(metrics.foodPerGuest) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
+        '<p class="offer-plan__weight">≈ <span data-budget-value="grams">' + num(grams) + '</span> ' + esc(lang === "en" ? "g" : "г") +
           '<small>' + esc(t("offer.gramsPerGuest")) + '</small></p>' +
         '<dl class="offer-plan__breakdown">' +
-          '<div><dt>' + esc(t("offer.food")) + '</dt><dd>' + money(a.food, a.food % 1 ? 2 : 0) + '</dd></div>' +
-          '<div><dt>' + esc(t("offer.service")) + '</dt><dd>' + money(a.service) + '</dd></div>' +
-          '<div><dt>' + esc(t("offer.hall")) + '</dt><dd>' + money(a.hall, 0) + '</dd></div>' +
-          (a.adjustment != null ? '<div class="offer-plan__adjustment"><dt>' + esc(t("offer.adjustment")) + '</dt><dd>−' + money(Math.abs(a.adjustment)) + '</dd></div>' : '') +
+          '<div><dt>' + esc(t("offer.food")) + '</dt><dd data-budget-value="food">' + money(metrics.food, metrics.food % 1 ? 2 : 0) + '</dd></div>' +
+          '<div><dt>' + esc(t("offer.service")) + '</dt><dd data-budget-value="service">' + money(metrics.service) + '</dd></div>' +
+          '<div><dt>' + esc(t("offer.hall")) + '</dt><dd data-budget-value="hall">' + money(metrics.hall, 0) + '</dd></div>' +
         '</dl>' +
-        '<details class="offer-plan__menu"><summary>' + esc(t("offer.menuDetails")) + '</summary>' +
-          '<div class="offer-plan__menu-body">' + menuRows + '</div>' +
-        '</details>' +
+        '<div class="offer-plan__menu"><h5 class="offer-plan__menu-title">' + esc(t("offer.menuTitle")) + '</h5>' + menuRows + '</div>' +
         '<details class="offer-plan__drinks"><summary>' + esc(t("offer.drinksSuggestion")) + '</summary>' +
           '<div class="offer-plan__drinks-body"><ul class="offer-drink-list">' + drinkRows + '</ul>' +
             '<p class="offer-drinks__total"><strong>' + esc(t("offer.drinksTotal")) + '</strong> · ' +
-              money(drinkTotal, 0) + ' · ' + money(drinkTotal / OFFER.guests) + ' / ' + esc(t("calc.perGuest")) + '</p>' +
+              money(drinkTotal, 0) + ' · <span data-budget-value="drinksPerGuest">' + money(drinkTotal / guestCount) + '</span> / ' + esc(t("calc.perGuest")) + '</p>' +
             '<p class="offer-drinks__allin"><strong>' + esc(t("offer.totalWithDrinks")) + '</strong> · ' +
-              money(allInWithDrinks) + ' / ' + esc(t("calc.perGuest")) + ' · ' + money(capHeadroom) + ' ' +
-              esc(t("offer.belowCap")) + '</p>' +
+              '<span data-budget-value="withDrinks">' + money(allInWithDrinks) + '</span> / ' + esc(t("calc.perGuest")) + ' · ' +
+              '<span data-budget-value="capHeadroom">' + money(capHeadroom) + '</span> ' + esc(t("offer.belowCap")) + '</p>' +
           '</div>' +
         '</details>' +
       '</article>';
@@ -1685,6 +1806,135 @@ const SOURCES = [
       }).join("") + '</tbody></table>';
   }
 
+  function customBudgetMenuHtml() {
+    return '<div class="custom-menu">' + budgetMenuItems.map(function (item, i) {
+      var name = item.customName == null ? pick(item.name) : item.customName;
+      return '<div class="custom-menu__row">' +
+        '<input class="custom-menu__name" type="text" data-budget-field="name" data-budget-index="' + i + '"' +
+          ' aria-label="' + esc(t("offer.menuItem")) + ' ' + (i + 1) + '" value="' + esc(name) + '" placeholder="' + esc(t("offer.menuItem")) + '">' +
+        '<div class="custom-menu__controls">' +
+          '<label class="custom-menu__field"><span>' + esc(t("offer.menuQty")) + '</span>' +
+            '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '"></label>' +
+          '<label class="custom-menu__field"><span>' + esc(t("offer.menuWeight")) + '</span>' +
+            '<input type="number" min="0" max="5000" step="1" inputmode="decimal" data-budget-field="grams" data-budget-index="' + i + '" value="' + (item.grams ? esc(item.grams) : '') + '"></label>' +
+          '<label class="custom-menu__field"><span>' + esc(t("offer.menuUnitPrice")) + '</span>' +
+            '<input type="number" min="0" max="10000" step="0.01" inputmode="decimal" data-budget-field="price" data-budget-index="' + i + '" value="' + esc(item.price) + '"></label>' +
+          '<div class="custom-menu__line"><small>' + esc(t("offer.menuLineTotal")) + '</small>' +
+            '<b data-budget-line="' + i + '">' + money(item.quantity * item.price) + '</b></div>' +
+          '<button class="custom-menu__remove" type="button" data-budget-remove="' + i + '" aria-label="' +
+            esc(t("offer.removeMenuItem")) + '">×</button>' +
+        '</div>' +
+      '</div>';
+    }).join("") +
+      '<div class="custom-menu__actions">' +
+        '<button type="button" data-budget-add>+ ' + esc(t("offer.addMenuItem")) + '</button>' +
+        '<button type="button" data-budget-reset>' + esc(t("offer.resetMenu")) + '</button>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function refreshCustomMenu(root) {
+    var plan = root.closest(".offer-plan");
+    if (!plan) return;
+    var menu = $(".custom-menu", plan);
+    if (!menu) return;
+    menu.outerHTML = customBudgetMenuHtml();
+    bindCustomMenu(plan);
+    renderCalc();
+    renderCompare();
+  }
+
+  function bindCustomMenu(root) {
+    if (!root) return;
+    $$("[data-budget-field]", root).forEach(function (input) {
+      input.addEventListener("input", function () {
+        var i = parseInt(input.getAttribute("data-budget-index"), 10);
+        var field = input.getAttribute("data-budget-field");
+        var item = budgetMenuItems[i];
+        if (!item) return;
+        if (field === "name") item.customName = input.value;
+        else if (field === "quantity") item.quantity = Math.max(0, parseInt(input.value, 10) || 0);
+        else if (field === "grams") item.grams = Math.max(0, parseFloat(input.value) || 0);
+        else if (field === "price") item.price = Math.max(0, parseFloat(input.value) || 0);
+        renderCalc();
+        renderCompare();
+      });
+    });
+    $$("[data-budget-remove]", root).forEach(function (button) {
+      button.addEventListener("click", function () {
+        var i = parseInt(button.getAttribute("data-budget-remove"), 10);
+        budgetMenuItems.splice(i, 1);
+        refreshCustomMenu(root);
+      });
+    });
+    var add = $("[data-budget-add]", root);
+    if (add) add.addEventListener("click", function () {
+      budgetMenuItems.push({
+        name: { bg: "Ново ястие", en: "New dish" }, customName: "",
+        quantity: 1, grams: 0, price: 0
+      });
+      refreshCustomMenu(root);
+    });
+    var reset = $("[data-budget-reset]", root);
+    if (reset) reset.addEventListener("click", function () {
+      budgetMenuItems = initialBudgetMenuItems();
+      refreshCustomMenu(root);
+    });
+  }
+
+  function updateOfferPlanMetrics(guests) {
+    var cards = $$(".offer-plan[data-plan-id]");
+    if (!cards.length) return;
+    var models = cards.map(function (card) {
+      var offer = null;
+      for (var i = 0; i < OFFER.alt.length; i++) {
+        if (OFFER.alt[i].id === card.getAttribute("data-plan-id")) offer = OFFER.alt[i];
+      }
+      return { card: card, offer: offer, metrics: offer ? offerMetrics(offer, guests) : null };
+    }).filter(function (x) { return !!x.metrics; });
+    if (!models.length) return;
+    var bestTotal = models.reduce(function (m, x) { return Math.min(m, x.metrics.total); }, Infinity);
+    var perGuest = models.map(function (x) { return x.metrics.perGuest; });
+    var minPp = Math.min.apply(Math, perGuest);
+    var maxPp = Math.max.apply(Math, perGuest);
+    var range = $("#meta-price-range");
+    if (range) range.textContent = money(minPp) + "–" + money(maxPp);
+    var guestsOutput = $("#meta-guests");
+    if (guestsOutput) guestsOutput.textContent = guests;
+    var cheapest = $("#stat-cheapest-value");
+    if (cheapest) cheapest.textContent = money(bestTotal, bestTotal % 1 ? 2 : 0);
+
+    models.forEach(function (model) {
+      var card = model.card;
+      var m = model.metrics;
+      var best = m.total === bestTotal;
+      card.classList.toggle("offer-plan--best", best);
+      var badge = $("[data-best-badge]", card);
+      if (badge) badge.hidden = !best;
+      var values = {
+        perGuest: money(m.perGuest),
+        total: money(m.total, m.total % 1 ? 2 : 0),
+        foodPerGuest: money(m.foodPerGuest),
+        grams: num(Math.round(m.gramsPerGuest)),
+        food: money(m.food, m.food % 1 ? 2 : 0),
+        service: money(m.service),
+        hall: money(m.hall, 0),
+        drinksPerGuest: money(m.drinkTotal / m.guests),
+        withDrinks: money(m.totalWithDrinks),
+        capHeadroom: money(m.capHeadroom)
+      };
+      Object.keys(values).forEach(function (key) {
+        var node = $('[data-budget-value="' + key + '"]', card);
+        if (node) node.textContent = values[key];
+      });
+      $$("[data-budget-line]", card).forEach(function (line) {
+        var i = parseInt(line.getAttribute("data-budget-line"), 10);
+        var item = budgetMenuItems[i];
+        if (item) line.textContent = money(item.quantity * item.price);
+      });
+    });
+  }
+
   /* ---------- calculator ---------- */
   function readCalc() {
     var g = parseInt($("#guests").value, 10);
@@ -1695,15 +1945,14 @@ const SOURCES = [
   function calcRows(c) {
     var rows = [];
     OFFER.alt.forEach(function (a) {
-      var adjustment = a.adjustment ? a.adjustment * c.g / OFFER.guests : 0;
-      var total = Math.round(((a.food * c.g / OFFER.guests) * 1.1 + a.hall + adjustment) * 100) / 100;
+      var metrics = offerMetrics(a, c.g);
       rows.push({
         id: "balkan-" + a.id,
         name: "Balkan Falsch · " + pick(a.name),
-        sub: a.adjustment ?
-          tr("храна + 10% сервиз + 200 € наем · корекция към целта", "food + 10% service + €200 hall · target adjustment") :
+        sub: a.id === "budgetBlock" ?
+          tr("персонализируемо меню · храна + сервиз + наем", "editable menu · food + service + hall") :
           tr("храна + 10% сервиз + 200 € наем", "food + 10% service + €200 hall"),
-        total: total, pp: total / c.g, full: true
+        total: metrics.total, pp: metrics.perGuest, full: true
       });
     });
     rows.push({
@@ -1746,6 +1995,7 @@ const SOURCES = [
         '<div class="bar' + (isBest ? " is-best" : "") + '"><i style="width:' + w + '%"></i></div>' +
       '</div>';
     }).join("");
+    updateOfferPlanMetrics(c.g);
   }
 
   /* ---------- comparison ---------- */
@@ -1764,7 +2014,7 @@ const SOURCES = [
         r.hall = tr("200 € наем / вечер", "€200 hall / night");
         r.minspend = tr("няма", "none");
         r.capacity = tr("до 40 седящи (оферта за 30)", "up to 40 seated (offer for 30)");
-        var prices = OFFER.alt.map(function (a) { return a.pp; });
+        var prices = OFFER.alt.map(function (a) { return offerMetrics(a, OFFER.guests).perGuest; });
         r.pp = Math.min.apply(Math, prices);
         r.ppText = money(r.pp) + "–" + money(Math.max.apply(Math, prices));
       } else if (v.id === "kitchen59") {
