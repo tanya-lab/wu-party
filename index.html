@@ -468,20 +468,30 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .custom-menu{display:grid;border-top:1px solid var(--line-soft)}
 .custom-menu__hint{margin:0;padding:7px 0;color:var(--ink-soft);font-size:9px;line-height:1.4}
 .custom-menu__table{table-layout:fixed}
-.custom-menu__table th:first-child{width:54%}
-.custom-menu__table th:nth-child(2){width:23%}
-.custom-menu__table th:nth-child(3){width:23%}
+.custom-menu__table th:first-child{width:41%}
+.custom-menu__table th:nth-child(2){width:24%}
+.custom-menu__table th:nth-child(3){width:21%}
+.custom-menu__table th:nth-child(4){width:14%}
 .custom-menu__table td{padding:5px 3px!important;font-size:10px!important;vertical-align:middle}
+.offer-plan__menu .custom-menu__table td:first-child{min-width:0}
 .custom-menu__item{display:flex;align-items:flex-start;gap:3px;min-width:0}
 .custom-menu__item-name{flex:1;min-width:0;overflow-wrap:anywhere;line-height:1.35}
-.custom-menu__name-select{width:100%;min-width:0;padding:4px 2px;border:1px solid var(--line-soft);background:#fff;font:500 9px/1.3 var(--ui);color:var(--ink)}
+.custom-menu__draft-name{width:100%;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 9px/1.3 var(--ui);color:var(--ink)}
 .custom-menu__qty{display:flex;justify-content:flex-end;align-items:center;gap:2px;white-space:nowrap}
-.custom-menu__qty input{width:35px;min-width:0;padding:4px 2px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink);text-align:right}
+.custom-menu__qty input{width:30px;min-width:0;padding:4px 2px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink);text-align:right}
+.custom-menu__qty--draft{display:grid;justify-items:end;gap:3px}
+.custom-menu__qty--draft input{width:34px}
+.custom-menu__draft-weight{display:flex;align-items:center;gap:2px;color:var(--ink-soft);font-size:8px;white-space:nowrap}
+.custom-menu__draft-weight input{width:32px;min-width:0;padding:3px 2px;border:1px solid var(--line);background:#fff;font:500 9px var(--ui);text-align:right}
 .custom-menu__unit{font-size:8px;color:var(--ink-soft);white-space:nowrap}
 .custom-menu__price{display:grid;justify-items:end;gap:2px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .custom-menu__price small{font-size:8px;color:var(--ink-soft)}
-.custom-menu__remove{width:24px;height:26px;padding:0;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer}
+.custom-menu__price input{width:44px;min-width:0;padding:4px 2px;border:1px solid var(--line);background:#fff;font:500 9px var(--ui);text-align:right}
+.custom-menu__actions-cell{white-space:nowrap;text-align:right}
+.custom-menu__remove,.custom-menu__commit{width:13px;height:22px;padding:0;border:1px solid var(--line);background:#fff;color:var(--ink-soft);font:700 11px var(--ui);cursor:pointer}
 .custom-menu__remove:hover{border-color:var(--st-unavailable);color:var(--st-unavailable)}
+.custom-menu__commit{margin-right:0;color:var(--st-offer)}
+.custom-menu__commit:hover{border-color:var(--st-offer);background:#F4FAFC}
 .custom-menu__actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .custom-menu__actions button{padding:6px 8px;border:1px solid var(--line);background:#fff;color:var(--wu);font:700 8px var(--ui);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
 .custom-menu__actions button:hover{border-color:var(--wu);background:#F4FAFC}
@@ -1002,7 +1012,7 @@ const UI = {
     a: { directions: "Упътвания", details: "Виж на картата", email: "Имейл", phone: "Телефон", more: "Виж детайли", less: "Скрий" },
     offer: { title: "Пълна оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
       block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", belowCap: "под лимита 60 €/гост", gramNote: "Количеството може да се променя; грамажът и единичната цена са фиксирани. Общата цена и грамажът на гост се преизчисляват автоматично. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
-      menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо", addMenuItem: "Добави ястие", chooseMenuItem: "Избери ястие от менюто", removeMenuItem: "Премахни", resetMenu: "Върни предложените количества", menuBuilderHint: "Променяй само количеството. За нов ред избери ястие от менюто „Блок маса“ или „Микс“; цената и грамажът се попълват автоматично.",
+      menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо за ястието", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", saveMenuItem: "Добави ред", resetMenu: "Върни предложените количества", menuBuilderHint: "В съществуващите редове се променя само количеството. При добавяне въведи име, количество, грамаж за брой и цена за брой.",
       alcohol: "Алкохол · преференциални цени за бутилка", terms: "Условия",
        perGuest: "на гост", serviceIncl: "вкл. 10% сервиз" },
     calc: { perGuest: "на гост", total: "общо", minimum: "минимум", noguest: "без фиксирана цена", guests: "гости" },
@@ -1061,7 +1071,7 @@ const UI = {
     a: { directions: "Directions", details: "Show on map", email: "Email", phone: "Phone", more: "Show details", less: "Hide" },
     offer: { title: "Full offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
       block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", belowCap: "under €60/guest cap", gramNote: "Only quantities are editable; unit weights and prices are fixed. The food total and grams per guest recalculate automatically. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
-      menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Line total", addMenuItem: "Add dish", chooseMenuItem: "Choose a dish from the menu", removeMenuItem: "Remove", resetMenu: "Reset suggested quantities", menuBuilderHint: "Only quantity is editable. To add a row, choose a dish from the Block Table or Mix menu; its price and weight fill in automatically.",
+      menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities", menuBuilderHint: "For existing rows, only quantity can be changed. To add a row, enter its name, quantity, grams per dish and price per dish.",
       alcohol: "Alcohol · preferential price per bottle", terms: "Terms",
        perGuest: "per guest", serviceIncl: "incl. 10% service" },
     calc: { perGuest: "per guest", total: "total", minimum: "minimum", noguest: "no fixed price", guests: "guests" },
@@ -1297,6 +1307,7 @@ const SOURCES = [
     var food = 0;
     var grams = 0;
     budgetMenuItems.forEach(function (item) {
+      if (item.isDraft) return;
       var quantity = Math.max(0, Number(item.quantity) || 0);
       food += quantity * Math.max(0, Number(item.price) || 0);
       grams += quantity * Math.max(0, Number(item.grams) || 0);
@@ -1319,25 +1330,6 @@ const SOURCES = [
       totalWithDrinks: perGuest + drinkTotal / count,
       capHeadroom: 60 - (perGuest + drinkTotal / count)
     };
-  }
-
-  function addableMenuItems() {
-    var options = [];
-    var seen = {};
-    ["block", "mix"].forEach(function (menuId) {
-      (BALKAN_MENU[menuId] || []).forEach(function (item) {
-        var quantity = parseMenuQuantity(item.q);
-        var key = item.en + "|" + quantity.grams + "|" + item.p;
-        if (seen[key]) return;
-        seen[key] = true;
-        options.push({
-          name: item, quantity: quantity.count,
-          grams: quantity.grams, unit: quantity.unit,
-          price: Number(item.p) || 0
-        });
-      });
-    });
-    return options;
   }
 
   function offerMetrics(offer, guests) {
@@ -1802,8 +1794,11 @@ const SOURCES = [
       '<th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
       '<th class="num">' + esc(tr("€ / бр.", "€ / pc")) + '</th>' +
       '</tr></thead><tbody>' + rows.map(function (m) {
+        var quantity = parseMenuQuantity(m.q).count;
         return '<tr><td>' + esc(pick(m)) + '</td><td class="num">' + esc(qty(m.q)) + '</td>' +
-          '<td class="num">' + money(m.p) + '</td></tr>';
+          '<td class="num"><div class="custom-menu__price"><span>' + money(m.p) + '</span>' +
+            '<small title="' + esc(t("offer.menuLineTotal")) + '">Σ ' + money(quantity * Number(m.p)) + '</small>' +
+          '</div></td></tr>';
       }).join("") + '</tbody></table>';
   }
 
@@ -1813,32 +1808,39 @@ const SOURCES = [
       '<table class="tbl tbl--tight custom-menu__table"><thead><tr>' +
         '<th>' + esc(tr("Позиция", "Item")) + '</th>' +
         '<th class="num">' + esc(t("offer.menuQty")) + '</th>' +
-        '<th class="num">' + esc(tr("€ / бр.", "€ / pc")) + '</th>' +
+        '<th class="num">' + esc(tr("€ / бр.", "€ / pc")) + '</th><th></th>' +
       '</tr></thead><tbody>' + budgetMenuItems.map(function (item, i) {
-        var name = item.name ? pick(item.name) : "";
-        var nameField = item.needsSelection ?
-          '<select class="custom-menu__name-select" data-budget-select="' + i + '" aria-label="' + esc(t("offer.menuItem")) + '">' +
-            '<option value="">' + esc(t("offer.chooseMenuItem")) + '</option>' +
-            addableMenuItems().map(function (option, optionIndex) {
-              return '<option value="' + optionIndex + '">' + esc(pick(option.name)) + '</option>';
-            }).join("") +
-          '</select>' :
-          '<span class="custom-menu__item-name">' + esc(name) + '</span>';
+        if (item.isDraft) {
+          return '<tr class="custom-menu__draft">' +
+            '<td><input type="text" class="custom-menu__draft-name" maxlength="120" data-budget-field="draft-name" data-budget-index="' + i + '" value="' + esc(item.customName || "") + '" placeholder="' + esc(t("offer.menuItem")) + '" aria-label="' + esc(t("offer.menuItem")) + '"></td>' +
+            '<td class="num"><div class="custom-menu__qty custom-menu__qty--draft">' +
+              '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="draft-quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.menuQty")) + '">' +
+              '<label class="custom-menu__draft-weight">' + esc(tr("г/бр.", "g/pc")) +
+                '<input type="number" min="0" max="5000" step="1" inputmode="decimal" data-budget-field="draft-grams" data-budget-index="' + i + '" value="' + esc(item.grams) + '" aria-label="' + esc(t("offer.menuWeight")) + '"></label>' +
+            '</div></td>' +
+            '<td class="num"><div class="custom-menu__price">' +
+              '<input type="number" min="0" max="10000" step="0.01" inputmode="decimal" data-budget-field="draft-price" data-budget-index="' + i + '" value="' + esc(item.price) + '" aria-label="' + esc(t("offer.menuUnitPrice")) + '">' +
+              '<small title="' + esc(t("offer.menuLineTotal")) + '">Σ <span data-budget-line="' + i + '">' + money(item.quantity * item.price) + '</span></small>' +
+            '</div></td>' +
+            '<td class="custom-menu__actions-cell"><button class="custom-menu__commit" type="button" data-budget-commit="' + i + '" aria-label="' + esc(t("offer.saveMenuItem")) + '" title="' + esc(t("offer.saveMenuItem")) + '">✓</button>' +
+              '<button class="custom-menu__remove" type="button" data-budget-remove="' + i + '" aria-label="' + esc(t("offer.removeMenuItem")) + '">×</button></td>' +
+          '</tr>';
+        }
+        var name = item.customName != null ? item.customName : pick(item.name);
         var unit = item.unit === "grams" ?
           '× ' + num(item.grams) + ' ' + esc(tr("г", "g")) :
-          (item.unit === "pieces" ? esc(tr("бр.", "pcs")) : "");
+          (item.unit === "pieces" ? esc(tr("бр.", "pcs")) : '× ' + num(item.grams) + ' ' + esc(tr("г", "g")));
         return '<tr>' +
-          '<td><div class="custom-menu__item">' + nameField +
-            '<button class="custom-menu__remove" type="button" data-budget-remove="' + i + '" aria-label="' +
-              esc(t("offer.removeMenuItem")) + '">×</button></div></td>' +
+          '<td><span class="custom-menu__item-name">' + esc(name) + '</span></td>' +
           '<td class="num"><div class="custom-menu__qty">' +
-            '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.menuQty")) + ' · ' + esc(name || t("offer.chooseMenuItem")) + '">' +
-            (unit ? '<span class="custom-menu__unit">' + unit + '</span>' : '') +
+            '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.menuQty")) + ' · ' + esc(name) + '">' +
+            '<span class="custom-menu__unit">' + unit + '</span>' +
           '</div></td>' +
           '<td class="num"><div class="custom-menu__price">' +
             '<span>' + money(item.price) + '</span>' +
             '<small title="' + esc(t("offer.menuLineTotal")) + '">Σ <span data-budget-line="' + i + '">' + money(item.quantity * item.price) + '</span></small>' +
           '</div></td>' +
+          '<td class="custom-menu__actions-cell"><button class="custom-menu__remove" type="button" data-budget-remove="' + i + '" aria-label="' + esc(t("offer.removeMenuItem")) + '">×</button></td>' +
         '</tr>';
       }).join("") + '</tbody></table>' +
       '<div class="custom-menu__actions">' +
@@ -1861,29 +1863,41 @@ const SOURCES = [
 
   function bindCustomMenu(root) {
     if (!root) return;
-    $$('[data-budget-select]', root).forEach(function (select) {
-      select.addEventListener("change", function () {
-        var index = parseInt(select.getAttribute("data-budget-select"), 10);
-        var option = addableMenuItems()[parseInt(select.value, 10)];
-        var item = budgetMenuItems[index];
-        if (!option || !item) return;
-        item.name = option.name;
-        item.quantity = 1;
-        item.grams = option.grams;
-        item.unit = option.unit;
-        item.price = option.price;
-        delete item.needsSelection;
-        refreshCustomMenu(root);
-      });
-    });
     $$("[data-budget-field]", root).forEach(function (input) {
       input.addEventListener("input", function () {
         var i = parseInt(input.getAttribute("data-budget-index"), 10);
         var item = budgetMenuItems[i];
         if (!item) return;
-        item.quantity = Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
+        var field = input.getAttribute("data-budget-field");
+        if (field === "quantity") item.quantity = Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
+        else if (field === "draft-name") item.customName = input.value;
+        else if (field === "draft-quantity") item.quantity = input.value === "" ? "" : Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
+        else if (field === "draft-grams") item.grams = input.value === "" ? "" : Math.min(5000, Math.max(0, parseFloat(input.value) || 0));
+        else if (field === "draft-price") item.price = input.value === "" ? "" : Math.min(10000, Math.max(0, parseFloat(input.value) || 0));
         renderCalc();
         renderCompare();
+      });
+    });
+    $$('[data-budget-commit]', root).forEach(function (button) {
+      button.addEventListener("click", function () {
+        var i = parseInt(button.getAttribute("data-budget-commit"), 10);
+        var item = budgetMenuItems[i];
+        if (!item || !item.isDraft) return;
+        var name = $('[data-budget-field="draft-name"][data-budget-index="' + i + '"]', root);
+        var quantity = $('[data-budget-field="draft-quantity"][data-budget-index="' + i + '"]', root);
+        var grams = $('[data-budget-field="draft-grams"][data-budget-index="' + i + '"]', root);
+        var price = $('[data-budget-field="draft-price"][data-budget-index="' + i + '"]', root);
+        if (!name || !name.value.trim()) { if (name) name.focus(); return; }
+        if (!quantity || quantity.value === "") { if (quantity) quantity.focus(); return; }
+        if (!grams || grams.value === "") { if (grams) grams.focus(); return; }
+        if (!price || price.value === "") { if (price) price.focus(); return; }
+        item.customName = name.value.trim();
+        item.quantity = Math.min(500, Math.max(0, parseInt(quantity.value, 10) || 0));
+        item.grams = Math.min(5000, Math.max(0, parseFloat(grams.value) || 0));
+        item.price = Math.min(10000, Math.max(0, parseFloat(price.value) || 0));
+        item.unit = "grams";
+        item.isDraft = false;
+        refreshCustomMenu(root);
       });
     });
     $$("[data-budget-remove]", root).forEach(function (button) {
@@ -1896,10 +1910,12 @@ const SOURCES = [
     var add = $("[data-budget-add]", root);
     if (add) add.addEventListener("click", function () {
       budgetMenuItems.push({
-        name: null, needsSelection: true,
-        quantity: 0, grams: 0, unit: "", price: 0
+        name: null, customName: "", isDraft: true,
+        quantity: 1, grams: "", unit: "grams", price: ""
       });
       refreshCustomMenu(root);
+      var draftInputs = $$(".custom-menu__draft-name", root);
+      if (draftInputs.length) draftInputs[draftInputs.length - 1].focus();
     });
     var reset = $("[data-budget-reset]", root);
     if (reset) reset.addEventListener("click", function () {
