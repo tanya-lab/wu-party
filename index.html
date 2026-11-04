@@ -284,6 +284,7 @@ body.no-effects #snow{display:none}
 .program-time{font-family:var(--slab);font-size:14px;font-weight:800;line-height:1.5;color:var(--wu);white-space:nowrap}
 .program-item p{margin:0;font-size:13px;line-height:1.55}
 .program-status{display:inline-block;margin:0 0 6px;padding:3px 7px;background:rgba(217,165,33,.12);color:#8B6710;font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.program-status--progress{background:rgba(11,128,167,.08);color:var(--st-progress)}
 
 /* ---------- stats strip ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -462,10 +463,14 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__presents b{font-size:13px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
 .offer-plan__presents-row--group b{font-size:11px;color:var(--ink)}
 .offer-plan__presents.is-over-cap{background:#FFF4F1;border-left-color:var(--st-unavailable);color:var(--st-unavailable)}
-.offer-plan__foodpp{margin:0 0 10px;font-size:11px;color:var(--ink-soft)}
+.offer-plan__perguest-pair,.offer-plan__weight-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.offer-plan__perguest-pair{margin:0 0 10px}
+.offer-plan__foodpp{margin:0;font-size:11px;color:var(--ink-soft)}
 .offer-plan__foodpp b{color:var(--ink);font-variant-numeric:tabular-nums}
+.offer-plan__weight-pair{margin:0 0 14px}
 .offer-plan__weight{margin:0 0 14px;color:var(--wu);font-family:var(--slab);font-size:16px;font-weight:800;line-height:1.2}
-.offer-plan__weight small{display:block;margin-top:3px;color:var(--ink-soft);font-family:var(--ui);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.offer-plan__weight-pair .offer-plan__weight{margin:0}
+.offer-plan__weight small{display:block;margin-top:3px;color:var(--ink-soft);font-family:var(--ui);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .offer-plan__breakdown{margin:0;padding:11px 0 0;border-top:1px solid var(--line-soft);display:grid;gap:7px}
 .offer-plan__breakdown div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11px;line-height:1.4}
 .offer-plan__breakdown dt{color:var(--ink-soft)}
@@ -876,7 +881,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;background:var(--wu);
             <div class="program-item">
               <time class="program-time">20:30–21:00</time>
               <div>
-                <span class="program-status" data-i18n="progPending">Непотвърдено</span>
+                <span class="program-status program-status--progress" data-i18n="progPending">В процес</span>
                 <p data-i18n="progVoice">Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.</p>
               </div>
             </div>
@@ -1018,7 +1023,7 @@ const UI = {
     progScheduleTitle: "План за вечерта",
     progWelcome: "Посрещане на гостите",
     progDinner: "Вечеря, нетуоркинг и кратка, ненатоварваща игра за разчупване на леда.",
-    progPending: "Непотвърдено",
+    progPending: "В процес",
     progVoice: "Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.",
     progParty: "Парти — крайният час предстои да се уточни.",
     calcEyebrow: "Бюджет", calcTitle: "Колко струва на гост",
@@ -1078,7 +1083,7 @@ const UI = {
     progScheduleTitle: "Evening schedule",
     progWelcome: "Welcome guests",
     progDinner: "Dinner, networking, and a brief, low-pressure icebreaker game.",
-    progPending: "Unconfirmed",
+    progPending: "In progress",
     progVoice: "Tanya will ask an acquaintance about a short demonstration of voice-control techniques. If it doesn’t work out, we’ll choose another brief activity.",
     progParty: "Party—the end time is still to be decided.",
     calcEyebrow: "Budget", calcTitle: "What it costs per guest",
@@ -1814,8 +1819,6 @@ const SOURCES = [
           esc((lang === "en" ? "total for " : "общо за ")) + '<span data-budget-guests>' + guestCount + '</span> ' + esc(lang === "en" ? "guests" : "гости") + '</p>' +
         '<dl class="offer-plan__final-breakdown">' +
           '<div><dt>' + esc(t("offer.menuPerGuest")) + '</dt><dd data-budget-value="perGuest">' + money(metrics.perGuest) + '</dd></div>' +
-        '<div><dt>' + esc(t("offer.drinksPerGuestLabel")) + '</dt><dd data-budget-value="drinksPerGuest">' + money(drinkTotal / guestCount) + '</dd></div>' +
-          '<div><dt>' + esc(t("offer.drinkLitersPerGuestLabel")) + '</dt><dd data-budget-value="drinkLitersPerGuest">' + liters(metrics.drinkLitersPerGuest) + '</dd></div>' +
         '</dl>' +
         '<div class="offer-plan__presents' + (capHeadroom < 0 ? ' is-over-cap' : '') + '">' +
           '<div class="offer-plan__presents-row"><span data-presents-label>' + esc(t(capHeadroom < 0 ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
@@ -1825,9 +1828,16 @@ const SOURCES = [
             '<span data-budget-guests>' + guestCount + '</span> ' + esc(lang === "en" ? "guests" : "гости") + '</span>' +
             '<b data-presents-total-amount>' + money(Math.abs(capHeadroom) * guestCount) + '</b></div>' +
         '</div>' +
-        '<p class="offer-plan__foodpp"><b data-budget-value="foodPerGuest">' + money(metrics.foodPerGuest) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
-        '<p class="offer-plan__weight">≈ <span data-budget-value="grams">' + num(grams) + '</span> ' + esc(lang === "en" ? "g" : "г") +
-          '<small>' + esc(t("offer.gramsPerGuest")) + '</small></p>' +
+        '<div class="offer-plan__perguest-pair">' +
+          '<p class="offer-plan__foodpp"><b data-budget-value="foodPerGuest">' + money(metrics.foodPerGuest) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
+          '<p class="offer-plan__foodpp"><b data-budget-value="drinksPerGuest">' + money(drinkTotal / guestCount) + '</b> ' + esc(t("offer.drinksPerGuestLabel")) + '</p>' +
+        '</div>' +
+        '<div class="offer-plan__weight-pair">' +
+          '<p class="offer-plan__weight">≈ <span data-budget-value="grams">' + num(grams) + '</span> ' + esc(lang === "en" ? "g" : "г") +
+            '<small>' + esc(t("offer.gramsPerGuest")) + '</small></p>' +
+          '<p class="offer-plan__weight"><span data-budget-value="drinkLitersPerGuest">' + liters(metrics.drinkLitersPerGuest) + '</span>' +
+            '<small>' + esc(t("offer.drinkLitersPerGuestLabel")) + '</small></p>' +
+        '</div>' +
         '<dl class="offer-plan__breakdown">' +
           '<div><dt>' + esc(t("offer.food")) + '</dt><dd data-budget-value="food">' + money(metrics.food, metrics.food % 1 ? 2 : 0) + '</dd></div>' +
           '<div><dt>' + esc(t("offer.service")) + '</dt><dd data-budget-value="service">' + money(metrics.service) + '</dd></div>' +
