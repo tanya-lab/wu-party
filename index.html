@@ -456,8 +456,11 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__final-breakdown div{display:flex;justify-content:space-between;gap:8px;font-size:10px;line-height:1.35}
 .offer-plan__final-breakdown dt{color:var(--ink-soft)}
 .offer-plan__final-breakdown dd{margin:0;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
-.offer-plan__presents{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:8px 0 12px;padding:8px 9px;background:#F0F8F2;border-left:3px solid var(--st-offer);font-size:10px;line-height:1.4;color:var(--ink)}
+.offer-plan__presents{display:grid;gap:4px;margin:8px 0 12px;padding:8px 9px;background:#F0F8F2;border-left:3px solid var(--st-offer);font-size:10px;line-height:1.4;color:var(--ink)}
+.offer-plan__presents-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.offer-plan__presents-row--group{font-size:9px;color:var(--ink-soft)}
 .offer-plan__presents b{font-size:13px;font-weight:800;white-space:nowrap;font-variant-numeric:tabular-nums}
+.offer-plan__presents-row--group b{font-size:11px;color:var(--ink)}
 .offer-plan__presents.is-over-cap{background:#FFF4F1;border-left-color:var(--st-unavailable);color:var(--st-unavailable)}
 .offer-plan__foodpp{margin:0 0 10px;font-size:11px;color:var(--ink-soft)}
 .offer-plan__foodpp b{color:var(--ink);font-variant-numeric:tabular-nums}
@@ -467,6 +470,9 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__breakdown div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11px;line-height:1.4}
 .offer-plan__breakdown dt{color:var(--ink-soft)}
 .offer-plan__breakdown dd{margin:0;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;white-space:nowrap}
+.offer-plan__rent-editor{display:flex;align-items:center;justify-content:flex-end;gap:3px;white-space:nowrap;font-size:10px;font-weight:700}
+.offer-plan__rent-editor input{width:42px;min-width:0;padding:3px 2px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);text-align:right;color:var(--ink)}
+.offer-plan__rent-editor input[data-budget-hall-field="hours"]{width:34px}
 .offer-plan__adjustment dd{color:#9A7412}
 .offer-plan__menu{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft)}
 .offer-plan__menu-title{margin:0 0 8px;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
@@ -1016,11 +1022,11 @@ const UI = {
     progVoice: "Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.",
     progParty: "Парти — крайният час предстои да се уточни.",
     calcEyebrow: "Бюджет", calcTitle: "Колко струва на гост",
-    calcLead: "Промени броя гости и количествата в предложената блок маса — цената и грамажът се преизчисляват автоматично. Цената от Kitchen59 се очаква.",
-    lblGuests: "Гости", hintGuests: "Офертата е за 30 души. Храната е на човек, наемът е фиксиран.",
+    calcLead: "Промени броя гости, количествата и часовете/цената на наема за персонализираната маса — крайната сума и остатъкът за подаръци се преизчисляват.",
+    lblGuests: "Гости", hintGuests: "Офертата е за 30 души. Наемът в офертната блок маса е фиксиран; при персонализираната се редактират часовете и цената на час.",
     reset: "Нулирай",
     calcResTitle: "Общо и на гост", calcResLead: "Подредено от най-евтино. Алкохолът е изключен навсякъде, освен ако не е посочено.",
-    calcNote: "Ориентировъчно. Количествата и цената на предложеното меню трябва да се потвърдят със Balkan Falsch. Алкохолът се плаща отделно.",
+    calcNote: "Ориентировъчно. Количествата и наемът в персонализираната маса трябва да се потвърдят със Balkan Falsch. Алкохолът се плаща отделно.",
     cmpEyebrow: "Сравнение", cmpTitle: "Две опции една до друга",
     cmpLead: "Кликни върху заглавие на колона, за да сортираш. €/гост включва избраните напитки и е изчислено за 30 гости.",
     cmpLegend: "Предложената блок маса е персонализируема; цената от Kitchen59 се очаква.",
@@ -1033,9 +1039,9 @@ const UI = {
     f: { capacity: "Капацитет", price: "Цена / наем", drinks: "Напитки", catering: "Кетъринг", parking: "Паркинг", concept: "Концепция", notes: "Забележки", contact: "Контакт", contacted: "Контакт на", next: "Следваща стъпка", venueDetails: "Информация за мястото" },
     a: { directions: "Упътвания", details: "Виж на картата", email: "Имейл", phone: "Телефон", more: "Виж детайли", less: "Скрий" },
     offer: { title: "Пълна оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
-      block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", menuPerGuest: "Меню, сервиз и наем / гост", drinksPerGuestLabel: "Напитки / гост", presentsBudget: "Остават за подаръци (от 60 €/гост)", overPresentsBudget: "Над лимита от 60 €/гост с", belowCap: "под лимита 60 €/гост", gramNote: "Количеството може да се променя; грамажът и единичната цена са фиксирани. Общата цена и грамажът на гост се преизчисляват автоматично. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
+      block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", menuPerGuest: "Меню, сервиз и наем / гост", drinksPerGuestLabel: "Напитки / гост", presentsBudget: "Остатък за подаръци / гост (от 60 €)", overPresentsBudget: "Над лимита 60 €/гост с", presentsGroup: "Общо за подаръци", overPresentsGroup: "Общо над лимита", belowCap: "под лимита 60 €/гост", gramNote: "Количествата на храната се променят; грамажът и единичните цени са фиксирани. Часовете и цената на час за персонализираната маса се редактират. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
         menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо за ястието", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", saveMenuItem: "Добави ред", resetMenu: "Върни предложените количества",
-       drinkName: "Напитка", drinkQty: "Бутилки", drinkQtyShort: "Бут.", drinkSize: "Размер бутилка", drinkSizeShort: "Обем", drinkUnitPrice: "€ / бутилка", drinkUnitPriceShort: "€ / бут.", addDrink: "Добави напитка", removeDrink: "Премахни напитка", saveDrink: "Запази напитка", resetDrinks: "Върни предложените напитки", drinkBuilderHint: "Всеки вариант има собствен списък напитки. Променяй броя бутилки. За нова напитка въведи име, брой бутилки, размер и цена за бутилка.",
+        drinkName: "Напитка", drinkQty: "Бутилки", drinkQtyShort: "Бут.", drinkSize: "Размер бутилка", drinkSizeShort: "Обем", drinkUnitPrice: "€ / бутилка", drinkUnitPriceShort: "€ / бут.", drinkLitersPerGuestLabel: "Обем напитки / гост", addDrink: "Добави напитка", removeDrink: "Премахни напитка", saveDrink: "Запази напитка", resetDrinks: "Върни предложените напитки", drinkBuilderHint: "Всеки вариант има собствен списък напитки. Променяй броя бутилки. За нова напитка въведи име, брой бутилки, размер (напр. 750 ml или 1 л) и цена за бутилка.",
       alcohol: "Алкохол · преференциални цени за бутилка", terms: "Условия",
        perGuest: "на гост", serviceIncl: "вкл. 10% сервиз" },
     calc: { perGuest: "на гост", total: "общо", minimum: "минимум", noguest: "без фиксирана цена", guests: "гости" },
@@ -1076,11 +1082,11 @@ const UI = {
     progVoice: "Tanya will ask an acquaintance about a short demonstration of voice-control techniques. If it doesn’t work out, we’ll choose another brief activity.",
     progParty: "Party—the end time is still to be decided.",
     calcEyebrow: "Budget", calcTitle: "What it costs per guest",
-    calcLead: "Adjust the headcount and the proposed block-table quantities; price and grams update automatically. Kitchen59 pricing is pending.",
-    lblGuests: "Guests", hintGuests: "The offer is written for 30. Food is priced per person; the hall is fixed.",
+    calcLead: "Adjust the headcount, menu quantities, and the personalised table's rental hours/rate; the final total and present budget update automatically.",
+    lblGuests: "Guests", hintGuests: "The offer is for 30 guests. Quoted block-table rent is fixed; the personalised table's hours and hourly rate are editable.",
     reset: "Reset",
     calcResTitle: "Total and per guest", calcResLead: "Sorted cheapest first. Alcohol is excluded everywhere unless stated.",
-    calcNote: "Estimate only. Confirm the proposed menu quantities and price with Balkan Falsch. Alcohol is extra.",
+    calcNote: "Estimate only. Confirm the personalised table's quantities and rent with Balkan Falsch. Alcohol is extra.",
     cmpEyebrow: "Compare", cmpTitle: "Two options, side by side",
     cmpLead: "Click a column header to sort. €/guest includes selected drinks and is calculated for 30 guests.",
     cmpLegend: "The proposed block table is editable; Kitchen59 pricing is pending.",
@@ -1093,9 +1099,9 @@ const UI = {
     f: { capacity: "Capacity", price: "Price / rental", drinks: "Drinks", catering: "Catering", parking: "Parking", concept: "Party concept", notes: "Notes", contact: "Contact", contacted: "Contacted", next: "Next step", venueDetails: "Venue details" },
     a: { directions: "Directions", details: "Show on map", email: "Email", phone: "Phone", more: "Show details", less: "Hide" },
     offer: { title: "Full offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
-      block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", menuPerGuest: "Menu, service and hall / guest", drinksPerGuestLabel: "Drinks / guest", presentsBudget: "Remaining for presents (from €60/guest)", overPresentsBudget: "Over the €60/guest cap by", belowCap: "under €60/guest cap", gramNote: "Only quantities are editable; unit weights and prices are fixed. The food total and grams per guest recalculate automatically. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
-       menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities",
-       drinkName: "Drink", drinkQty: "Bottles", drinkQtyShort: "Btls", drinkSize: "Bottle size", drinkSizeShort: "Size", drinkUnitPrice: "€ / bottle", drinkUnitPriceShort: "€ / btl", addDrink: "Add drink", removeDrink: "Remove drink", saveDrink: "Save drink", resetDrinks: "Reset suggested drinks", drinkBuilderHint: "Each menu option has its own drinks list. Change the bottle count. To add a drink, enter its name, bottle count, size and price per bottle.",
+      block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", menuPerGuest: "Menu, service and rent / guest", drinksPerGuestLabel: "Drinks / guest", presentsBudget: "Remaining for presents / guest (from €60)", overPresentsBudget: "Over the €60/guest cap by", presentsGroup: "Total for presents", overPresentsGroup: "Total over cap", belowCap: "under €60/guest cap", gramNote: "Only food quantities can be changed; food weights and unit prices are fixed. Rental hours and hourly rate are editable on the personalised table. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
+        menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities",
+        drinkName: "Drink", drinkQty: "Bottles", drinkQtyShort: "Btls", drinkSize: "Bottle size", drinkSizeShort: "Size", drinkUnitPrice: "€ / bottle", drinkUnitPriceShort: "€ / btl", drinkLitersPerGuestLabel: "Drink volume / guest", addDrink: "Add drink", removeDrink: "Remove drink", saveDrink: "Save drink", resetDrinks: "Reset suggested drinks", drinkBuilderHint: "Each menu option has its own drinks list. Change the bottle count. To add a drink, enter its name, bottle count, size (e.g. 750 ml or 1 L) and price per bottle.",
       alcohol: "Alcohol · preferential price per bottle", terms: "Terms",
        perGuest: "per guest", serviceIncl: "incl. 10% service" },
     calc: { perGuest: "per guest", total: "total", minimum: "minimum", noguest: "no fixed price", guests: "guests" },
@@ -1115,9 +1121,9 @@ const VENUES = [
     coords: [42.6633249, 23.2860736],
     status: "offer", detail: "balkan",
     capacity: { bg: "Малка зала · до 40 седящи (оферта за 30)", en: "Small hall · up to 40 seated (offer for 30)" },
-    price: { bg: "Блок маса: текущата цена се калкулира от количествата; офертни варианти: 1 311–1 512 €", en: "Block table: total recalculates from quantities; quoted options: €1,311–€1,512" },
+    price: { bg: "Оферта за блок маса: 1 512,30 € за 30 гости; при персонализираната цена се калкулира по количества, сервиз и часове/цена на наема.", en: "Block table quote: €1,512.30 for 30 guests; personalised total recalculates from quantities, service and rent hours/rate." },
     drinks: { bg: "Алкохол по консумация, преференциални цени (вино от 11 €/бутилка)", en: "Alcohol on consumption, preferential prices (wine from €11/bottle)" },
-    catering: { bg: "Собствена кухня · 2 офертни варианта + 1 наше предложение", en: "Own kitchen · 2 quoted options + 1 proposal" },
+    catering: { bg: "Собствена кухня · 1 офертен вариант + 1 наше предложение", en: "Own kitchen · 1 quoted option + 1 proposal" },
     parking: { bg: "2 места", en: "2 spaces" },
     concept: { bg: "Voice Management (fun edition) с актьор (Вартан) или Line Dancing", en: "Voice Management (fun edition) with an actor (Vartan), or Line Dancing" },
     notes: { bg: "Собствен вход, DJ пулт за собствена музика, парти осветление, място за танци, всичко ново. 1.12.2026 е вторник — неактивен ден. Капаро = наемът на залата.", en: "Own entrance, DJ booth for your own music, party lighting, dance floor, all new. 1 Dec 2026 is a Tuesday — inactive-day rate. Deposit = the hall rental." },
@@ -1322,6 +1328,8 @@ const SOURCES = [
   }
 
   var budgetMenuItems = initialBudgetMenuItems();
+  var budgetHallHourlyRate = 40;
+  var budgetHallHours = 5;
 
   function initialDrinkMenuItems() {
     return OFFER.alcohol.map(function (drink) {
@@ -1350,6 +1358,31 @@ const SOURCES = [
     }, 0));
   }
 
+  function parseDrinkSizeLiters(size) {
+    var match = String(size || "").toLowerCase().replace(/,/g, ".")
+      .match(/(\d+(?:\.\d+)?)\s*(ml|мл|cl|сл|l|л)\s*$/i);
+    if (!match) return 0;
+    var amount = parseFloat(match[1]);
+    var unit = match[2].toLowerCase();
+    if (unit === "ml" || unit === "мл") return amount / 1000;
+    if (unit === "cl" || unit === "сл") return amount / 100;
+    return amount;
+  }
+
+  function drinkLitersPerGuest(menuItems, guests) {
+    var totalLiters = (menuItems || []).reduce(function (sum, item) {
+      if (item.isDraft) return sum;
+      return sum + (Number(item.quantity) || 0) * parseDrinkSizeLiters(item.size);
+    }, 0);
+    return totalLiters / Math.max(1, parseInt(guests, 10) || OFFER.guests);
+  }
+
+  function liters(value) {
+    return Number(value).toLocaleString(lang === "en" ? "en-US" : "bg-BG", {
+      minimumFractionDigits: 2, maximumFractionDigits: 2
+    }) + " " + tr("л", "L");
+  }
+
   function budgetMenuMetrics(guests, offerId) {
     var count = Math.max(1, parseInt(guests, 10) || OFFER.guests);
     var food = 0;
@@ -1362,7 +1395,7 @@ const SOURCES = [
     });
     food = roundMoney(food);
     var service = roundMoney(food * 0.1);
-    var hall = 200;
+    var hall = roundMoney(budgetHallHourlyRate * budgetHallHours);
     var total = roundMoney(food + service + hall);
     var drinkTotal = drinksTotal(drinkMenus[offerId]);
     var perGuest = total / count;
@@ -1371,6 +1404,7 @@ const SOURCES = [
       guests: count, food: food, service: service, hall: hall, total: total,
       foodPerGuest: food / count, perGuest: perGuest,
       gramsPerGuest: grams / count, drinkTotal: drinkTotal,
+      drinkLitersPerGuest: drinkLitersPerGuest(drinkMenus[offerId], count),
       totalWithDrinks: totalWithDrinksGroup / count,
       totalWithDrinksGroup: totalWithDrinksGroup,
       capHeadroom: 60 - totalWithDrinksGroup / count
@@ -1391,6 +1425,7 @@ const SOURCES = [
       foodPerGuest: food / count,
       gramsPerGuest: gramsPerGuest(BALKAN_MENU[offer.id], OFFER.guests),
       perGuest: perGuest, drinkTotal: drinkTotal,
+      drinkLitersPerGuest: drinkLitersPerGuest(drinkMenus[offer.id], count),
       totalWithDrinks: totalWithDrinksGroup / count,
       totalWithDrinksGroup: totalWithDrinksGroup,
       capHeadroom: 60 - totalWithDrinksGroup / count
@@ -1762,6 +1797,14 @@ const SOURCES = [
       var drinkTotal = metrics.drinkTotal;
       var allInWithDrinks = metrics.totalWithDrinks;
       var capHeadroom = metrics.capHeadroom;
+      var hallRow = a.id === "budgetBlock" ?
+        '<div class="offer-plan__rent-row"><dt>' + esc(t("offer.hall")) + '</dt><dd><div class="offer-plan__rent-editor">' +
+          '<input type="number" min="0" max="1000" step="0.01" inputmode="decimal" data-budget-hall-field="rate" value="' + esc(budgetHallHourlyRate) + '" aria-label="' + esc(tr("Цена наема за час в евро", "Hourly rent in euros")) + '">' +
+          esc(tr("€ / час ×", "€ / hour ×")) +
+          '<input type="number" min="0" max="24" step="0.5" inputmode="decimal" data-budget-hall-field="hours" value="' + esc(budgetHallHours) + '" aria-label="' + esc(tr("Часове наем", "Rental hours")) + '">' +
+          esc(tr("часа =", "hours =")) + ' <span data-budget-value="hall">' + money(metrics.hall, metrics.hall % 1 ? 2 : 0) + '</span>' +
+        '</div></dd></div>' :
+        '<div><dt>' + esc(t("offer.hall")) + '</dt><dd data-budget-value="hall">' + money(metrics.hall, 0) + '</dd></div>';
       return '<article class="offer-plan' + (best ? ' offer-plan--best' : '') + '" data-plan-id="' + a.id + '">' +
         '<div class="offer-plan__head"><h4>' + esc(pick(a.name)) + '</h4>' +
           '<span class="offer-plan__badge" data-best-badge' + (best ? '' : ' hidden') + '>' + esc(t("offer.lowest")) + '</span>' +
@@ -1771,18 +1814,24 @@ const SOURCES = [
           esc((lang === "en" ? "total for " : "общо за ")) + '<span data-budget-guests>' + guestCount + '</span> ' + esc(lang === "en" ? "guests" : "гости") + '</p>' +
         '<dl class="offer-plan__final-breakdown">' +
           '<div><dt>' + esc(t("offer.menuPerGuest")) + '</dt><dd data-budget-value="perGuest">' + money(metrics.perGuest) + '</dd></div>' +
-          '<div><dt>' + esc(t("offer.drinksPerGuestLabel")) + '</dt><dd data-budget-value="drinksPerGuest">' + money(drinkTotal / guestCount) + '</dd></div>' +
+        '<div><dt>' + esc(t("offer.drinksPerGuestLabel")) + '</dt><dd data-budget-value="drinksPerGuest">' + money(drinkTotal / guestCount) + '</dd></div>' +
+          '<div><dt>' + esc(t("offer.drinkLitersPerGuestLabel")) + '</dt><dd data-budget-value="drinkLitersPerGuest">' + liters(metrics.drinkLitersPerGuest) + '</dd></div>' +
         '</dl>' +
-        '<p class="offer-plan__presents' + (capHeadroom < 0 ? ' is-over-cap' : '') + '">' +
-          '<span data-presents-label>' + esc(t(capHeadroom < 0 ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
-          '<b data-presents-amount>' + money(Math.abs(capHeadroom)) + '</b></p>' +
+        '<div class="offer-plan__presents' + (capHeadroom < 0 ? ' is-over-cap' : '') + '">' +
+          '<div class="offer-plan__presents-row"><span data-presents-label>' + esc(t(capHeadroom < 0 ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
+            '<b data-presents-amount>' + money(Math.abs(capHeadroom)) + '</b></div>' +
+          '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span><span data-presents-total-label>' +
+            esc(t(capHeadroom < 0 ? "offer.overPresentsGroup" : "offer.presentsGroup")) + '</span> · ' +
+            '<span data-budget-guests>' + guestCount + '</span> ' + esc(lang === "en" ? "guests" : "гости") + '</span>' +
+            '<b data-presents-total-amount>' + money(Math.abs(capHeadroom) * guestCount) + '</b></div>' +
+        '</div>' +
         '<p class="offer-plan__foodpp"><b data-budget-value="foodPerGuest">' + money(metrics.foodPerGuest) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
         '<p class="offer-plan__weight">≈ <span data-budget-value="grams">' + num(grams) + '</span> ' + esc(lang === "en" ? "g" : "г") +
           '<small>' + esc(t("offer.gramsPerGuest")) + '</small></p>' +
         '<dl class="offer-plan__breakdown">' +
           '<div><dt>' + esc(t("offer.food")) + '</dt><dd data-budget-value="food">' + money(metrics.food, metrics.food % 1 ? 2 : 0) + '</dd></div>' +
           '<div><dt>' + esc(t("offer.service")) + '</dt><dd data-budget-value="service">' + money(metrics.service) + '</dd></div>' +
-          '<div><dt>' + esc(t("offer.hall")) + '</dt><dd data-budget-value="hall">' + money(metrics.hall, 0) + '</dd></div>' +
+          hallRow +
         '</dl>' +
         '<div class="offer-plan__menu"><h5 class="offer-plan__menu-title">' + esc(t("offer.menuTitle")) + '</h5>' + menuRows + '</div>' +
         '<details class="offer-plan__drinks"><summary>' + esc(t("offer.alcohol")) + '</summary>' +
@@ -2005,6 +2054,16 @@ const SOURCES = [
 
   function bindCustomMenu(root) {
     if (!root) return;
+    $$('[data-budget-hall-field]', root).forEach(function (input) {
+      input.addEventListener("input", function () {
+        var field = input.getAttribute("data-budget-hall-field");
+        var value = input.value === "" ? 0 : parseFloat(input.value) || 0;
+        if (field === "rate") budgetHallHourlyRate = Math.min(1000, Math.max(0, value));
+        if (field === "hours") budgetHallHours = Math.min(24, Math.max(0, value));
+        renderCalc();
+        renderCompare();
+      });
+    });
     $$("[data-budget-field]", root).forEach(function (input) {
       input.addEventListener("input", function () {
         var i = parseInt(input.getAttribute("data-budget-index"), 10);
@@ -2101,9 +2160,10 @@ const SOURCES = [
         grams: num(Math.round(m.gramsPerGuest)),
         food: money(m.food, m.food % 1 ? 2 : 0),
         service: money(m.service),
-        hall: money(m.hall, 0),
+        hall: money(m.hall, m.hall % 1 ? 2 : 0),
         drinkTotal: money(m.drinkTotal, m.drinkTotal % 1 ? 2 : 0),
         drinksPerGuest: money(m.drinkTotal / m.guests),
+        drinkLitersPerGuest: liters(m.drinkLitersPerGuest),
         withDrinks: money(m.totalWithDrinks)
       };
       Object.keys(values).forEach(function (key) {
@@ -2117,6 +2177,10 @@ const SOURCES = [
       var overCap = m.capHeadroom < 0;
       if (presentsLabel) presentsLabel.textContent = t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget");
       if (presentsAmount) presentsAmount.textContent = money(Math.abs(m.capHeadroom));
+      var presentsTotalLabel = $("[data-presents-total-label]", card);
+      var presentsTotalAmount = $("[data-presents-total-amount]", card);
+      if (presentsTotalLabel) presentsTotalLabel.textContent = t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup");
+      if (presentsTotalAmount) presentsTotalAmount.textContent = money(Math.abs(m.capHeadroom) * m.guests);
       if (presentsRow) presentsRow.classList.toggle("is-over-cap", overCap);
       $$("[data-budget-line]", card).forEach(function (line) {
         var i = parseInt(line.getAttribute("data-budget-line"), 10);
@@ -2208,7 +2272,7 @@ const SOURCES = [
         contact: v.contact.name, pp: null, ppText: "—"
       };
       if (v.id === "balkan") {
-        r.hall = tr("200 € наем / вечер", "€200 hall / night");
+        r.hall = tr("200 € офертен наем; персонализираният се смята по цена/час × часове", "€200 quoted rent; custom rent uses an editable rate × hours");
         r.minspend = tr("няма", "none");
         r.capacity = tr("до 40 седящи (оферта за 30)", "up to 40 seated (offer for 30)");
         var prices = OFFER.alt.map(function (a) { return offerMetrics(a, OFFER.guests).totalWithDrinks; });
