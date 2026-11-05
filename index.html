@@ -2543,6 +2543,28 @@ const SOURCES = [
     renderKitchen59DrinkCalculator(root, mode);
   }
 
+  var html2pdfLoadPromise = null;
+
+  function loadHtml2Pdf() {
+    if (window.html2pdf) return Promise.resolve(window.html2pdf);
+    if (html2pdfLoadPromise) return html2pdfLoadPromise;
+    html2pdfLoadPromise = new Promise(function (resolve, reject) {
+      var script = document.createElement("script");
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+      script.async = true;
+      script.onload = function () {
+        if (window.html2pdf) resolve(window.html2pdf);
+        else reject(new Error("PDF library did not initialize"));
+      };
+      script.onerror = function () {
+        html2pdfLoadPromise = null;
+        reject(new Error("Could not load PDF export library"));
+      };
+      document.head.appendChild(script);
+    });
+    return html2pdfLoadPromise;
+  }
+
   function bindOfferPdfExport(root) {
     if (!root) return;
     $$("[data-export-offer]", root).forEach(function (button) {
@@ -2550,8 +2572,12 @@ const SOURCES = [
         var card = button.closest(".offer-plan");
         if (!card) return;
         var venue = button.getAttribute("data-export-venue") || "WU Alumni";
+        var originalLabel = button.textContent;
+        button.disabled = true;
+        button.textContent = tr("Подготвям PDF…", "Preparing PDF…");
         var page = document.createElement("div");
         page.className = "pdf-export-page";
+        page.style.cssText = "display:block;position:static;width:720px;margin:0;background:#fff;color:#111";
         var heading = document.createElement("div");
         heading.className = "pdf-export-heading";
         heading.textContent = "WU Alumni X-mas Party 2026 · Sofia · 1 December · " + venue;
@@ -2567,21 +2593,41 @@ const SOURCES = [
         sourceFields.forEach(function (field, index) {
           var target = copyFields[index];
           if (!target) return;
-          if (field.type === "checkbox" || field.type === "radio") target.checked = field.checked;
-          else target.value = field.value;
-          if (target.tagName === "INPUT") target.setAttribute("value", target.value);
-          if (target.tagName === "TEXTAREA") target.textContent = target.value;
+          var value = field.type === "checkbox" || field.type === "radio" ?
+            (field.checked ? "✓" : "") : field.value;
+          var replacement = document.createElement("span");
+          replacement.className = "pdf-export-input" + (field.type === "number" ? " pdf-export-input--number" : "");
+          replacement.textContent = value;
+          target.parentNode.replaceChild(replacement, target);
         });
+        $$(".kitchen59-drinks__calc-row.is-zero-quantity", copy).forEach(function (row) { row.remove(); });
+        $$(".kitchen59-drinks__category.is-empty", copy).forEach(function (category) { category.remove(); });
+        if (!$$(".kitchen59-drinks__calc-row", copy).length) {
+          $$(".kitchen59-drinks__calc-head", copy).forEach(function (header) { header.remove(); });
+        }
         $$('[data-export-offer]', copy).forEach(function (node) { node.remove(); });
         page.appendChild(copy);
         document.body.appendChild(page);
-        document.body.classList.add("pdf-export-mode");
         var cleanup = function () {
-          document.body.classList.remove("pdf-export-mode");
           if (page.parentNode) page.parentNode.removeChild(page);
+          button.disabled = false;
+          button.textContent = originalLabel;
         };
-        window.addEventListener("afterprint", cleanup, { once: true });
-        window.print();
+        loadHtml2Pdf().then(function (html2pdf) {
+          return html2pdf().set({
+            margin: [10, 10, 10, 10],
+            filename: "wu-alumni-" + venue.toLowerCase().replace(/[^a-z0-9]+/g, "-") + "-personalised-offer.pdf",
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff", scrollX: 0, scrollY: 0 },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+            pagebreak: { mode: ["css", "legacy"], avoid: ["tr", ".offer-plan__head", ".offer-plan__breakdown"] }
+          }).from(page).save();
+        }).then(cleanup).catch(function (error) {
+          cleanup();
+          if (window.console && console.error) console.error(error);
+          window.alert(tr("PDF не беше създаден. Провери интернет връзката и опитай отново.",
+            "The PDF could not be created. Check your internet connection and try again."));
+        });
       });
     });
   }
