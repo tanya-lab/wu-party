@@ -567,15 +567,15 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .kitchen59-drinks__category ul{list-style:none;margin:0;padding:0}
 .kitchen59-drinks__category li{display:flex;justify-content:space-between;gap:8px;padding:3px 0;border-bottom:1px dotted var(--line);font-size:10.5px;line-height:1.4}
 .kitchen59-drinks__category li b{white-space:nowrap;font-variant-numeric:tabular-nums}
-.kitchen59-personalized{margin:16px 0 20px;padding:0 12px;border:1px solid var(--line);background:#FAFCFD}
-.kitchen59-personalized>summary{padding:12px 0;font-size:11px}
-.kitchen59-personalized .acc__body{padding-bottom:14px}
+.kitchen59-personalized{margin-top:12px;padding-top:8px;border-top:1px solid var(--line-soft)}
+.kitchen59-personalized>summary{padding:8px 0;font-size:10px}
 .kitchen59-custom__hint{margin:0 0 10px;color:var(--ink-soft);font-size:10.5px;line-height:1.5}
 .kitchen59-summary--custom{margin:0 0 14px}
 .kitchen59-plan-comparison{align-items:stretch;margin:8px 0 14px}
 .kitchen59-plan-comparison .kitchen59-summary{height:100%;margin:0}
 .kitchen59-summary--original{border-top:3px solid var(--st-offer)}
 .kitchen59-summary--custom{border-top:3px solid var(--wu)}
+.kitchen59-summary__link{align-self:flex-start;margin-top:10px;font-size:9px}
 .kitchen59-custom__table{min-width:620px}
 .kitchen59-custom__group th{padding-top:10px;background:#F3FAFC;color:var(--wu);font-size:9px}
 .kitchen59-custom__table input[data-kitchen-custom-qty]{width:48px;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);text-align:right}
@@ -2175,13 +2175,14 @@ const SOURCES = [
         '<div><dt>' + esc(tr("Наем на зала", "Hall rental")) + '</dt><dd>' + esc(tr("не е посочен", "not stated")) + '</dd></div>' +
       '</dl>' +
       '<p class="kitchen59-quote__note" data-kitchen-custom-package-note></p>' +
+      kitchen59CustomHtml() +
     '</article>';
   }
 
   function kitchen59CustomHtml() {
-    return '<details class="acc kitchen59-personalized"><summary>' +
+    return '<details class="offer-plan__drinks kitchen59-personalized"><summary>' +
       esc(tr("Персонализирай количествата", "Customize quantities")) +
-      '</summary><div class="acc__body">' + kitchen59CustomBodyHtml() + '</div></details>';
+      '</summary><div class="offer-plan__drinks-body">' + kitchen59CustomBodyHtml() + '</div></details>';
   }
 
   function renderKitchen59Custom(root) {
@@ -2330,6 +2331,7 @@ const SOURCES = [
           '<div><dt>' + esc(tr("Сервиз 7%", "7% service")) + '</dt><dd>' + money(metrics.service) + '</dd></div>' +
           '<div><dt>' + esc(tr("Наем на зала", "Hall rental")) + '</dt><dd>' + esc(tr("не е посочен", "not stated")) + '</dd></div>' +
         '</dl>' +
+        '<a class="btn btn--ghost kitchen59-summary__link" href="#kitchen59-original-details">' + esc(tr("Виж разбивката на офертата ↓", "View itemized offer ↓")) + '</a>' +
         '<p class="kitchen59-quote__note">' + esc(tr("Оценка за теглото: 14 хапки × 40 г плюс среден дял от платата; порцията снакс не е уточнена. Обемът на чашата просеко не е посочен. Другите напитки се плащат отделно на бара.",
           "Food weight estimate: 14 bites × 40 g plus an average share of the platters; snack portions are unspecified. Prosecco glass volume is not stated. Other drinks are paid separately at the bar.")) + '</p>' +
       '</article>' +
@@ -2337,7 +2339,7 @@ const SOURCES = [
       '</div>' +
       '<p class="kitchen59-quote__note kitchen59-compare-note">' + esc(tr("Персонализираната опция започва със същите количества като офертата. Отвори „Персонализирай количествата“, за да я промениш; сметката е ориентировъчна до потвърждение от Kitchen59.",
         "The personalised option starts with the same quantities as the quote. Open “Customize quantities” to change it; the estimate is subject to confirmation by Kitchen59.")) + '</p>' +
-      kitchen59CustomHtml() +
+      '<h4 class="kitchen59-quote__section-title" id="kitchen59-original-details">' + esc(tr("Оригинална оферта · подробно меню", "Original offer · itemized menu")) + '</h4>' +
       '<h4 class="kitchen59-quote__section-title">' + esc(tr("Основен пакет · 10 хапки на човек", "Base package · 10 bites per guest")) + '</h4>' +
       '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table"><thead><tr>' +
         '<th>' + esc(tr("Хапка", "Bite")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
