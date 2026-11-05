@@ -933,7 +933,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
           <tbody id="cmp-body"></tbody>
         </table>
       </div>
-      <p class="cmp-legend" data-i18n="cmpLegend">Balkan Falsch: quoted and personalised block tables. Kitchen59: about €51.87/guest including 7% service and 40 welcome proseccos; other drinks are paid separately.</p>
+      <p class="cmp-legend" data-i18n="cmpLegend">Balkan Falsch: quoted and personalised block tables. Kitchen59: about €49.90/guest including 7% service and 30 welcome proseccos; other drinks are paid separately.</p>
     </div>
   </section>
 
@@ -1021,7 +1021,7 @@ const UI = {
     progParty: "Парти — крайният час предстои да се уточни.",
     cmpEyebrow: "Сравнение", cmpTitle: "Две опции една до друга",
     cmpLead: "Кликни върху заглавие на колона, за да сортираш. €/гост е изчислено за 30 гости; напитките извън welcome drink в Kitchen59 се плащат отделно.",
-    cmpLegend: "Balkan Falsch: офертна и персонализирана блок маса. Kitchen59: около 51,87 €/гост с 7% сервиз и 40 welcome просеко; останалите напитки се плащат отделно.",
+    cmpLegend: "Balkan Falsch: офертна и персонализирана блок маса. Kitchen59: около 49,90 €/гост с 7% сервиз и 30 welcome просеко; останалите напитки се плащат отделно.",
     srcEyebrow: "Документи", srcTitle: "Източници",
     srcLead: "Офертата на Balkan Falsch, офертата на Kitchen59 и информацията за събитията му. Менютата на Kitchen59 са в споделения Google Drive.",
     footAbout: "X-mas Party 2026 · София. Планираща страница за организаторите: две места, оферти и бюджет.",
@@ -1075,7 +1075,7 @@ const UI = {
     progParty: "Party—the end time is still to be decided.",
     cmpEyebrow: "Compare", cmpTitle: "Two options, side by side",
     cmpLead: "Click a column header to sort. €/guest is calculated for 30 guests; drinks beyond the Kitchen59 welcome drink are paid separately.",
-    cmpLegend: "Balkan Falsch: quoted and personalised block tables. Kitchen59: about €51.87/guest including 7% service and 40 welcome proseccos; other drinks are paid separately.",
+    cmpLegend: "Balkan Falsch: quoted and personalised block tables. Kitchen59: about €49.90/guest including 7% service and 30 welcome proseccos; other drinks are paid separately.",
     srcEyebrow: "Documents", srcTitle: "Sources",
     srcLead: "The Balkan Falsch and Kitchen59 offers, plus Kitchen59’s event information. Kitchen59’s full menus are in the shared Google Drive.",
     footAbout: "X-mas Party 2026 · Sofia. A planning page for the organising team: two venues, offers and budget.",
@@ -1125,7 +1125,7 @@ const VENUES = [
     coords: [42.6814171, 23.2903997],
     status: "offer", detail: "kitchen59",
     capacity: { bg: "Покрив 300 м² · до 180 ексклузивно / до 80 споделено", en: "300 m² rooftop · up to 180 exclusive / 80 shared" },
-    price: { bg: "Разбивка за 30 гости: около 51,87 €/гост / 1 555,99 € с 7% сервиз и 40 welcome просеко.", en: "Itemised estimate for 30 guests: about €51.87/guest / €1,555.99 including 7% service and 40 welcome proseccos." },
+    price: { bg: "Оферта за 30 гости: около 49,90 €/гост / 1 497,14 € с 7% сервиз и 30 welcome просеко.", en: "Offer for 30 guests: about €49.90/guest / €1,497.14 including 7% service and 30 welcome proseccos." },
     drinks: { bg: "Welcome drink е включен; останалите напитки се поръчват и плащат индивидуално на основния бар.", en: "A welcome drink is included; other drinks are ordered and paid for individually at the main bar." },
     catering: { bg: "Поръчка до 20 ноември; 50% аванс; минимум 30 бр. от вид хапка (не ограничава група от 30 гости).", en: "Order by 20 November; 50% deposit; 30-piece minimum per canapé type (not a constraint for 30 guests)." },
     parking: { bg: "Условията за паркинг за гости на събитието се потвърждават", en: "Event guest parking terms to be confirmed" },
@@ -1206,8 +1206,9 @@ const KITCHEN59_QUOTE = {
     en: "The snack mix is nuts, olives and crisps; the Drive menu lists baked nuts (100 g) at €4.20, spiced olives (100 g) at €3.50 and chips (40 g) at €2.50."
   },
   welcomeDrink: {
-    name: { bg: "Чаша просеко за добре дошли", en: "Welcome prosecco (glass)" },
-    quantity: 40,
+    name: { bg: "Чаша просеко за добре дошли · 125 мл", en: "Welcome prosecco · 125 ml glass" },
+    quantity: 30,
+    sizeMl: 125,
     price: 5.5
   },
   reservation: {
@@ -1547,6 +1548,7 @@ const SOURCES = [
       welcomeTotal: roundMoney(welcomeTotal),
       welcomePerGuest: roundMoney(welcomeTotal / guests),
       welcomeGlassesPerGuest: roundMoney(KITCHEN59_QUOTE.welcomeDrink.quantity / guests),
+      drinkLitersPerGuest: roundMoney(KITCHEN59_QUOTE.welcomeDrink.quantity * KITCHEN59_QUOTE.welcomeDrink.sizeMl / 1000 / guests),
       foodGramsPerGuest: Math.round((KITCHEN59_QUOTE.baseBites.length + KITCHEN59_QUOTE.extraBites.length) * 40 +
         KITCHEN59_QUOTE.platters.reduce(function (sum, item) {
           return sum + item.quantity * item.grams;
@@ -1596,6 +1598,7 @@ const SOURCES = [
     var nutsTotal = 0;
     var nutsGrams = 0;
     var welcomeTotal = 0;
+    var welcomeQuantity = 0;
     kitchen59CustomItems.forEach(function (item) {
       var quantity = Math.max(0, Number(item.quantity) || 0);
       var line = quantity * Math.max(0, Number(item.price) || 0);
@@ -1603,7 +1606,7 @@ const SOURCES = [
       if (item.kind === "platter") { platterTotal += line; platterGrams += quantity * item.grams; }
       if (item.kind === "snack") snackTotal += line;
       if (item.kind === "nuts") { nutsTotal += line; nutsGrams += quantity * item.grams; }
-      if (item.kind === "welcome") welcomeTotal += line;
+      if (item.kind === "welcome") { welcomeTotal += line; welcomeQuantity += quantity; }
     });
     if (!isFinite(packageCount)) packageCount = 0;
     var packageDiscount = roundMoney(packageCount * baseDiscountPerPackage);
@@ -1624,10 +1627,9 @@ const SOURCES = [
       welcomePerGuest: roundMoney(welcomeTotal / guests),
       foodGramsPerGuest: Math.round((baseGrams + extraGrams + platterGrams + nutsGrams) / guests),
       welcomeGlassesPerGuest: welcomeTotal ? roundMoney(
-        kitchen59CustomItems.reduce(function (sum, item) {
-          return sum + (item.kind === "welcome" ? Math.max(0, Number(item.quantity) || 0) : 0);
-        }, 0) / guests
+        welcomeQuantity / guests
       ) : 0,
+      drinkLitersPerGuest: roundMoney(welcomeQuantity * KITCHEN59_QUOTE.welcomeDrink.sizeMl / 1000 / guests),
       subtotal: subtotal, service: service, totalGroup: totalGroup,
       totalPerGuest: roundMoney(totalGroup / guests),
       capHeadroom: 60 - totalGroup / guests
@@ -2221,8 +2223,8 @@ const SOURCES = [
     return '<details class="offer-plan__drinks kitchen59-drinks-calc" data-kitchen-drink-calculator="' + mode + '">' +
       '<summary>' + esc(tr("Добави напитки от менюто · по избор", "Add drinks from the menu · optional")) + '</summary>' +
       '<div class="offer-plan__drinks-body"><p class="kitchen59-quote__note">' +
-        esc(tr("Въведи количество за всяка напитка. Сумата се добавя към варианта с 7% сервиз; нулево количество означава, че напитката е изключена.",
-          "Enter a quantity for each drink. The selected amount is added to this option with 7% service; zero means it is excluded.")) +
+        esc(tr("Въведи количество за всяка напитка. Сумата се добавя към варианта с 7% сервиз; нулево количество означава, че напитката е изключена. Обемът на човек показва само welcome просекото от 125 мл; грамажът на останалите напитки не е посочен.",
+          "Enter a quantity for each drink. The selected amount is added to this option with 7% service; zero means it is excluded. Per-person volume counts only the 125 ml welcome prosecco; other pour sizes are not listed.")) +
         '</p><div class="kitchen59-drinks__calc-head"><span>' + esc(tr("Напитка", "Drink")) + '</span><span>' + esc(tr("€ / бр.", "€ / item")) +
           '</span><span>' + esc(tr("Кол.", "Qty")) + '</span><span>' + esc(tr("Общо", "Total")) + '</span></div>' +
         '<div class="kitchen59-drinks__grid">' + categories + '</div>' +
@@ -2322,12 +2324,12 @@ const SOURCES = [
       '<div class="offer-plan__weight-pair">' +
         '<p class="offer-plan__weight">≈ ' + num(metrics.foodGramsPerGuest) + ' ' + esc(tr("г", "g")) +
           '<small>' + esc(tr("храна на гост · без снакса", "food per guest · excludes snack portions")) + '</small></p>' +
-        '<p class="offer-plan__weight">' + metrics.welcomeGlassesPerGuest.toLocaleString(lang === "en" ? "en-US" : "bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
-          '<small>' + esc(tr("чаши welcome просеко / гост", "welcome prosecco glasses / guest")) + '</small></p>' +
+        '<p class="offer-plan__weight"><span data-kitchen-original-value="drinkLitersPerGuest">' + liters(metrics.drinkLitersPerGuest) + '</span>' +
+          '<small>' + esc(tr("обем welcome просеко / гост", "welcome prosecco volume / guest")) + '</small></p>' +
       '</div>' +
       '<dl class="offer-plan__breakdown">' +
         '<div><dt>' + esc(tr("Храна + allowance за снакс", "Food + snack allowance")) + '</dt><dd>' + money(metrics.foodTotal) + '</dd></div>' +
-        '<div><dt>' + esc(tr("Welcome просеко · 40 чаши", "Welcome prosecco · 40 glasses")) + '</dt><dd>' + money(metrics.welcomeTotal) + '</dd></div>' +
+        '<div><dt>' + esc(tr("Welcome просеко · 30 × 125 мл", "Welcome prosecco · 30 × 125 ml")) + '</dt><dd>' + money(metrics.welcomeTotal) + '</dd></div>' +
         '<div><dt>' + esc(tr("Други напитки", "Additional drinks")) + '</dt><dd data-kitchen-original-value="drinkTotal">' + money(metrics.drinkTotal) + '</dd></div>' +
         '<div><dt>' + esc(tr("Сервиз 7%", "7% service")) + '</dt><dd data-kitchen-original-value="service">' + money(metrics.service) + '</dd></div>' +
         '<div><dt>' + esc(tr("Наем на зала", "Hall rental")) + '</dt><dd>' + esc(tr("не е посочен", "not stated")) + '</dd></div>' +
@@ -2367,8 +2369,8 @@ const SOURCES = [
       '<div class="offer-plan__weight-pair">' +
         '<p class="offer-plan__weight">≈ <span data-kitchen-custom-value="grams">' + num(metrics.foodGramsPerGuest) + '</span> ' + esc(tr("г", "g")) +
           '<small>' + esc(tr("храна на гост · без снакса", "food per guest · excludes snack portions")) + '</small></p>' +
-        '<p class="offer-plan__weight"><span data-kitchen-custom-value="glasses">' + metrics.welcomeGlassesPerGuest.toLocaleString(lang === "en" ? "en-US" : "bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '</span>' +
-          '<small>' + esc(tr("чаши просеко / гост", "welcome prosecco glasses / guest")) + '</small></p>' +
+        '<p class="offer-plan__weight"><span data-kitchen-custom-value="drinkLitersPerGuest">' + liters(metrics.drinkLitersPerGuest) + '</span>' +
+          '<small>' + esc(tr("обем welcome просеко / гост", "welcome prosecco volume / guest")) + '</small></p>' +
       '</div>' +
       '<dl class="offer-plan__breakdown">' +
         '<div><dt>' + esc(tr("Храна и снакс", "Food and snacks")) + '</dt><dd data-kitchen-custom-value="food">' + money(metrics.foodTotal) + '</dd></div>' +
@@ -2405,6 +2407,7 @@ const SOURCES = [
       glasses: metrics.welcomeGlassesPerGuest.toLocaleString(lang === "en" ? "en-US" : "bg-BG", {
         minimumFractionDigits: 2, maximumFractionDigits: 2
       }),
+      drinkLitersPerGuest: liters(metrics.drinkLitersPerGuest),
       food: money(metrics.foodTotal), welcome: money(metrics.welcomeTotal),
       drinkTotal: money(metrics.drinkTotal),
       service: money(metrics.service), baseList: money(metrics.baseListTotal),
@@ -2441,7 +2444,8 @@ const SOURCES = [
       perGuest: money(metrics.totalPerGuest), perGuestLine: money(metrics.totalPerGuest),
       group: money(metrics.totalGroup), headroom: money(Math.abs(metrics.capHeadroom)),
       headroomGroup: money(Math.abs(metrics.capHeadroom) * KITCHEN59_QUOTE.guests),
-      drinkTotal: money(metrics.drinkTotal), service: money(metrics.service)
+      drinkTotal: money(metrics.drinkTotal), service: money(metrics.service),
+      drinkLitersPerGuest: liters(metrics.drinkLitersPerGuest)
     };
     Object.keys(values).forEach(function (key) {
       var node = $('[data-kitchen-original-value="' + key + '"]', root);
