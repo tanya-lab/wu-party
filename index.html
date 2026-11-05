@@ -481,6 +481,8 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__adjustment dd{color:#9A7412}
 .offer-plan__menu{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft)}
 .offer-plan__menu-title{margin:0 0 8px;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.offer-plan__export{align-self:flex-start;margin-top:12px;font-size:9px}
+.pdf-export-page{display:none}
 .offer-plan__menu .tbl td,.offer-plan__menu .tbl th{padding:5px 4px;font-size:10px}
 .offer-plan__menu .tbl td:first-child{min-width:110px}
 .custom-menu{display:grid;border-top:1px solid var(--line-soft)}
@@ -559,6 +561,8 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .tbl-wrap{width:100%;overflow-x:auto}
 .kitchen59-quote__meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;margin-top:12px}
 .kitchen59-quote__meta p{margin:0;font-size:11px;line-height:1.5}
+.kitchen59-terms{margin-top:16px;padding-top:10px;border-top:1px solid var(--line-soft)}
+.kitchen59-terms .kitchen59-quote__section-title{margin-top:0}
 .kitchen59-quote__drive{margin:10px 0 0;padding-top:8px;border-top:1px solid var(--line-soft);color:var(--ink-soft);font-size:10px}
 .kitchen59-drinks{margin-top:16px;padding:0 10px;border:1px solid var(--line)}
 .kitchen59-drinks>summary{padding:11px 0;font-size:11px}
@@ -742,9 +746,21 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 }
 @media (max-width:560px){.offer-plans{grid-template-columns:minmax(0,1fr)}.kitchen59-quote__meta,.kitchen59-drinks__grid{grid-template-columns:1fr}}
 @media print{
+  @page{margin:12mm}
   .topbar,.site-head,#snow,.garland,.map-wrap{display:none!important}
   body{font-size:11pt}
   .section{padding:12pt 0}
+  body.pdf-export-mode>.pdf-export-page{display:block!important;width:100%;margin:0;padding:0;color:#111}
+  body.pdf-export-mode>:not(.pdf-export-page){display:none!important}
+  .pdf-export-page .pdf-export-heading{display:flex;justify-content:space-between;gap:12px;margin:0 0 12pt;padding:0 0 8pt;border-bottom:1px solid #999;font:700 11pt Arial,sans-serif}
+  .pdf-export-page .offer-plan{display:flex!important;width:100%!important;max-width:none!important;height:auto!important;max-height:none!important;position:static!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;overflow:visible!important;background:#fff!important;color:#111!important}
+  .pdf-export-page .offer-plan__export,.pdf-export-page .custom-menu__actions{display:none!important}
+  .pdf-export-page .offer-plan__drinks{display:block!important}
+  .pdf-export-page .offer-plan__drinks>summary{display:none!important}
+  .pdf-export-page .offer-plan__drinks-body{display:block!important}
+  .pdf-export-page .kitchen59-drinks__calc-row.is-zero-quantity,.pdf-export-page .kitchen59-drinks__category.is-empty{display:none!important}
+  .pdf-export-page input[type="number"],.pdf-export-page input[type="text"]{appearance:none!important;border:0!important;background:transparent!important;box-shadow:none!important;color:#111!important;font:inherit!important;padding:0!important}
+  .pdf-export-page input[type="number"]::-webkit-inner-spin-button,.pdf-export-page input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 }
 </style>
 </head>
@@ -1799,6 +1815,7 @@ const SOURCES = [
        bindCustomMenu(customPlan);
        bindKitchen59DrinkCalculator($('.kitchen59-summary--original', panel), "original");
        bindKitchen59Custom($('.kitchen59-personalized', panel));
+       bindOfferPdfExport(panel);
       $$(".offer-plan[data-plan-id]", panel).forEach(function (plan) {
         bindDrinkMenu(plan, plan.getAttribute("data-plan-id"));
       });
@@ -1841,6 +1858,7 @@ const SOURCES = [
       bindKitchen59DrinkCalculator(card, "original");
     });
     $$(".venue-panel:not([hidden]) .kitchen59-personalized", host).forEach(bindKitchen59Custom);
+    $$(".venue-panel:not([hidden])", host).forEach(bindOfferPdfExport);
     $$(".venue-panel:not([hidden]) .offer-plan[data-plan-id]", host).forEach(function (plan) {
       bindDrinkMenu(plan, plan.getAttribute("data-plan-id"));
     });
@@ -2132,6 +2150,8 @@ const SOURCES = [
           '<div><dt>' + esc(t("offer.service")) + '</dt><dd data-budget-value="service">' + money(metrics.service) + '</dd></div>' +
           hallRow +
         '</dl>' +
+        (a.id === "budgetBlock" ? '<button type="button" class="btn btn--ghost offer-plan__export" data-export-offer data-export-venue="Balkan Falsch">' +
+          esc(tr("Експортирай персонализираната оферта като PDF", "Export personalised offer as PDF")) + '</button>' : '') +
         '<div class="offer-plan__menu"><h5 class="offer-plan__menu-title">' + esc(t("offer.menuTitle")) + '</h5>' + menuRows + '</div>' +
         '<details class="offer-plan__drinks"><summary>' + esc(t("offer.alcohol")) + '</summary>' +
           '<div class="offer-plan__drinks-body">' + drinkMenuHtml(a.id) +
@@ -2385,6 +2405,8 @@ const SOURCES = [
         '<div><dt>' + esc(tr("Сервиз 7%", "7% service")) + '</dt><dd data-kitchen-custom-value="service">' + money(metrics.service) + '</dd></div>' +
         '<div><dt>' + esc(tr("Наем на зала", "Hall rental")) + '</dt><dd>' + esc(tr("не е посочен", "not stated")) + '</dd></div>' +
       '</dl>' +
+      '<button type="button" class="btn btn--ghost offer-plan__export" data-export-offer data-export-venue="Kitchen59">' +
+        esc(tr("Експортирай персонализираната оферта като PDF", "Export personalised offer as PDF")) + '</button>' +
       '<p class="kitchen59-quote__note" data-kitchen-custom-package-note></p>' +
       kitchen59CustomHtml() +
     '</article>';
@@ -2476,7 +2498,16 @@ const SOURCES = [
     selections.forEach(function (selection, index) {
       var drink = KITCHEN59_DRINK_MENU[selection.categoryIndex].items[selection.itemIndex];
       var line = $('[data-kitchen-drink-line="' + mode + '-' + index + '"]', root);
-      if (line) line.textContent = money((Number(selection.quantity) || 0) * drink.price);
+      var quantity = Math.max(0, Number(selection.quantity) || 0);
+      if (line) line.textContent = money(quantity * drink.price);
+      var row = line && line.closest("li");
+      if (row) row.classList.toggle("is-zero-quantity", quantity === 0);
+    });
+    $$(".kitchen59-drinks__category", root).forEach(function (category) {
+      var hasSelection = $$(".kitchen59-drinks__calc-row", category).some(function (row) {
+        return !row.classList.contains("is-zero-quantity");
+      });
+      category.classList.toggle("is-empty", !hasSelection);
     });
     var total = $('[data-kitchen-drink-total="' + mode + '"]', root);
     if (total) total.textContent = money(kitchen59DrinkTotal(mode));
@@ -2512,6 +2543,49 @@ const SOURCES = [
     renderKitchen59DrinkCalculator(root, mode);
   }
 
+  function bindOfferPdfExport(root) {
+    if (!root) return;
+    $$("[data-export-offer]", root).forEach(function (button) {
+      button.addEventListener("click", function () {
+        var card = button.closest(".offer-plan");
+        if (!card) return;
+        var venue = button.getAttribute("data-export-venue") || "WU Alumni";
+        var page = document.createElement("div");
+        page.className = "pdf-export-page";
+        var heading = document.createElement("div");
+        heading.className = "pdf-export-heading";
+        heading.textContent = "WU Alumni X-mas Party 2026 · Sofia · 1 December · " + venue;
+        page.appendChild(heading);
+        var copy = card.cloneNode(true);
+        copy.classList.add("pdf-export-card");
+        $$("details", card).forEach(function (details, index) {
+          var copyDetails = $$("details", copy)[index];
+          if (copyDetails) copyDetails.open = true;
+        });
+        var sourceFields = $$("input, textarea, select", card);
+        var copyFields = $$("input, textarea, select", copy);
+        sourceFields.forEach(function (field, index) {
+          var target = copyFields[index];
+          if (!target) return;
+          if (field.type === "checkbox" || field.type === "radio") target.checked = field.checked;
+          else target.value = field.value;
+          if (target.tagName === "INPUT") target.setAttribute("value", target.value);
+          if (target.tagName === "TEXTAREA") target.textContent = target.value;
+        });
+        $$('[data-export-offer]', copy).forEach(function (node) { node.remove(); });
+        page.appendChild(copy);
+        document.body.appendChild(page);
+        document.body.classList.add("pdf-export-mode");
+        var cleanup = function () {
+          document.body.classList.remove("pdf-export-mode");
+          if (page.parentNode) page.parentNode.removeChild(page);
+        };
+        window.addEventListener("afterprint", cleanup, { once: true });
+        window.print();
+      });
+    });
+  }
+
   function bindKitchen59Custom(root) {
     if (!root) return;
     $$('[data-kitchen-custom-qty]', root).forEach(function (input) {
@@ -2545,7 +2619,8 @@ const SOURCES = [
   }
 
   function kitchen59QuoteHtml() {
-    return '<section class="kitchen59-quote">' +
+    return '<details class="acc kitchen59-full-offer" open><summary>' + esc(tr("Пълна оферта", "Full offer")) + '</summary>' +
+      '<div class="acc__body"><section class="kitchen59-quote">' +
       '<div class="kitchen59-quote__head"><div>' +
         '<h3>' + esc(tr("Оферта за меню · Kitchen59", "Kitchen59 menu offer")) + '</h3>' +
         '<p>' + esc(pick(KITCHEN59_QUOTE.reservation)) + '</p>' +
@@ -2557,8 +2632,8 @@ const SOURCES = [
       '<div class="offer-plans kitchen59-plan-comparison">' +
         kitchen59OriginalSummaryHtml() + kitchen59CustomSummaryHtml() +
       '</div>' +
-      '<details class="acc kitchen59-terms"><summary>' + esc(tr("Условия, сервиране и източници", "Terms, serving and sources")) + '</summary>' +
-        '<div class="acc__body"><div class="kitchen59-quote__meta">' +
+      '<div class="kitchen59-terms"><h4 class="kitchen59-quote__section-title">' + esc(tr("Условия, сервиране и източници", "Terms, serving and sources")) + '</h4>' +
+        '<div class="kitchen59-quote__meta">' +
           '<div><p><strong>' + esc(tr("Кетъринг и плащане", "Catering and payment")) + '</strong></p>' +
             '<p>' + esc(pick(KITCHEN59_QUOTE.deadline)) + '</p><p>' + esc(pick(KITCHEN59_QUOTE.deposit)) + '</p>' +
             '<p>' + esc(pick(KITCHEN59_QUOTE.minimum)) + '</p></div>' +
@@ -2567,8 +2642,8 @@ const SOURCES = [
         '</div>' +
         '<p class="kitchen59-quote__drive">' + esc(pick(KITCHEN59_QUOTE.drive)) + ' ' +
           '<a href="https://drive.google.com/drive/u/0/folders/1ejgnL7LVPfUf4cNWWobc9ot7qJ8VEklL" target="_blank" rel="noopener">' +
-            esc(tr("Отвори всички менюта в Google Drive ↗", "Open all menus in Google Drive ↗")) + '</a></p></div></details>' +
-    '</section>';
+            esc(tr("Отвори всички менюта в Google Drive ↗", "Open all menus in Google Drive ↗")) + '</a></p></div>' +
+      '</div></section></div></details>';
   }
 
   function gramsPerGuest(rows, guests) {
