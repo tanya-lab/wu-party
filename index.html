@@ -601,6 +601,16 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .kitchen59-drinks__calc-head span:not(:first-child){text-align:right}
 .kitchen59-custom__group th{padding-top:10px;background:#F3FAFC;color:var(--wu);font-size:9px}
 .kitchen59-custom__table input[data-kitchen-custom-qty]{width:48px;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);text-align:right}
+.kitchen59-custom__dish-name{display:flex;align-items:flex-start;justify-content:space-between;gap:4px}
+.kitchen59-custom__remove{flex:none;width:16px;height:18px;margin:-2px 0 0;padding:0;border:0;background:transparent;color:var(--ink-soft);font:700 13px var(--ui);cursor:pointer}
+.kitchen59-custom__remove:hover{color:var(--st-unavailable)}
+.kitchen59-custom__draft-name{display:flex;align-items:center;gap:3px}
+.kitchen59-custom__draft-name input{width:100%;min-width:0;padding:4px;border:1px solid var(--line);font:500 9px var(--ui)}
+.kitchen59-custom__row-actions{display:flex;flex:none;gap:2px}
+.kitchen59-custom__row-actions .custom-menu__remove,.kitchen59-custom__row-actions .custom-menu__commit{width:16px;height:20px}
+.kitchen59-custom__draft .custom-menu__qty--draft{display:flex;justify-content:flex-end;align-items:center;gap:2px}
+.kitchen59-custom__draft .custom-menu__qty--draft input{width:26px;padding:4px 2px}
+.kitchen59-custom__draft .custom-menu__price input{width:46px;min-width:0;padding:4px 2px;border:1px solid var(--line);font:500 9px var(--ui);text-align:right}
 .menu-cols h4{font-family:var(--ui);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--wu);margin:14px 0 6px;font-weight:800}
 .menu-cols ul{list-style:none;margin:0;padding:0}
 .menu-cols li{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dotted #DDD;font-size:12.5px;line-height:1.45}
@@ -754,7 +764,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
   body.pdf-export-mode>:not(.pdf-export-page){display:none!important}
   .pdf-export-page .pdf-export-heading{display:flex;justify-content:space-between;gap:12px;margin:0 0 12pt;padding:0 0 8pt;border-bottom:1px solid #999;font:700 11pt Arial,sans-serif}
   .pdf-export-page .offer-plan{display:flex!important;width:100%!important;max-width:none!important;height:auto!important;max-height:none!important;position:static!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important;overflow:visible!important;background:#fff!important;color:#111!important}
-  .pdf-export-page .offer-plan__export,.pdf-export-page .custom-menu__actions{display:none!important}
+  .pdf-export-page .offer-plan__export,.pdf-export-page .custom-menu__actions,.pdf-export-page .kitchen59-custom__row-actions,.pdf-export-page .kitchen59-custom__remove,.pdf-export-page .custom-menu__commit{display:none!important}
   .pdf-export-page .offer-plan__drinks{display:block!important}
   .pdf-export-page .offer-plan__drinks>summary{display:none!important}
   .pdf-export-page .offer-plan__drinks-body{display:block!important}
@@ -1591,9 +1601,9 @@ const SOURCES = [
 
   function kitchen59CustomMetrics() {
     var guests = KITCHEN59_QUOTE.guests;
-    var base = kitchen59CustomItems.filter(function (item) { return item.kind === "base"; });
+    var base = kitchen59CustomItems.filter(function (item) { return item.kind === "base" && !item.isDraft; });
     var baseListTotal = 0;
-    var packageCount = base.length ? Infinity : 0;
+    var packageCount = base.length === KITCHEN59_QUOTE.baseBites.length ? Infinity : 0;
     var baseDiscountPerPackage = KITCHEN59_QUOTE.basePackagePerGuest - KITCHEN59_QUOTE.baseBites.reduce(function (sum, item) {
       return sum + Number(item.price || 0);
     }, 0);
@@ -1613,7 +1623,10 @@ const SOURCES = [
     var nutsGrams = 0;
     var welcomeTotal = 0;
     var welcomeQuantity = 0;
+    var customTotal = 0;
+    var customGrams = 0;
     kitchen59CustomItems.forEach(function (item) {
+      if (item.isDraft) return;
       var quantity = Math.max(0, Number(item.quantity) || 0);
       var line = quantity * Math.max(0, Number(item.price) || 0);
       if (item.kind === "extra") { extrasTotal += line; extraGrams += quantity * item.grams; }
@@ -1621,11 +1634,12 @@ const SOURCES = [
       if (item.kind === "snack") snackTotal += line;
       if (item.kind === "nuts") { nutsTotal += line; nutsGrams += quantity * item.grams; }
       if (item.kind === "welcome") { welcomeTotal += line; welcomeQuantity += quantity; }
+      if (item.kind === "custom") { customTotal += line; customGrams += quantity * (Number(item.grams) || 0); }
     });
     if (!isFinite(packageCount)) packageCount = 0;
     var packageDiscount = roundMoney(packageCount * baseDiscountPerPackage);
     var baseTotal = roundMoney(baseListTotal + packageDiscount);
-    var foodTotal = roundMoney(baseTotal + extrasTotal + platterTotal + snackTotal + nutsTotal);
+    var foodTotal = roundMoney(baseTotal + extrasTotal + platterTotal + snackTotal + nutsTotal + customTotal);
     var drinkTotal = kitchen59DrinkTotal("custom");
     var subtotal = roundMoney(foodTotal + welcomeTotal + drinkTotal);
     var service = roundMoney(subtotal * KITCHEN59_QUOTE.serviceRate);
@@ -1634,12 +1648,12 @@ const SOURCES = [
       baseListTotal: roundMoney(baseListTotal), packageCount: packageCount,
       packageDiscount: packageDiscount, baseTotal: baseTotal,
       extrasTotal: roundMoney(extrasTotal), platterTotal: roundMoney(platterTotal),
-      snackTotal: roundMoney(snackTotal), nutsTotal: roundMoney(nutsTotal),
+      snackTotal: roundMoney(snackTotal), nutsTotal: roundMoney(nutsTotal), customTotal: roundMoney(customTotal),
       welcomeTotal: roundMoney(welcomeTotal), foodTotal: foodTotal,
       drinkTotal: drinkTotal,
       foodPerGuest: roundMoney(foodTotal / guests),
       welcomePerGuest: roundMoney(welcomeTotal / guests),
-      foodGramsPerGuest: Math.round((baseGrams + extraGrams + platterGrams + nutsGrams) / guests),
+      foodGramsPerGuest: Math.round((baseGrams + extraGrams + platterGrams + nutsGrams + customGrams) / guests),
       welcomeGlassesPerGuest: welcomeTotal ? roundMoney(
         welcomeQuantity / guests
       ) : 0,
@@ -2177,6 +2191,7 @@ const SOURCES = [
     var groups = [
       { kind: "base", label: tr("Основен пакет · 10 хапки", "Base package · 10 bites") },
       { kind: "extra", label: tr("Допълнителни хапки", "Extra bites") },
+      { kind: "custom", label: tr("Нови персонализирани ястия", "New personalised dishes") },
       { kind: "platter", label: tr("Плата за споделяне", "Sharing platters") },
       { kind: "snack", label: tr("Късен снакс", "Late-night snack") },
       { kind: "nuts", label: tr("Допълнителни ядки · по избор", "Extra nuts · optional") },
@@ -2191,9 +2206,28 @@ const SOURCES = [
       return '<tr class="kitchen59-custom__group"><th colspan="3">' + esc(group.label) + '</th></tr>' +
         groupItems.map(function (entry) {
           var item = entry.item;
+          if (item.isDraft) {
+            var previewTotal = (Number(item.quantity) || 0) * (Number(item.price) || 0);
+            return '<tr class="kitchen59-custom__draft"><td><div class="kitchen59-custom__draft-name">' +
+              '<input type="text" maxlength="120" data-kitchen-custom-field="name" data-kitchen-custom-index="' + entry.index + '" value="' +
+                esc(item.name || "") + '" placeholder="' + esc(tr("Име на ястие", "Dish name")) + '" aria-label="' + esc(tr("Име на ястие", "Dish name")) + '">' +
+              '<span class="kitchen59-custom__row-actions"><button type="button" class="custom-menu__commit" data-kitchen-custom-commit="' + entry.index + '"' +
+                ' aria-label="' + esc(tr("Добави ястието", "Save dish")) + '" title="' + esc(tr("Добави ястието", "Save dish")) + '">✓</button>' +
+              '<button type="button" class="custom-menu__remove" data-kitchen-custom-remove="' + entry.index + '"' +
+                ' aria-label="' + esc(tr("Премахни ястието", "Remove dish")) + '">×</button></span></div></td>' +
+              '<td class="num"><div class="custom-menu__qty custom-menu__qty--draft">' +
+                '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-kitchen-custom-field="draft-quantity" data-kitchen-custom-index="' + entry.index + '" value="' + esc(item.quantity) + '" aria-label="' + esc(tr("Количество", "Quantity")) + '">' +
+                '<span>×</span><input type="number" min="0" max="5000" step="1" inputmode="numeric" data-kitchen-custom-field="draft-grams" data-kitchen-custom-index="' + entry.index + '" value="' + esc(item.grams) + '" aria-label="' + esc(tr("Грамове на брой", "Grams per item")) + '">' +
+                '<span class="custom-menu__unit">' + esc(tr("г", "g")) + '</span></div></td>' +
+              '<td class="num"><div class="custom-menu__price"><input type="number" min="0" max="10000" step="0.01" inputmode="decimal"' +
+                ' data-kitchen-custom-field="draft-price" data-kitchen-custom-index="' + entry.index + '" value="' + esc(item.price) + '" placeholder="€" aria-label="' + esc(tr("Цена за брой", "Price per item")) + '">' +
+                '<small>Σ <span data-kitchen-custom-draft-line="' + entry.index + '">' + money(previewTotal) + '</span></small></div></td></tr>';
+          }
           var unit = item.grams ? '× ' + item.grams + ' ' + esc(tr("г", "g")) :
             (item.kind === "welcome" ? esc(tr("чаши", "glasses")) : esc(tr("порции", "servings")));
-          return '<tr><td>' + esc(pick(item.name)) + '</td>' +
+          return '<tr><td><div class="kitchen59-custom__dish-name"><span>' + esc(pick(item.name)) + '</span>' +
+            '<button type="button" class="custom-menu__remove kitchen59-custom__remove" data-kitchen-custom-remove="' + entry.index + '"' +
+              ' aria-label="' + esc(tr("Премахни", "Remove")) + '" title="' + esc(tr("Премахни", "Remove")) + '">×</button></div></td>' +
             '<td class="num"><div class="custom-menu__qty"><input type="number" min="0" max="500" step="1" inputmode="numeric"' +
               ' data-kitchen-custom-qty="' + entry.index + '" value="' + esc(item.quantity) + '" aria-label="' +
               esc(tr("Количество", "Quantity")) + ' · ' + esc(pick(item.name)) + '"><span class="custom-menu__unit">' + unit + '</span></div></td>' +
@@ -2219,8 +2253,8 @@ const SOURCES = [
           '<td class="num"><div class="custom-menu__price"><span data-kitchen-custom-value="baseTotalPerGuest">' + money(metrics.baseTotal / KITCHEN59_QUOTE.guests) + ' / ' + esc(tr("гост", "guest")) + '</span>' +
             '<small>Σ <span data-kitchen-custom-value="baseTotal">' + money(metrics.baseTotal) + '</span></small></div></td></tr>' +
       '</tbody></table></div>' +
-      '<div class="custom-menu__actions"><button type="button" data-kitchen-custom-reset>' +
-        esc(tr("Върни количествата от офертата", "Reset to quoted quantities")) + '</button></div>' +
+      '<div class="custom-menu__actions"><button type="button" data-kitchen-custom-add>+ ' + esc(tr("Добави ястие", "Add dish")) + '</button>' +
+        '<button type="button" data-kitchen-custom-reset>' + esc(tr("Върни количествата от офертата", "Reset to quoted quantities")) + '</button></div>' +
       '</div>';
   }
 
@@ -2407,7 +2441,6 @@ const SOURCES = [
       '</dl>' +
       '<button type="button" class="btn btn--ghost offer-plan__export" data-export-offer data-export-venue="Kitchen59">' +
         esc(tr("Експортирай персонализираната оферта като PDF", "Export personalised offer as PDF")) + '</button>' +
-      '<p class="kitchen59-quote__note" data-kitchen-custom-package-note></p>' +
       kitchen59CustomHtml() +
     '</article>';
   }
@@ -2459,13 +2492,6 @@ const SOURCES = [
     budgetLabel.forEach(function (node) { node.textContent = t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget"); });
     var groupLabel = $$("[data-kitchen-custom-group-label]", host);
     groupLabel.forEach(function (node) { node.textContent = t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup"); });
-    var packageNote = $("[data-kitchen-custom-package-note]", host);
-    if (packageNote) {
-      packageNote.textContent = tr(
-        "Пакетната отстъпка от €1,40 се приспада за " + metrics.packageCount + " пълни комплекта; за допълнителни хапки се начисляват меню цени.",
-        "The €1.40 package discount is applied to " + metrics.packageCount + " complete sets; any additional bites use menu prices."
-      );
-    }
   }
 
   function renderKitchen59Original(root) {
@@ -2606,6 +2632,7 @@ const SOURCES = [
           $$(".kitchen59-drinks__calc-head", copy).forEach(function (header) { header.remove(); });
         }
         $$('[data-export-offer]', copy).forEach(function (node) { node.remove(); });
+        $$(".kitchen59-custom__draft", copy).forEach(function (node) { node.remove(); });
         page.appendChild(copy);
         document.body.appendChild(page);
         var cleanup = function () {
@@ -2632,33 +2659,95 @@ const SOURCES = [
     });
   }
 
+  function refreshKitchen59CustomBody(root, focusDraftIndex) {
+    var body = $(".kitchen59-custom__body", root);
+    if (!body || !body.parentNode) return;
+    var holder = document.createElement("div");
+    holder.innerHTML = kitchen59CustomBodyHtml();
+    body.parentNode.replaceChild(holder.firstElementChild, body);
+    renderKitchen59Custom(root);
+    if (focusDraftIndex != null) {
+      var nameInput = $('[data-kitchen-custom-field="name"][data-kitchen-custom-index="' + focusDraftIndex + '"]', root);
+      if (nameInput) nameInput.focus();
+    }
+  }
+
   function bindKitchen59Custom(root) {
-    if (!root) return;
-    $$('[data-kitchen-custom-qty]', root).forEach(function (input) {
-      input.addEventListener("input", function () {
-        var index = parseInt(input.getAttribute("data-kitchen-custom-qty"), 10);
-        var item = kitchen59CustomItems[index];
-        if (!item) return;
+    if (!root || root.getAttribute("data-kitchen-custom-bound") === "true") return;
+    root.setAttribute("data-kitchen-custom-bound", "true");
+    root.addEventListener("input", function (event) {
+      var input = event.target;
+      if (!input || !input.matches("[data-kitchen-custom-qty], [data-kitchen-custom-field]")) return;
+      var index = parseInt(input.getAttribute("data-kitchen-custom-qty") || input.getAttribute("data-kitchen-custom-index"), 10);
+      var item = kitchen59CustomItems[index];
+      if (!item) return;
+      var field = input.getAttribute("data-kitchen-custom-field");
+      if (!field) {
         item.quantity = input.value === "" ? 0 : Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
         renderKitchen59Custom(root);
         renderCalc();
         renderCompare();
-      });
+        return;
+      }
+      if (field === "name") item.name = input.value;
+      if (field === "draft-quantity") item.quantity = input.value === "" ? 0 : Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
+      if (field === "draft-grams") item.grams = input.value === "" ? 0 : Math.min(5000, Math.max(0, parseFloat(input.value) || 0));
+      if (field === "draft-price") item.price = input.value === "" ? "" : Math.min(10000, Math.max(0, parseFloat(input.value) || 0));
+      var preview = $('[data-kitchen-custom-draft-line="' + index + '"]', root);
+      if (preview) preview.textContent = money((Number(item.quantity) || 0) * (Number(item.price) || 0));
     });
-    var reset = $("[data-kitchen-custom-reset]", root);
-    if (reset) reset.addEventListener("click", function () {
-      kitchen59CustomItems = initialKitchen59CustomItems();
-      kitchen59CustomItems.forEach(function (item, index) {
-        var input = $('[data-kitchen-custom-qty="' + index + '"]', root);
-        if (input) input.value = item.quantity;
-      });
-      kitchen59CustomDrinks = initialKitchen59DrinkItems();
-      $$('[data-kitchen-drink-qty][data-kitchen-drink-mode="custom"]', root).forEach(function (input) {
-        input.value = "0";
-      });
-      renderKitchen59Custom(root);
-      renderCalc();
-      renderCompare();
+    root.addEventListener("click", function (event) {
+      var add = event.target.closest("[data-kitchen-custom-add]");
+      if (add) {
+        kitchen59CustomItems.push({ kind: "custom", name: "", isDraft: true, quantity: 1, grams: 40, price: "" });
+        refreshKitchen59CustomBody(root, kitchen59CustomItems.length - 1);
+        return;
+      }
+      var remove = event.target.closest("[data-kitchen-custom-remove]");
+      if (remove) {
+        var removeIndex = parseInt(remove.getAttribute("data-kitchen-custom-remove"), 10);
+        if (!isNaN(removeIndex)) {
+          kitchen59CustomItems.splice(removeIndex, 1);
+          refreshKitchen59CustomBody(root);
+          renderCalc();
+          renderCompare();
+        }
+        return;
+      }
+      var commit = event.target.closest("[data-kitchen-custom-commit]");
+      if (commit) {
+        var commitIndex = parseInt(commit.getAttribute("data-kitchen-custom-commit"), 10);
+        var draft = kitchen59CustomItems[commitIndex];
+        if (!draft || !draft.isDraft) return;
+        var nameInput = $('[data-kitchen-custom-field="name"][data-kitchen-custom-index="' + commitIndex + '"]', root);
+        var quantityInput = $('[data-kitchen-custom-field="draft-quantity"][data-kitchen-custom-index="' + commitIndex + '"]', root);
+        var gramsInput = $('[data-kitchen-custom-field="draft-grams"][data-kitchen-custom-index="' + commitIndex + '"]', root);
+        var priceInput = $('[data-kitchen-custom-field="draft-price"][data-kitchen-custom-index="' + commitIndex + '"]', root);
+        if (!nameInput || !nameInput.value.trim()) { if (nameInput) nameInput.focus(); return; }
+        if (!quantityInput || quantityInput.value === "") { if (quantityInput) quantityInput.focus(); return; }
+        if (!gramsInput || gramsInput.value === "") { if (gramsInput) gramsInput.focus(); return; }
+        if (!priceInput || priceInput.value === "") { if (priceInput) priceInput.focus(); return; }
+        draft.name = nameInput.value.trim();
+        draft.quantity = Math.min(500, Math.max(0, parseInt(quantityInput.value, 10) || 0));
+        draft.grams = Math.min(5000, Math.max(0, parseFloat(gramsInput.value) || 0));
+        draft.price = Math.min(10000, Math.max(0, parseFloat(priceInput.value) || 0));
+        draft.isDraft = false;
+        refreshKitchen59CustomBody(root);
+        renderCalc();
+        renderCompare();
+        return;
+      }
+      var reset = event.target.closest("[data-kitchen-custom-reset]");
+      if (reset) {
+        kitchen59CustomItems = initialKitchen59CustomItems();
+        kitchen59CustomDrinks = initialKitchen59DrinkItems();
+        $$('[data-kitchen-drink-qty][data-kitchen-drink-mode="custom"]', root).forEach(function (input) {
+          input.value = "0";
+        });
+        refreshKitchen59CustomBody(root);
+        renderCalc();
+        renderCompare();
+      }
     });
     bindKitchen59DrinkCalculator(root, "custom");
     renderKitchen59Custom(root);
