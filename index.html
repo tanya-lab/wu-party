@@ -1448,8 +1448,9 @@ const SOURCES = [
     }, 0);
     var snackTotal = KITCHEN59_QUOTE.snackPerGuest * guests;
     var welcomeTotal = KITCHEN59_QUOTE.welcomeDrink.quantity * KITCHEN59_QUOTE.welcomeDrink.price;
-    var subtotal = basePackagePerGuest * guests + extrasPerGuest * guests +
-      platterTotal + snackTotal + welcomeTotal;
+    var foodTotal = basePackagePerGuest * guests + extrasPerGuest * guests +
+      platterTotal + snackTotal;
+    var subtotal = foodTotal + welcomeTotal;
     var service = roundMoney(subtotal * KITCHEN59_QUOTE.serviceRate);
     var totalGroup = roundMoney(subtotal + service);
     return {
@@ -1463,7 +1464,15 @@ const SOURCES = [
       extrasTotal: roundMoney(extrasPerGuest * guests),
       platterTotal: roundMoney(platterTotal),
       snackTotal: roundMoney(snackTotal),
+      foodTotal: roundMoney(foodTotal),
+      foodPerGuest: roundMoney(foodTotal / guests),
       welcomeTotal: roundMoney(welcomeTotal),
+      welcomePerGuest: roundMoney(welcomeTotal / guests),
+      welcomeGlassesPerGuest: roundMoney(KITCHEN59_QUOTE.welcomeDrink.quantity / guests),
+      foodGramsPerGuest: Math.round((KITCHEN59_QUOTE.baseBites.length + KITCHEN59_QUOTE.extraBites.length) * 40 +
+        KITCHEN59_QUOTE.platters.reduce(function (sum, item) {
+          return sum + item.quantity * item.grams;
+        }, 0) / guests),
       subtotal: roundMoney(subtotal),
       service: service,
       totalPerGuest: roundMoney(totalGroup / guests),
@@ -2024,16 +2033,42 @@ const SOURCES = [
         '<p>' + esc(tr("Другите напитки се плащат индивидуално на бара; пълният ценови списък е по-долу.",
           "Other drinks are paid for individually at the bar; the full price list is below.")) + '</p>' +
       '</div><span class="badge badge--offer">' + esc(t("st.offer")) + '</span></div>' +
-      '<div class="kitchen59-quote__price"><strong>' + money(metrics.totalPerGuest) + '</strong>' +
-        '<span>' + esc(tr("на гост · със 7% сервиз", "per guest · including 7% service")) + '</span>' +
-        '<b>' + money(metrics.totalGroup) + ' · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</b></div>' +
-      '<div class="offer-plan__presents' + (overCap ? ' is-over-cap' : '') + '">' +
-        '<div class="offer-plan__presents-row"><span>' + esc(t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
-          '<b>' + money(Math.abs(presentHeadroom)) + '</b></div>' +
-        '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' +
-          esc(t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup")) + ' · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</span>' +
-          '<b>' + money(Math.abs(presentGroupHeadroom)) + '</b></div>' +
-      '</div>' +
+      '<article class="offer-plan kitchen59-summary">' +
+        '<div class="offer-plan__head"><h4>' + esc(tr("Kitchen59 · меню за 30 гости", "Kitchen59 · menu for 30 guests")) + '</h4>' +
+          '<span class="offer-plan__badge">' + esc(t("st.offer")) + '</span></div>' +
+        '<p class="offer-plan__price"><span class="offer-plan__amount">' + money(metrics.totalPerGuest) + '</span> ' +
+          '<small>' + esc(tr("сервиз и welcome drink · на гост", "service and welcome drink · per guest")) + '</small></p>' +
+        '<p class="offer-plan__total"><b>' + money(metrics.totalGroup) + '</b> ' +
+          esc(lang === "en" ? "total for " : "общо за ") + KITCHEN59_QUOTE.guests + ' ' + esc(lang === "en" ? "guests" : "гости") + '</p>' +
+        '<div class="offer-plan__final-breakdown"><div><dt>' +
+          esc(tr("Меню, welcome drink и сервиз / гост", "Menu, welcome drink and service / guest")) +
+          '</dt><dd>' + money(metrics.totalPerGuest) + '</dd></div></div>' +
+        '<div class="offer-plan__presents' + (overCap ? ' is-over-cap' : '') + '">' +
+          '<div class="offer-plan__presents-row"><span>' + esc(t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
+            '<b>' + money(Math.abs(presentHeadroom)) + '</b></div>' +
+          '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' +
+            esc(t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup")) + ' · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</span>' +
+            '<b>' + money(Math.abs(presentGroupHeadroom)) + '</b></div>' +
+        '</div>' +
+        '<div class="offer-plan__perguest-pair">' +
+          '<p class="offer-plan__foodpp"><b>' + money(metrics.foodPerGuest) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
+          '<p class="offer-plan__foodpp"><b>' + money(metrics.welcomePerGuest) + '</b> ' + esc(tr("Welcome просеко / гост", "Welcome prosecco / guest")) + '</p>' +
+        '</div>' +
+        '<div class="offer-plan__weight-pair">' +
+          '<p class="offer-plan__weight">≈ ' + num(metrics.foodGramsPerGuest) + ' ' + esc(lang === "en" ? "g" : "г") +
+            '<small>' + esc(tr("храна на гост · без снакса", "food per guest · excludes snacks")) + '</small></p>' +
+          '<p class="offer-plan__weight">' + metrics.welcomeGlassesPerGuest.toLocaleString(lang === "en" ? "en-US" : "bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
+            '<small>' + esc(tr("чаши просеко / гост", "welcome prosecco glasses / guest")) + '</small></p>' +
+        '</div>' +
+        '<dl class="offer-plan__breakdown">' +
+          '<div><dt>' + esc(tr("Храна + allowance за снакс", "Food + snack allowance")) + '</dt><dd>' + money(metrics.foodTotal) + '</dd></div>' +
+          '<div><dt>' + esc(tr("Welcome просеко · 40 чаши", "Welcome prosecco · 40 glasses")) + '</dt><dd>' + money(metrics.welcomeTotal) + '</dd></div>' +
+          '<div><dt>' + esc(tr("Сервиз 7%", "7% service")) + '</dt><dd>' + money(metrics.service) + '</dd></div>' +
+          '<div><dt>' + esc(tr("Наем на зала", "Hall rental")) + '</dt><dd>' + esc(tr("не е посочен", "not stated")) + '</dd></div>' +
+        '</dl>' +
+        '<p class="kitchen59-quote__note">' + esc(tr("Оценка за теглото: 14 хапки × 40 г плюс среден дял от платата; порцията снакс не е уточнена. Обемът на чашата просеко не е посочен. Другите напитки се плащат отделно на бара.",
+          "Food weight estimate: 14 bites × 40 g plus an average share of the platters; snack portions are unspecified. Prosecco glass volume is not stated. Other drinks are paid separately at the bar.")) + '</p>' +
+      '</article>' +
       '<h4 class="kitchen59-quote__section-title">' + esc(tr("Основен пакет · 10 хапки на човек", "Base package · 10 bites per guest")) + '</h4>' +
       '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table"><thead><tr>' +
         '<th>' + esc(tr("Хапка", "Bite")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
