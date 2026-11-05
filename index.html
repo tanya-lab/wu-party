@@ -607,6 +607,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .kitchen59-custom__remove:hover{color:var(--st-unavailable)}
 .kitchen59-custom__draft-name{display:flex;align-items:center;gap:3px}
 .kitchen59-custom__draft-name input{flex:1;width:100%;min-width:0;padding:4px;border:1px solid var(--line);font:500 9px var(--ui)}
+.kitchen59-custom__category{width:100%;max-width:100%;margin-top:4px;padding:3px 2px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);font:500 8px var(--ui)}
 .kitchen59-custom__actions{text-align:right;white-space:nowrap}
 .kitchen59-custom__row-actions{display:flex;flex:none;gap:2px}
 .kitchen59-custom__row-actions .custom-menu__remove,.kitchen59-custom__row-actions .custom-menu__commit{width:16px;height:20px}
@@ -2199,10 +2200,12 @@ const SOURCES = [
       { kind: "nuts", label: tr("Допълнителни ядки · по избор", "Extra nuts · optional") },
       { kind: "welcome", label: tr("Welcome просеко", "Welcome prosecco") }
     ];
+    var dishCategories = groups.filter(function (group) { return group.kind !== "welcome"; });
     var rows = groups.map(function (group) {
       var groupItems = [];
       kitchen59CustomItems.forEach(function (item, index) {
-        if (item.kind === group.kind) groupItems.push({ item: item, index: index });
+        var itemGroup = item.kind === "custom" ? (item.category || "custom") : item.kind;
+        if (itemGroup === group.kind) groupItems.push({ item: item, index: index });
       });
       if (!groupItems.length) return "";
       return '<tr class="kitchen59-custom__group"><th colspan="4">' + esc(group.label) + '</th></tr>' +
@@ -2215,7 +2218,11 @@ const SOURCES = [
                 esc(item.name || "") + '" placeholder="' + esc(tr("Име на ястие", "Dish name")) + '" aria-label="' + esc(tr("Име на ястие", "Dish name")) + '">' +
               '<button type="button" class="custom-menu__commit" data-kitchen-custom-commit="' + entry.index + '"' +
                 ' aria-label="' + esc(tr("Добави ястието", "Save dish")) + '" title="' + esc(tr("Добави ястието", "Save dish")) + '">✓</button>' +
-              '</div></td>' +
+              '</div><select class="kitchen59-custom__category" data-kitchen-custom-field="draft-category" data-kitchen-custom-index="' + entry.index + '" aria-label="' +
+                esc(tr("Категория", "Category")) + '"><option value=""' + (!item.category ? ' selected' : '') + '>' + esc(tr("Категория (по избор)", "Category (optional)")) +
+                '</option>' + dishCategories.map(function (category) {
+                  return '<option value="' + category.kind + '"' + (item.category === category.kind ? ' selected' : '') + '>' + esc(category.label) + '</option>';
+                }).join("") + '</select></td>' +
               '<td class="num"><div class="custom-menu__qty custom-menu__qty--draft">' +
                 '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-kitchen-custom-field="draft-quantity" data-kitchen-custom-index="' + entry.index + '" value="' + esc(item.quantity) + '" aria-label="' + esc(tr("Количество", "Quantity")) + '">' +
                 '<span>×</span><input type="number" min="0" max="5000" step="1" inputmode="numeric" data-kitchen-custom-field="draft-grams" data-kitchen-custom-index="' + entry.index + '" value="' + esc(item.grams) + '" aria-label="' + esc(tr("Грамове на брой", "Grams per item")) + '">' +
@@ -2693,6 +2700,7 @@ const SOURCES = [
         return;
       }
       if (field === "name") item.name = input.value;
+      if (field === "draft-category") item.category = input.value;
       if (field === "draft-quantity") item.quantity = input.value === "" ? 0 : Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
       if (field === "draft-grams") item.grams = input.value === "" ? 0 : Math.min(5000, Math.max(0, parseFloat(input.value) || 0));
       if (field === "draft-price") item.price = input.value === "" ? "" : Math.min(10000, Math.max(0, parseFloat(input.value) || 0));
@@ -2723,6 +2731,7 @@ const SOURCES = [
         var draft = kitchen59CustomItems[commitIndex];
         if (!draft || !draft.isDraft) return;
         var nameInput = $('[data-kitchen-custom-field="name"][data-kitchen-custom-index="' + commitIndex + '"]', root);
+        var categoryInput = $('[data-kitchen-custom-field="draft-category"][data-kitchen-custom-index="' + commitIndex + '"]', root);
         var quantityInput = $('[data-kitchen-custom-field="draft-quantity"][data-kitchen-custom-index="' + commitIndex + '"]', root);
         var gramsInput = $('[data-kitchen-custom-field="draft-grams"][data-kitchen-custom-index="' + commitIndex + '"]', root);
         var priceInput = $('[data-kitchen-custom-field="draft-price"][data-kitchen-custom-index="' + commitIndex + '"]', root);
@@ -2731,6 +2740,7 @@ const SOURCES = [
         if (!gramsInput || gramsInput.value === "") { if (gramsInput) gramsInput.focus(); return; }
         if (!priceInput || priceInput.value === "") { if (priceInput) priceInput.focus(); return; }
         draft.name = nameInput.value.trim();
+        draft.category = categoryInput && categoryInput.value ? categoryInput.value : "custom";
         draft.quantity = Math.min(500, Math.max(0, parseInt(quantityInput.value, 10) || 0));
         draft.grams = Math.min(5000, Math.max(0, parseFloat(gramsInput.value) || 0));
         draft.price = Math.min(10000, Math.max(0, parseFloat(priceInput.value) || 0));
