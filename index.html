@@ -542,6 +542,19 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-drinks__total strong,.offer-drinks__allin strong{color:var(--ink)}
 .offer-drinks__allin{color:var(--st-offer);font-weight:700}
 .offer-gram-note{margin:12px 0 0;color:var(--ink-soft);font-size:10.5px;line-height:1.5}
+.kitchen59-quote{margin:0 0 16px;padding:16px;border:1px solid var(--line);border-left:4px solid var(--st-offer);background:#fff}
+.kitchen59-quote__head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.kitchen59-quote__head h3{margin:0 0 5px;font-family:var(--slab);font-size:18px;color:var(--ink)}
+.kitchen59-quote__head p{margin:0;color:var(--ink-soft);font-size:12px;line-height:1.45}
+.kitchen59-quote__price{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 10px;margin:12px 0;padding:10px 12px;background:#F3FAFC}
+.kitchen59-quote__price strong{font-family:var(--slab);font-size:24px;color:var(--wu);white-space:nowrap}
+.kitchen59-quote__price span,.kitchen59-quote__price b{font-size:11px}
+.kitchen59-quote__price b{margin-left:auto;white-space:nowrap}
+.kitchen59-quote .tbl td,.kitchen59-quote .tbl th{padding:7px 8px}
+.kitchen59-quote__item-detail{display:block;margin-top:3px;color:var(--ink-soft);font-size:10px;line-height:1.4}
+.kitchen59-quote__meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;margin-top:12px}
+.kitchen59-quote__meta p{margin:0;font-size:11px;line-height:1.5}
+.kitchen59-quote__drive{margin:10px 0 0;padding-top:8px;border-top:1px solid var(--line-soft);color:var(--ink-soft);font-size:10px}
 .menu-cols h4{font-family:var(--ui);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--wu);margin:14px 0 6px;font-weight:800}
 .menu-cols ul{list-style:none;margin:0;padding:0}
 .menu-cols li{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px dotted #DDD;font-size:12.5px;line-height:1.45}
@@ -685,7 +698,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
   .gallery--balkan .gallery__grid{columns:2}
   .cmp{min-width:840px}
 }
-@media (max-width:560px){.offer-plans{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:560px){.offer-plans{grid-template-columns:minmax(0,1fr)}.kitchen59-quote__meta{grid-template-columns:1fr}}
 @media print{
   .topbar,.site-head,#snow,.garland,.map-wrap{display:none!important}
   body{font-size:11pt}
@@ -742,7 +755,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
     <div class="hero__meta">
       <span><b data-i18n="metaVenues">2 venues</b> <span data-i18n="metaVenues2">shortlisted in Sofia</span></span>
       <span><b id="meta-guests">30</b> <span data-i18n="metaGuests">guests (offer basis)</span></span>
-      <span><b id="meta-price-range">€48.39–€56.68</b> <span data-i18n="metaPerGuest">per guest, all-in</span></span>
+      <span><b id="meta-price-range">€47.06–€55.34</b> <span data-i18n="metaPerGuest">per guest, all-in</span></span>
     </div>
     <div class="hero__card">
       <div class="hero__logo"><b>WU</b><span data-i18n="logoCaption">WU Alumni X-mas Party 2026<br>1 December · Sofia</span></div>
@@ -756,7 +769,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
   <div class="hero__band">
     <div class="container">
       <p data-i18n="bandTitle">Where do we celebrate on 1 December?</p>
-      <span class="hero__band-note" data-i18n="bandNote">2 options · 1 complete offer · 1 quote pending</span>
+      <span class="hero__band-note" data-i18n="bandNote">2 venues · 2 offers received</span>
     </div>
   </div>
   <div class="hero__cap" aria-hidden="true">
@@ -772,7 +785,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
       <div class="stats">
         <div><b>2</b><span data-i18n="statVenues">venue options</span></div>
         <div><b>2</b><span data-i18n="statOffers">Balkan Falsch options</span></div>
-        <div><b id="stat-cheapest-value">€1 451.70</b><span data-i18n="statCheapest">lowest total including drinks at selected headcount</span></div>
+        <div><b id="stat-cheapest-value">€1 411.70</b><span data-i18n="statCheapest">lowest total including drinks at selected headcount</span></div>
         <div><b>01.12.2026</b><span data-i18n="statDate">Tuesday · 19:00–24:00</span></div>
       </div>
     </div>
@@ -801,7 +814,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
         <div class="section__head">
           <p class="eyebrow" data-i18n="offersEyebrow">Offers</p>
           <h2 data-i18n="ovTitle">Venue offers</h2>
-          <p data-i18n="ovLead">Balkan Falsch has a full written offer; Kitchen59 is a new option and we are awaiting its details and pricing.</p>
+          <p data-i18n="ovLead">Both Balkan Falsch and Kitchen59 have submitted offers for 30 guests. Compare their menus, service charges and venue terms.</p>
         </div>
       </div>
       <p class="status-hint" data-i18n="ovHint">Click a venue name to open its details right here</p>
@@ -876,7 +889,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
           <tbody id="cmp-body"></tbody>
         </table>
       </div>
-      <p class="cmp-legend" data-i18n="cmpLegend">The €28/guest Balkan Falsch block table is a proposed all-in target; Kitchen59 pricing is pending.</p>
+      <p class="cmp-legend" data-i18n="cmpLegend">Balkan Falsch: quoted and personalised block tables. Kitchen59: about €49.90/guest with 7% service and a welcome drink; other drinks are paid individually.</p>
     </div>
   </section>
 
@@ -886,7 +899,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
         <div class="section__head">
           <p class="eyebrow" data-i18n="srcEyebrow">Documents</p>
           <h2 data-i18n="srcTitle">Sources</h2>
-          <p data-i18n="srcLead">The spreadsheet and the three PDFs from the shared Drive folder.</p>
+          <p data-i18n="srcLead">The Balkan Falsch and Kitchen59 offers, plus Kitchen59’s event information. Kitchen59’s full menus are in the shared Google Drive.</p>
         </div>
       </div>
       <div class="sources" id="sources-grid"></div>
@@ -915,7 +928,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
       </div>
     </div>
     <div class="foot-bottom">
-      <span data-i18n="footDisclaimer">Unofficial WU Alumni event page; not an official WU Wien website. Balkan Falsch pricing is from its offer; Kitchen59 pricing is pending.</span>
+      <span data-i18n="footDisclaimer">Unofficial WU Alumni event page; not an official WU Wien website. Confirm the custom Balkan Falsch rent and Kitchen59 catering details with the venues.</span>
       <span>WU X-mas Party 2026 · 01.12.2026</span>
     </div>
   </div>
@@ -941,11 +954,11 @@ const UI = {
     logoCaption: "WU Alumni X-mas Party 2026<br>1 декември · София",
     cdDays: "дни", cdHours: "часа", cdMins: "мин",
     bandTitle: "Къде празнуваме на 1 декември?",
-    bandNote: "2 опции · 1 пълна оферта · 1 очаква оферта",
+    bandNote: "2 варианта · 2 получени оферти",
     statVenues: "варианта за място", statOffers: "варианта за Balkan Falsch",
     statCheapest: "най-ниско общо с напитки при избрания брой гости", statDate: "вторник · 19:00–24:00",
     offersEyebrow: "Оферти", ovTitle: "Оферти от местата",
-    ovLead: "Balkan Falsch има пълна писмена оферта; Kitchen59 е нов вариант и очакваме информация и цена.",
+    ovLead: "И Balkan Falsch, и Kitchen59 изпратиха оферти за 30 гости. Сравни менюто, сервиза и условията на двете места.",
     ovHint: "Натисни върху името на мястото, за да отвориш детайлите му тук.",
     mapEyebrow: "Карта", mapTitle: "Две места, един град",
     mapLead: "Кликни pin или име, за да отвориш детайлите. Упътванията се отварят в Google Maps.",
@@ -964,9 +977,9 @@ const UI = {
     progParty: "Парти — крайният час предстои да се уточни.",
     cmpEyebrow: "Сравнение", cmpTitle: "Две опции една до друга",
     cmpLead: "Кликни върху заглавие на колона, за да сортираш. €/гост включва избраните напитки и е изчислено за 30 гости.",
-    cmpLegend: "Предложената блок маса е персонализируема; цената от Kitchen59 се очаква.",
+    cmpLegend: "Balkan Falsch: офертна и персонализирана блок маса. Kitchen59: около 49,90 €/гост с 7% сервиз и welcome drink; другите напитки се плащат отделно.",
     srcEyebrow: "Документи", srcTitle: "Източници",
-    srcLead: "Офертата на Balkan Falsch и официалната информация за събития в Kitchen59.",
+    srcLead: "Офертата на Balkan Falsch, офертата на Kitchen59 и информацията за събитията му. Менютата на Kitchen59 са в споделения Google Drive.",
     footAbout: "X-mas Party 2026 · София. Планираща страница за организаторите: две места, оферти и бюджет.",
     footTop: "↑ Обратно горе", footContacts: "Контакти", footLinks: "Файлове",
     footDisclaimer: "Неофициална страница за WU Alumni събитие; не е официален сайт на WU Wien. Персонализираното меню за блок маса трябва да се потвърди със заведението.",
@@ -995,11 +1008,11 @@ const UI = {
     logoCaption: "WU Alumni X-mas Party 2026<br>1 December · Sofia",
     cdDays: "days", cdHours: "hours", cdMins: "min",
     bandTitle: "Where do we celebrate on 1 December?",
-    bandNote: "2 options · 1 complete offer · 1 quote pending",
+    bandNote: "2 venues · 2 offers received",
     statVenues: "venue options", statOffers: "Balkan Falsch options",
     statCheapest: "lowest total including drinks at selected headcount", statDate: "Tuesday · 19:00–24:00",
     offersEyebrow: "Offers", ovTitle: "Venue offers",
-    ovLead: "Balkan Falsch has a full written offer; Kitchen59 is a new option and we are awaiting its details and pricing.",
+    ovLead: "Both Balkan Falsch and Kitchen59 have submitted offers for 30 guests. Compare their menus, service charges and venue terms.",
     ovHint: "Click a venue name to expand its details here.",
     mapEyebrow: "Map", mapTitle: "Two venues, one city",
     mapLead: "Click a pin or a name to open details. Directions open in Google Maps.",
@@ -1018,9 +1031,9 @@ const UI = {
     progParty: "Party—the end time is still to be decided.",
     cmpEyebrow: "Compare", cmpTitle: "Two options, side by side",
     cmpLead: "Click a column header to sort. €/guest includes selected drinks and is calculated for 30 guests.",
-    cmpLegend: "The proposed block table is editable; Kitchen59 pricing is pending.",
+    cmpLegend: "Balkan Falsch: quoted and personalised block tables. Kitchen59: about €49.90/guest with 7% service and a welcome drink; other drinks are paid separately.",
     srcEyebrow: "Documents", srcTitle: "Sources",
-    srcLead: "The Balkan Falsch offer and Kitchen59’s official event information.",
+    srcLead: "The Balkan Falsch and Kitchen59 offers, plus Kitchen59’s event information. Kitchen59’s full menus are in the shared Google Drive.",
     footAbout: "X-mas Party 2026 · Sofia. A planning page for the organising team: two venues, offers and budget.",
     footTop: "↑ Back to top", footContacts: "Contacts", footLinks: "Files",
     footDisclaimer: "Unofficial WU Alumni event page; not an official WU Wien website. Confirm the custom block-table menu with the venue.",
@@ -1050,7 +1063,7 @@ const VENUES = [
     coords: [42.6633249, 23.2860736],
     status: "offer", detail: "balkan",
     capacity: { bg: "Малка зала · до 40 седящи (оферта за 30)", en: "Small hall · up to 40 seated (offer for 30)" },
-    price: { bg: "Оферта за блок маса: 1 512,30 € за 30 гости; при персонализираната цена се калкулира по количества, сервиз и часове/цена на наема.", en: "Block table quote: €1,512.30 for 30 guests; personalised total recalculates from quantities, service and rent hours/rate." },
+    price: { bg: "Оферта за блок маса: 1 472,30 € за 30 гости; персонализираната цена се смята по количества, сервиз и наем.", en: "Block table quote: €1,472.30 for 30 guests; personalised total recalculates from quantities, service and rent." },
     drinks: { bg: "Алкохол по консумация, преференциални цени (вино от 11 €/бутилка)", en: "Alcohol on consumption, preferential prices (wine from €11/bottle)" },
     catering: { bg: "Собствена кухня · 1 офертен вариант + 1 наше предложение", en: "Own kitchen · 1 quoted option + 1 proposal" },
     parking: { bg: "2 места", en: "2 spaces" },
@@ -1058,7 +1071,7 @@ const VENUES = [
     notes: { bg: "Собствен вход, DJ пулт за собствена музика, парти осветление, място за танци, всичко ново. 1.12.2026 е вторник — неактивен ден. Капаро = наемът на залата.", en: "Own entrance, DJ booth for your own music, party lighting, dance floor, all new. 1 Dec 2026 is a Tuesday — inactive-day rate. Deposit = the hall rental." },
     contact: { name: "Жасмина Трандова / Jasmina Trandova", email: "bg82restaurant@gmail.com", phone: "0876 38 30 30" },
     contacted: "03.11.2026", owner: "Tanya",
-    next: { bg: "Избор на алтернатива, плащане на капаро 200 € и 50% от менюто при потвърждение.", en: "Choose an alternative, pay the €200 deposit and 50% of the menu on confirmation." },
+    next: { bg: "Избор на вариант, капаро 160 € и 50% от менюто при потвърждение.", en: "Choose an option, pay the €160 deposit and 50% of the menu on confirmation." },
     docs: ["balkanOffer"]
   },
   {
@@ -1066,17 +1079,17 @@ const VENUES = [
     area: { bg: "Хиподрума", en: "Hipodruma" },
     address: { bg: "бул. „Цар Борис III“ 59, 1612 София", en: "59 Tsar Boris III Blvd, 1612 Sofia" },
     coords: [42.6814171, 23.2903997],
-    status: "progress", detail: null,
+    status: "offer", detail: "kitchen59",
     capacity: { bg: "Покрив 300 м² · до 180 ексклузивно / до 80 споделено", en: "300 m² rooftop · up to 180 exclusive / 80 shared" },
-    price: { bg: "Няма оферта · гъвкави цени; запитване предстои", en: "No quote yet · flexible pricing; inquiry pending" },
-    drinks: { bg: "Персонализирани коктейли и опции за отворен бар; цена по запитване", en: "Custom cocktails and open-bar options; quote required" },
-    catering: { bg: "Менюта, приготвени на място; цена по запитване", en: "Fresh in-house catering menus; quote required" },
+    price: { bg: "Оферта за меню и welcome drink: около 49,90 €/гост с 7% сервиз; около 1 500 € за 30 гости.", en: "Food and welcome drink offer: about €49.90/guest including 7% service; about €1,500 for 30 guests." },
+    drinks: { bg: "Welcome drink е включен; останалите напитки се поръчват и плащат индивидуално на основния бар.", en: "A welcome drink is included; other drinks are ordered and paid for individually at the main bar." },
+    catering: { bg: "Поръчка до 20 ноември; 50% аванс; минимум 30 бр. от вид хапка (не ограничава група от 30 гости).", en: "Order by 20 November; 50% deposit; 30-piece minimum per canapé type (not a constraint for 30 guests)." },
     parking: { bg: "Условията за паркинг за гости на събитието се потвърждават", en: "Event guest parking terms to be confirmed" },
     concept: { bg: "Покривна зала с гледка, DJ setup, озвучаване и микрофони", en: "Rooftop venue with views, DJ setup, sound system and microphones" },
-    notes: { bg: "Официалната информация посочва 300 м², до 180 души при ексклузивно ползване и до 80 при споделено. Зоната и условията за конкретната дата трябва да се потвърдят.", en: "Official event info lists 300 m², up to 180 guests with exclusive use or 80 shared. Confirm the area and terms for the date." },
+    notes: { bg: "Стандартна резервация на високи бар маси; има и седящи маси. Девет вида хапки са без месо, плюс плато сирена. Топлите може да се поднесат около 19:30 и 20:30, десертите около 21:30. Подробните менюта за хапки, снакс и напитки са в споделения Google Drive.", en: "Standard reservation at high bar tables, with seated tables also available. At least nine canapé types are meat-free, plus a cheese platter. Suggested service: hot bites around 19:30 and 20:30, desserts around 21:30. Full bite, snack and drinks menus are in the shared Google Drive." },
     contact: { name: "Kitchen59 Events", email: "info@kitchen59.bg", phone: "+359 2 439 9959" },
     contacted: "—", owner: "Andon",
-    next: { bg: "Да се поиска оферта за 30 гости и наличност за 1 декември 2026 г.", en: "Request availability and a quote for 30 guests on 1 December 2026." },
+    next: { bg: "Да се потвърдят стандартната резервация, менюто и графикът за сервиране.", en: "Confirm the standard reservation, menu and serving schedule." },
     docs: ["kitchen59Events"]
   }
 ];
@@ -1085,8 +1098,8 @@ const VENUES = [
 /* ---------- Balkan Falsch offer (PDF, 03.11.2026) ---------- */
 const OFFER = {
   guests: 30,
-  alt: [
-    { id: "block",   name: { bg: "Блок маса", en: "Block table" },      food: 1193, service: 119.30, hall: 200, total: 1512.30, pp: 50.41 },
+    alt: [
+    { id: "block",   name: { bg: "Блок маса", en: "Block table" },      food: 1193, service: 119.30, hall: 160, total: 1472.30, pp: 49.08 },
     { id: "budgetBlock", name: { bg: "Блок маса · персонализирана", en: "Custom block table" } }
   ],
   alcohol: [
@@ -1101,9 +1114,9 @@ const OFFER = {
     { id: "plumRakia", n: { bg: "Сръбска сливова ракия", en: "Serbian plum rakia" }, size: "750 ml", price: 18 },
     { n: { bg: "Сръбска крушова ракия", en: "Serbian pear rakia" }, size: "750 ml", price: 18 }
   ],
-  terms: [
-    { bg: "19:00–24:00 · Малка зала · до 40 седящи.", en: "19:00–24:00 · small hall · up to 40 seated." },
-    { bg: "Наем 40 €/час × 5 часа = 200 €; включен при консумация на храна и алкохол.", en: "Hall €40/hour × 5 h = €200; included when ordering food and alcohol." },
+   terms: [
+    { bg: "19:00–23:00 · Малка зала · до 40 седящи.", en: "19:00–23:00 · small hall · up to 40 seated." },
+    { bg: "Наем 40 €/час × 4 часа = 160 €; включен при консумация на храна и алкохол.", en: "Hall €40/hour × 4 h = €160; included when ordering food and alcohol." },
     { bg: "Алкохолът не е включен — плаща се по консумация, на отворена бутилка.", en: "Alcohol is not included — charged on consumption, by the open bottle." },
     { bg: "След 00:00 — 15 €/час на сервитьор.", en: "After 00:00 — €15/hour per waiter." },
     { bg: "Капарото в размер на наема потвърждава датата.", en: "A deposit equal to the hall rental confirms the date." },
@@ -1111,6 +1124,74 @@ const OFFER = {
     { bg: "Понеделник–сряда са неактивни дни (по-ниска тарифа).", en: "Monday–Wednesday are inactive days (lower rate)." },
     { bg: "При хранителни алергии — уведомете предварително.", en: "For food allergies, tell the venue in advance." }
   ]
+};
+
+const KITCHEN59_QUOTE = {
+  guests: 30,
+  serviceRate: 0.07,
+  approxGroupTotal: 1500,
+  items: [
+    {
+      name: { bg: "Пакет от 10 хапки", en: "10-bite package" },
+      detail: { bg: "Основа с топли и студени хапки и два десерта.", en: "A mix of hot and cold bites, plus two desserts." },
+      price: 24
+    },
+    {
+      name: { bg: "4 допълнителни хапки", en: "4 extra bites" },
+      detail: {
+        bg: "Мини аранчини с ндуя, брускета с кьопоолу, сиренени хапки и карфиол темпура. Общо 14 хапки на човек, 8 топли.",
+        en: "Mini ’nduja arancini, kyopoolu bruschetta, cheese bites and cauliflower tempura. 14 bites per person, 8 hot."
+      },
+      price: 10.5
+    },
+    {
+      name: { bg: "Плата за споделяне", en: "Sharing platters" },
+      detail: { bg: "3 плата сирена и 3 плата колбаси.", en: "3 cheese platters and 3 charcuterie platters." },
+      price: 4.5
+    },
+    {
+      name: { bg: "Снакс за късната част", en: "Late-night snacks" },
+      detail: { bg: "Ядки, маслини и чипс.", en: "Nuts, olives and crisps." },
+      price: 2.14
+    },
+    {
+      name: { bg: "Welcome drink", en: "Welcome drink" },
+      detail: { bg: "Чаша просеко при пристигане.", en: "A glass of prosecco on arrival." },
+      price: 5.5
+    }
+  ],
+  reservation: {
+    bg: "Стандартна резервация на високи бар маси за свободно движение; има и седящи маси, ако предпочитаме.",
+    en: "Standard reservation at high bar tables for easy mingling; seated tables are also available if preferred."
+  },
+  mealRationale: {
+    bg: "Срещата е по време на вечеря и повечето гости ще идват след работа, затова храната трябва да замести вечерята.",
+    en: "The event is during dinner and most guests will come straight from work, so the food should replace dinner."
+  },
+  deadline: {
+    bg: "Кетърингът се заявява до 20 ноември.",
+    en: "Catering must be ordered by 20 November."
+  },
+  deposit: {
+    bg: "Изискват 50% авансово плащане.",
+    en: "A 50% advance payment is required."
+  },
+  minimum: {
+    bg: "Минимум 30 броя от вид хапка — не е ограничение за нашите 30 гости.",
+    en: "Minimum 30 pieces per bite type—not a constraint for our 30 guests."
+  },
+  vegetarian: {
+    bg: "Поне 9 вида хапки са без месо, плюс плато сирена.",
+    en: "At least 9 bite types are meat-free, plus a cheese platter."
+  },
+  serving: {
+    bg: "Предложение: топлите хапки около 19:30 и 20:30, десертите около 21:30.",
+    en: "Suggestion: serve hot bites around 19:30 and 20:30, then desserts around 21:30."
+  },
+  drive: {
+    bg: "Подробните менюта за хапки, снакс и напитки са в споделения Google Drive.",
+    en: "The full menus for bites, snacks and drinks are in the shared Google Drive."
+  }
 };
 
 const DRINK_PACKAGE = [
@@ -1258,7 +1339,7 @@ const SOURCES = [
 
   var budgetMenuItems = initialBudgetMenuItems();
   var budgetHallHourlyRate = 40;
-  var budgetHallHours = 5;
+  var budgetHallHours = 4;
 
   function initialDrinkMenuItems() {
     return OFFER.alcohol.map(function (drink) {
@@ -1279,6 +1360,21 @@ const SOURCES = [
   });
 
   function roundMoney(value) { return Math.round((value + Number.EPSILON) * 100) / 100; }
+
+  function kitchen59QuoteMetrics() {
+    var subtotal = KITCHEN59_QUOTE.items.reduce(function (sum, item) {
+      return sum + Number(item.price || 0);
+    }, 0);
+    var service = roundMoney(subtotal * KITCHEN59_QUOTE.serviceRate);
+    var totalPerGuest = roundMoney(subtotal + service);
+    return {
+      subtotal: roundMoney(subtotal),
+      service: service,
+      totalPerGuest: totalPerGuest,
+      totalGroup: roundMoney(totalPerGuest * KITCHEN59_QUOTE.guests),
+      approxGroupTotal: KITCHEN59_QUOTE.approxGroupTotal
+    };
+  }
 
   function drinksTotal(menuItems) {
     return roundMoney((menuItems || []).reduce(function (sum, item) {
@@ -1692,6 +1788,7 @@ const SOURCES = [
 
     return '<div class="card__body">' +
       (v.detail === "balkan" ? offerHtml() : "") +
+      (v.detail === "kitchen59" ? kitchen59QuoteHtml() : "") +
       '<details class="acc venue-info"><summary>' + esc(t("f.venueDetails")) + '</summary>' +
         '<div class="acc__body">' +
           factsHtml(v) +
@@ -1786,6 +1883,55 @@ const SOURCES = [
         '<div style="margin-top:16px"><h4>' + esc(t("offer.terms")) + '</h4><ul style="margin:0;padding-left:16px;font-size:12.5px;line-height:1.6">' + terms + '</ul></div>' +
       '</div>' +
     '</details>';
+  }
+
+  function kitchen59QuoteHtml() {
+    var metrics = kitchen59QuoteMetrics();
+    var presentHeadroom = 60 - metrics.totalPerGuest;
+    var presentGroupHeadroom = 60 * KITCHEN59_QUOTE.guests - metrics.totalGroup;
+    var overCap = presentHeadroom < 0;
+    var items = KITCHEN59_QUOTE.items.map(function (item) {
+      return '<tr><td><strong>' + esc(pick(item.name)) + '</strong>' +
+        '<small class="kitchen59-quote__item-detail">' + esc(pick(item.detail)) + '</small></td>' +
+        '<td class="num">' + money(item.price) + '</td></tr>';
+    }).join("");
+    return '<section class="kitchen59-quote">' +
+      '<div class="kitchen59-quote__head"><div>' +
+        '<h3>' + esc(tr("Оферта за меню · Kitchen59", "Kitchen59 menu offer")) + '</h3>' +
+        '<p>' + esc(pick(KITCHEN59_QUOTE.reservation)) + '</p>' +
+        '<p>' + esc(pick(KITCHEN59_QUOTE.mealRationale)) + '</p>' +
+        '<p>' + esc(pick(KITCHEN59_QUOTE.otherDrinks)) + '</p>' +
+      '</div><span class="badge badge--offer">' + esc(t("st.offer")) + '</span></div>' +
+      '<div class="kitchen59-quote__price"><strong>' + money(metrics.totalPerGuest) + '</strong>' +
+        '<span>' + esc(tr("на гост · със 7% сервиз", "per guest · including 7% service")) + '</span>' +
+        '<b>≈ ' + money(metrics.approxGroupTotal, 0) + ' · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</b></div>' +
+      '<div class="offer-plan__presents' + (overCap ? ' is-over-cap' : '') + '">' +
+        '<div class="offer-plan__presents-row"><span>' + esc(t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
+          '<b>' + money(Math.abs(presentHeadroom)) + '</b></div>' +
+        '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' +
+          esc(t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup")) + ' · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</span>' +
+          '<b>' + money(Math.abs(presentGroupHeadroom)) + '</b></div>' +
+      '</div>' +
+      '<table class="tbl tbl--tight"><thead><tr>' +
+        '<th>' + esc(tr("Компонент / гост", "Item / guest")) + '</th>' +
+        '<th class="num">' + esc(tr("€ / гост", "€ / guest")) + '</th>' +
+      '</tr></thead><tbody>' + items +
+        '<tr><td><strong>' + esc(tr("Храна и welcome drink", "Food and welcome drink")) + '</strong></td>' +
+          '<td class="num">' + money(metrics.subtotal) + '</td></tr>' +
+        '<tr><td><strong>' + esc(tr("Сервиз 7%", "7% service")) + '</strong></td>' +
+          '<td class="num">' + money(metrics.service) + '</td></tr>' +
+        '<tr class="row-total"><td>' + esc(tr("Общо с включен сервиз", "Total including service")) + '</td>' +
+          '<td class="num">' + money(metrics.totalPerGuest) + '</td></tr>' +
+      '</tbody></table>' +
+      '<div class="kitchen59-quote__meta">' +
+        '<div><p><strong>' + esc(tr("Кетъринг и плащане", "Catering and payment")) + '</strong></p>' +
+          '<p>' + esc(pick(KITCHEN59_QUOTE.deadline)) + '</p><p>' + esc(pick(KITCHEN59_QUOTE.deposit)) + '</p>' +
+          '<p>' + esc(pick(KITCHEN59_QUOTE.minimum)) + '</p></div>' +
+        '<div><p><strong>' + esc(tr("Диетични опции и сервиране", "Dietary options and serving")) + '</strong></p>' +
+          '<p>' + esc(pick(KITCHEN59_QUOTE.vegetarian)) + '</p><p>' + esc(pick(KITCHEN59_QUOTE.serving)) + '</p></div>' +
+      '</div>' +
+      '<p class="kitchen59-quote__drive">' + esc(pick(KITCHEN59_QUOTE.drive)) + '</p>' +
+    '</section>';
   }
 
   function gramsPerGuest(rows, guests) {
@@ -2068,8 +2214,11 @@ const SOURCES = [
       }
       return { card: card, offer: offer, metrics: offerMetrics(offer, guests) };
     });
-    var bestTotal = models.reduce(function (m, x) { return Math.min(m, x.metrics.totalWithDrinksGroup); }, Infinity);
+    var bestBalkanTotal = models.reduce(function (m, x) { return Math.min(m, x.metrics.totalWithDrinksGroup); }, Infinity);
+    var kitchenQuote = kitchen59QuoteMetrics();
+    var lowestTotal = Math.min(bestBalkanTotal, kitchenQuote.totalGroup);
     var perGuest = models.map(function (x) { return x.metrics.totalWithDrinks; });
+    perGuest.push(kitchenQuote.totalPerGuest);
     var minPp = Math.min.apply(Math, perGuest);
     var maxPp = Math.max.apply(Math, perGuest);
     var range = $("#meta-price-range");
@@ -2077,13 +2226,13 @@ const SOURCES = [
     var guestsOutput = $("#meta-guests");
     if (guestsOutput) guestsOutput.textContent = guests;
     var cheapest = $("#stat-cheapest-value");
-    if (cheapest) cheapest.textContent = money(bestTotal, bestTotal % 1 ? 2 : 0);
+    if (cheapest) cheapest.textContent = money(lowestTotal, lowestTotal % 1 ? 2 : 0);
 
     models.forEach(function (model) {
       var card = model.card;
       if (!card) return;
       var m = model.metrics;
-      var best = m.totalWithDrinksGroup === bestTotal;
+      var best = m.totalWithDrinksGroup === bestBalkanTotal;
       card.classList.toggle("offer-plan--best", best);
       var badge = $("[data-best-badge]", card);
       if (badge) badge.hidden = !best;
@@ -2152,15 +2301,18 @@ const SOURCES = [
         contact: v.contact.name, pp: null, ppText: "—"
       };
       if (v.id === "balkan") {
-        r.hall = tr("200 € офертен наем; персонализираният се смята по цена/час × часове", "€200 quoted rent; custom rent uses an editable rate × hours");
+        r.hall = tr("160 € офертен наем; персонализираният се смята по цена/час × часове", "€160 quoted rent; custom rent uses an editable rate × hours");
         r.minspend = tr("няма", "none");
         r.capacity = tr("до 40 седящи (оферта за 30)", "up to 40 seated (offer for 30)");
         var prices = OFFER.alt.map(function (a) { return offerMetrics(a, OFFER.guests).totalWithDrinks; });
         r.pp = Math.min.apply(Math, prices);
         r.ppText = money(r.pp) + "–" + money(Math.max.apply(Math, prices));
       } else if (v.id === "kitchen59") {
-        r.hall = tr("оферта се очаква", "quote pending");
-        r.minspend = tr("не е уточнено", "not stated");
+        r.hall = tr("отделен наем не е посочен", "no separate rent stated");
+        r.minspend = tr("минимум 30 бр. от вид хапка", "30-piece minimum per bite type");
+        var kitchenMetrics = kitchen59QuoteMetrics();
+        r.pp = kitchenMetrics.totalPerGuest;
+        r.ppText = money(r.pp);
       }
       return r;
     });
