@@ -577,6 +577,26 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .kitchen59-summary--custom{border-top:3px solid var(--wu)}
 .kitchen59-summary__link{align-self:flex-start;margin-top:10px;font-size:9px}
 .kitchen59-custom__table{min-width:620px}
+.kitchen59-plan-comparison .kitchen59-option-menu,.kitchen59-plan-comparison .kitchen59-custom__table{width:100%;min-width:0;table-layout:fixed}
+.kitchen59-plan-comparison .kitchen59-quote__table{min-width:0}
+.kitchen59-plan-comparison .kitchen59-option-menu td,.kitchen59-plan-comparison .kitchen59-option-menu th,.kitchen59-plan-comparison .kitchen59-custom__table td,.kitchen59-plan-comparison .kitchen59-custom__table th{padding:5px 5px;font-size:10px}
+.kitchen59-plan-comparison .kitchen59-option-menu th:first-child,.kitchen59-plan-comparison .kitchen59-option-menu td:first-child{width:44%}
+.kitchen59-plan-comparison .kitchen59-option-menu th:nth-child(2),.kitchen59-plan-comparison .kitchen59-option-menu td:nth-child(2){width:23%}
+.kitchen59-plan-comparison .kitchen59-option-menu th:nth-child(3),.kitchen59-plan-comparison .kitchen59-option-menu td:nth-child(3){width:15%}
+.kitchen59-plan-comparison .kitchen59-option-menu th:nth-child(4),.kitchen59-plan-comparison .kitchen59-option-menu td:nth-child(4){width:18%}
+.kitchen59-plan-comparison .kitchen59-custom__table th:first-child,.kitchen59-plan-comparison .kitchen59-custom__table td:first-child{width:42%}
+.kitchen59-plan-comparison .kitchen59-custom__table th:nth-child(2),.kitchen59-plan-comparison .kitchen59-custom__table td:nth-child(2){width:24%}
+.kitchen59-plan-comparison .kitchen59-custom__table th:nth-child(3),.kitchen59-plan-comparison .kitchen59-custom__table td:nth-child(3){width:16%}
+.kitchen59-plan-comparison .kitchen59-custom__table th:nth-child(4),.kitchen59-plan-comparison .kitchen59-custom__table td:nth-child(4){width:18%}
+.kitchen59-plan-comparison .kitchen59-option-menu td:first-child,.kitchen59-plan-comparison .kitchen59-custom__table td:first-child{overflow-wrap:anywhere}
+.kitchen59-plan-comparison .kitchen59-option-menu td:not(:first-child),.kitchen59-plan-comparison .kitchen59-custom__table td:not(:first-child){white-space:nowrap}
+.kitchen59-plan-comparison .kitchen59-drinks__grid{grid-template-columns:minmax(0,1fr);gap:6px}
+.kitchen59-drinks__calc-row{display:grid!important;grid-template-columns:minmax(0,1fr) auto 42px auto;align-items:center;gap:5px;padding:4px 0!important;font-size:10px!important}
+.kitchen59-drinks__calc-row b{font-size:10px}
+.kitchen59-drinks__calc-row input{width:38px;min-width:0;padding:3px 2px;border:1px solid var(--line);font:500 10px var(--ui);text-align:right}
+.kitchen59-drinks__calc-row>span:last-child{white-space:nowrap;font-variant-numeric:tabular-nums}
+.kitchen59-drinks__calc-head{display:grid;grid-template-columns:minmax(0,1fr) auto 42px auto;gap:5px;padding:4px 0;color:var(--ink-soft);font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.kitchen59-drinks__calc-head span:not(:first-child){text-align:right}
 .kitchen59-custom__group th{padding-top:10px;background:#F3FAFC;color:var(--wu);font-size:9px}
 .kitchen59-custom__table input[data-kitchen-custom-qty]{width:48px;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);text-align:right}
 .menu-cols h4{font-family:var(--ui);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--wu);margin:14px 0 6px;font-weight:800}
@@ -1447,6 +1467,30 @@ const SOURCES = [
 
   var kitchen59CustomItems = initialKitchen59CustomItems();
 
+  function initialKitchen59DrinkItems() {
+    var items = [];
+    KITCHEN59_DRINK_MENU.forEach(function (category, categoryIndex) {
+      category.items.forEach(function (drink, itemIndex) {
+        items.push({ categoryIndex: categoryIndex, itemIndex: itemIndex, quantity: 0 });
+      });
+    });
+    return items;
+  }
+
+  var kitchen59OriginalDrinks = initialKitchen59DrinkItems();
+  var kitchen59CustomDrinks = initialKitchen59DrinkItems();
+
+  function kitchen59DrinkItems(mode) {
+    return mode === "original" ? kitchen59OriginalDrinks : kitchen59CustomDrinks;
+  }
+
+  function kitchen59DrinkTotal(mode) {
+    return roundMoney(kitchen59DrinkItems(mode).reduce(function (sum, selection) {
+      var drink = KITCHEN59_DRINK_MENU[selection.categoryIndex].items[selection.itemIndex];
+      return sum + Math.max(0, Number(selection.quantity) || 0) * drink.price;
+    }, 0));
+  }
+
   function initialDrinkMenuItems() {
     return OFFER.alcohol.map(function (drink) {
       var bottles = 0;
@@ -1514,6 +1558,21 @@ const SOURCES = [
     };
   }
 
+  function kitchen59OriginalMetrics() {
+    var base = kitchen59QuoteMetrics();
+    var drinkTotal = kitchen59DrinkTotal("original");
+    var subtotal = roundMoney(base.subtotal + drinkTotal);
+    var service = roundMoney(subtotal * KITCHEN59_QUOTE.serviceRate);
+    var totalGroup = roundMoney(subtotal + service);
+    base.drinkTotal = drinkTotal;
+    base.subtotal = subtotal;
+    base.service = service;
+    base.totalGroup = totalGroup;
+    base.totalPerGuest = roundMoney(totalGroup / KITCHEN59_QUOTE.guests);
+    base.capHeadroom = 60 - totalGroup / KITCHEN59_QUOTE.guests;
+    return base;
+  }
+
   function kitchen59CustomMetrics() {
     var guests = KITCHEN59_QUOTE.guests;
     var base = kitchen59CustomItems.filter(function (item) { return item.kind === "base"; });
@@ -1550,7 +1609,8 @@ const SOURCES = [
     var packageDiscount = roundMoney(packageCount * baseDiscountPerPackage);
     var baseTotal = roundMoney(baseListTotal + packageDiscount);
     var foodTotal = roundMoney(baseTotal + extrasTotal + platterTotal + snackTotal + nutsTotal);
-    var subtotal = roundMoney(foodTotal + welcomeTotal);
+    var drinkTotal = kitchen59DrinkTotal("custom");
+    var subtotal = roundMoney(foodTotal + welcomeTotal + drinkTotal);
     var service = roundMoney(subtotal * KITCHEN59_QUOTE.serviceRate);
     var totalGroup = roundMoney(subtotal + service);
     return {
@@ -1559,6 +1619,7 @@ const SOURCES = [
       extrasTotal: roundMoney(extrasTotal), platterTotal: roundMoney(platterTotal),
       snackTotal: roundMoney(snackTotal), nutsTotal: roundMoney(nutsTotal),
       welcomeTotal: roundMoney(welcomeTotal), foodTotal: foodTotal,
+      drinkTotal: drinkTotal,
       foodPerGuest: roundMoney(foodTotal / guests),
       welcomePerGuest: roundMoney(welcomeTotal / guests),
       foodGramsPerGuest: Math.round((baseGrams + extraGrams + platterGrams + nutsGrams) / guests),
@@ -1736,6 +1797,7 @@ const SOURCES = [
        panel.removeAttribute("hidden");
        var customPlan = $('.offer-plan[data-plan-id="budgetBlock"]', panel);
        bindCustomMenu(customPlan);
+       bindKitchen59DrinkCalculator($('.kitchen59-summary--original', panel), "original");
        bindKitchen59Custom($('.kitchen59-personalized', panel));
       $$(".offer-plan[data-plan-id]", panel).forEach(function (plan) {
         bindDrinkMenu(plan, plan.getAttribute("data-plan-id"));
@@ -1775,6 +1837,9 @@ const SOURCES = [
       btn.addEventListener("click", function () { toggleVenue(btn.getAttribute("data-venue")); });
     });
     $$(".venue-panel:not([hidden]) .offer-plan[data-plan-id=\"budgetBlock\"]", host).forEach(bindCustomMenu);
+    $$(".venue-panel:not([hidden]) .kitchen59-summary--original", host).forEach(function (card) {
+      bindKitchen59DrinkCalculator(card, "original");
+    });
     $$(".venue-panel:not([hidden]) .kitchen59-personalized", host).forEach(bindKitchen59Custom);
     $$(".venue-panel:not([hidden]) .offer-plan[data-plan-id]", host).forEach(function (plan) {
       bindDrinkMenu(plan, plan.getAttribute("data-plan-id"));
@@ -2138,6 +2203,143 @@ const SOURCES = [
       '</div>';
   }
 
+  function kitchen59DrinkCalculatorHtml(mode) {
+    var selections = kitchen59DrinkItems(mode);
+    var itemIndex = 0;
+    var categories = KITCHEN59_DRINK_MENU.map(function (category) {
+      var rows = category.items.map(function (drink) {
+        var index = itemIndex++;
+        return '<li class="kitchen59-drinks__calc-row"><span>' + esc(pick(drink.name)) + '</span>' +
+          '<b>' + money(drink.price) + '</b>' +
+          '<input type="number" min="0" max="500" step="1" inputmode="numeric"' +
+            ' data-kitchen-drink-qty="' + index + '" data-kitchen-drink-mode="' + mode + '" value="' +
+            esc(selections[index].quantity) + '" aria-label="' + esc(tr("Количество", "Quantity")) + ' · ' + esc(pick(drink.name)) + '">' +
+          '<span data-kitchen-drink-line="' + mode + '-' + index + '">' + money(selections[index].quantity * drink.price) + '</span></li>';
+      }).join("");
+      return '<div class="kitchen59-drinks__category"><h4>' + esc(pick(category.category)) + '</h4><ul>' + rows + '</ul></div>';
+    }).join("");
+    return '<details class="offer-plan__drinks kitchen59-drinks-calc" data-kitchen-drink-calculator="' + mode + '">' +
+      '<summary>' + esc(tr("Добави напитки от менюто · по избор", "Add drinks from the menu · optional")) + '</summary>' +
+      '<div class="offer-plan__drinks-body"><p class="kitchen59-quote__note">' +
+        esc(tr("Въведи количество за всяка напитка. Сумата се добавя към варианта с 7% сервиз; нулево количество означава, че напитката е изключена.",
+          "Enter a quantity for each drink. The selected amount is added to this option with 7% service; zero means it is excluded.")) +
+        '</p><div class="kitchen59-drinks__calc-head"><span>' + esc(tr("Напитка", "Drink")) + '</span><span>' + esc(tr("€ / бр.", "€ / item")) +
+          '</span><span>' + esc(tr("Кол.", "Qty")) + '</span><span>' + esc(tr("Общо", "Total")) + '</span></div>' +
+        '<div class="kitchen59-drinks__grid">' + categories + '</div>' +
+        '<p class="offer-drinks__total"><strong>' + esc(tr("Избрани напитки преди сервиз", "Selected drinks before service")) + '</strong> · ' +
+          '<span data-kitchen-drink-total="' + mode + '">' + money(kitchen59DrinkTotal(mode)) + '</span></p>' +
+        '<div class="custom-menu__actions"><button type="button" data-kitchen-drink-reset="' + mode + '">' +
+          esc(tr("Нулирай количествата напитки", "Reset drink quantities")) + '</button></div>' +
+        '<p class="kitchen59-quote__drive"><a href="https://drive.google.com/file/d/1HI4zVgRkRRvzkv8TIYsrhNle7qsCy5V6/view" target="_blank" rel="noopener">' +
+          esc(tr("Пълно меню с напитки ↗", "Full drinks menu ↗")) + '</a></p></div></details>';
+  }
+
+  function kitchen59OriginalMenuHtml(metrics) {
+    var baseListRows = KITCHEN59_QUOTE.baseBites.map(function (item) {
+      return '<tr><td>' + esc(pick(item.name)) + '</td><td class="num">30 × 40 ' + esc(tr("г", "g")) + '</td>' +
+        '<td class="num">' + money(item.price) + '</td><td class="num">' + money(item.price * 30) + '</td></tr>';
+    }).join("");
+    var extraRows = KITCHEN59_QUOTE.extraBites.map(function (item) {
+      return '<tr><td>' + esc(pick(item.name)) + '</td><td class="num">30 × 40 ' + esc(tr("г", "g")) + '</td>' +
+        '<td class="num">' + money(item.price) + '</td><td class="num">' + money(item.price * 30) + '</td></tr>';
+    }).join("");
+    var platterRows = KITCHEN59_QUOTE.platters.map(function (item) {
+      return '<tr><td>' + esc(pick(item.name)) + '</td><td class="num">' + item.quantity + ' × ' + item.grams + ' ' + esc(tr("г", "g")) + '</td>' +
+        '<td class="num">' + money(item.price) + '</td><td class="num">' + money(item.quantity * item.price) + '</td></tr>';
+    }).join("");
+    return '<div class="kitchen59-original-menu">' +
+      '<h5 class="offer-plan__menu-title">' + esc(tr("Основен пакет · 10 хапки на човек", "Base package · 10 bites per guest")) + '</h5>' +
+      '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table kitchen59-option-menu"><thead><tr>' +
+        '<th>' + esc(tr("Хапка", "Bite")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
+        '<th class="num">' + esc(tr("€/бр.", "€/pc")) + '</th><th class="num">' + esc(tr("Общо", "Total")) + '</th>' +
+      '</tr></thead><tbody>' + baseListRows +
+        '<tr><td>' + esc(tr("Сбор по меню цени", "Menu-price subtotal")) + '</td><td></td>' +
+          '<td class="num">' + money(metrics.baseListPerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td><td class="num">' + money(metrics.baseListTotal) + '</td></tr>' +
+        '<tr><td>' + esc(tr("Пакетна отстъпка", "Package discount")) + '</td><td></td>' +
+          '<td class="num">−' + money(Math.abs(metrics.baseDiscountPerGuest)) + ' / ' + esc(tr("гост", "guest")) + '</td><td class="num">−' + money(Math.abs(metrics.baseDiscountTotal)) + '</td></tr>' +
+        '<tr class="row-total"><td>' + esc(tr("Цена на пакет от 10 хапки", "Quoted 10-bite package")) + '</td><td></td>' +
+          '<td class="num">' + money(metrics.basePackagePerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td><td class="num">' + money(metrics.basePackageTotal) + '</td></tr>' +
+      '</tbody></table></div>' +
+      '<p class="kitchen59-quote__note">' + esc(tr("30 броя от всеки вид · 40 г на хапка · общо 300 основни хапки (12 кг).",
+        "30 of each type · 40 g each · 300 base bites total (12 kg).")) + '</p>' +
+      '<h5 class="offer-plan__menu-title">' + esc(tr("4 допълнителни хапки на човек", "4 extra bites per guest")) + '</h5>' +
+      '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table kitchen59-option-menu"><thead><tr>' +
+        '<th>' + esc(tr("Допълнителна хапка", "Extra bite")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
+        '<th class="num">' + esc(tr("€/бр.", "€/pc")) + '</th><th class="num">' + esc(tr("Общо", "Total")) + '</th>' +
+      '</tr></thead><tbody>' + extraRows +
+        '<tr class="row-total"><td>' + esc(tr("4 допълнителни хапки", "4 extra bites")) + '</td><td></td>' +
+          '<td class="num">' + money(metrics.extrasPerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td><td class="num">' + money(metrics.extrasTotal) + '</td></tr>' +
+      '</tbody></table></div>' +
+      '<p class="kitchen59-quote__note">' + esc(tr("Общо 14 хапки на човек, от които 8 топли.", "14 bites per guest in total, 8 of them hot.")) + '</p>' +
+      '<h5 class="offer-plan__menu-title">' + esc(tr("Плата и късен снакс", "Platters and late snack")) + '</h5>' +
+      '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table kitchen59-option-menu"><thead><tr>' +
+        '<th>' + esc(tr("Позиция", "Item")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
+        '<th class="num">' + esc(tr("€/бр.", "€/unit")) + '</th><th class="num">' + esc(tr("Общо", "Total")) + '</th>' +
+      '</tr></thead><tbody>' + platterRows +
+        '<tr><td>' + esc(tr("Снакс allowance", "Snack allowance")) + '<small class="kitchen59-quote__item-detail">' + esc(pick(KITCHEN59_QUOTE.snackDetail)) + '</small></td>' +
+          '<td class="num">30 × ' + money(KITCHEN59_QUOTE.snackPerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td><td class="num">—</td><td class="num">' + money(metrics.snackTotal) + '</td></tr>' +
+        '<tr><td>' + esc(pick(KITCHEN59_QUOTE.snackNuts.name)) + '<small class="kitchen59-quote__item-detail">' + esc(tr("Количество за потвърждение.", "Quantity to be confirmed.")) + '</small></td>' +
+          '<td class="num">TBC</td><td class="num">' + money(KITCHEN59_QUOTE.snackNuts.price) + '</td><td class="num">—</td></tr>' +
+      '</tbody></table></div>' +
+      '<h5 class="offer-plan__menu-title">' + esc(tr("Welcome drink", "Welcome drink")) + '</h5>' +
+      '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table kitchen59-option-menu"><thead><tr>' +
+        '<th>' + esc(tr("Напитка", "Drink")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
+        '<th class="num">' + esc(tr("€/чаша", "€/glass")) + '</th><th class="num">' + esc(tr("Общо", "Total")) + '</th>' +
+      '</tr></thead><tbody><tr><td>' + esc(pick(KITCHEN59_QUOTE.welcomeDrink.name)) + '</td>' +
+        '<td class="num">' + KITCHEN59_QUOTE.welcomeDrink.quantity + '</td><td class="num">' + money(KITCHEN59_QUOTE.welcomeDrink.price) + '</td>' +
+        '<td class="num">' + money(metrics.welcomeTotal) + '</td></tr></tbody></table></div>' +
+      '<p class="kitchen59-quote__note">' + esc(tr("Другите напитки по меню са индивидуално платени и се калкулират отделно по-долу.",
+        "Other menu drinks are paid individually and can be calculated separately below.")) + '</p>' +
+      '</div>';
+  }
+
+  function kitchen59OriginalSummaryHtml() {
+    var metrics = kitchen59OriginalMetrics();
+    var overCap = metrics.capHeadroom < 0;
+    return '<article class="offer-plan kitchen59-summary kitchen59-summary--original">' +
+      '<div class="offer-plan__head"><h4>' + esc(tr("Оригинална оферта", "Original offer")) + '</h4>' +
+        '<span class="offer-plan__badge">' + esc(t("st.offer")) + '</span></div>' +
+      '<p class="offer-plan__price"><span class="offer-plan__amount" data-kitchen-original-value="perGuest">' + money(metrics.totalPerGuest) + '</span> ' +
+        '<small>' + esc(tr("сервиз и welcome drink · на гост", "service and welcome drink · per guest")) + '</small></p>' +
+      '<p class="offer-plan__total"><b data-kitchen-original-value="group">' + money(metrics.totalGroup) + '</b> ' +
+        esc(lang === "en" ? "total for " : "общо за ") + KITCHEN59_QUOTE.guests + ' ' + esc(lang === "en" ? "guests" : "гости") + '</p>' +
+      '<div class="offer-plan__final-breakdown"><div><dt>' +
+        esc(tr("Оферта + избрани напитки / гост", "Offer + selected drinks / guest")) +
+        '</dt><dd data-kitchen-original-value="perGuestLine">' + money(metrics.totalPerGuest) + '</dd></div></div>' +
+      '<div class="offer-plan__presents' + (overCap ? ' is-over-cap' : '') + '" data-kitchen-original-presents>' +
+        '<div class="offer-plan__presents-row"><span data-kitchen-original-budget-label>' +
+          esc(t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
+          '<b data-kitchen-original-value="headroom">' + money(Math.abs(metrics.capHeadroom)) + '</b></div>' +
+        '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' +
+          '<span data-kitchen-original-group-label>' + esc(t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup")) +
+          '</span> · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</span>' +
+          '<b data-kitchen-original-value="headroomGroup">' + money(Math.abs(metrics.capHeadroom) * KITCHEN59_QUOTE.guests) + '</b></div>' +
+      '</div>' +
+      '<div class="offer-plan__perguest-pair">' +
+        '<p class="offer-plan__foodpp"><b>' + money(metrics.foodPerGuest) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
+        '<p class="offer-plan__foodpp"><b>' + money(metrics.welcomePerGuest) + '</b> ' + esc(tr("Welcome просеко / гост", "Welcome prosecco / guest")) + '</p>' +
+      '</div>' +
+      '<div class="offer-plan__weight-pair">' +
+        '<p class="offer-plan__weight">≈ ' + num(metrics.foodGramsPerGuest) + ' ' + esc(tr("г", "g")) +
+          '<small>' + esc(tr("храна на гост · без снакса", "food per guest · excludes snack portions")) + '</small></p>' +
+        '<p class="offer-plan__weight">' + metrics.welcomeGlassesPerGuest.toLocaleString(lang === "en" ? "en-US" : "bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
+          '<small>' + esc(tr("чаши welcome просеко / гост", "welcome prosecco glasses / guest")) + '</small></p>' +
+      '</div>' +
+      '<dl class="offer-plan__breakdown">' +
+        '<div><dt>' + esc(tr("Храна + allowance за снакс", "Food + snack allowance")) + '</dt><dd>' + money(metrics.foodTotal) + '</dd></div>' +
+        '<div><dt>' + esc(tr("Welcome просеко · 40 чаши", "Welcome prosecco · 40 glasses")) + '</dt><dd>' + money(metrics.welcomeTotal) + '</dd></div>' +
+        '<div><dt>' + esc(tr("Други напитки", "Additional drinks")) + '</dt><dd data-kitchen-original-value="drinkTotal">' + money(metrics.drinkTotal) + '</dd></div>' +
+        '<div><dt>' + esc(tr("Сервиз 7%", "7% service")) + '</dt><dd data-kitchen-original-value="service">' + money(metrics.service) + '</dd></div>' +
+        '<div><dt>' + esc(tr("Наем на зала", "Hall rental")) + '</dt><dd>' + esc(tr("не е посочен", "not stated")) + '</dd></div>' +
+      '</dl>' +
+      '<p class="kitchen59-quote__note">' + esc(tr("Включва офертните количества; допълнителни напитки са по избор.",
+        "Includes the quoted quantities; additional drinks are optional.")) + '</p>' +
+      '<h5 class="offer-plan__menu-title">' + esc(tr("Меню на офертата · количества и цени", "Offer menu · quantities and prices")) + '</h5>' +
+      kitchen59OriginalMenuHtml(kitchen59QuoteMetrics()) +
+      kitchen59DrinkCalculatorHtml("original") +
+    '</article>';
+  }
+
   function kitchen59CustomSummaryHtml() {
     var metrics = kitchen59CustomMetrics();
     var overCap = metrics.capHeadroom < 0;
@@ -2171,6 +2373,7 @@ const SOURCES = [
       '<dl class="offer-plan__breakdown">' +
         '<div><dt>' + esc(tr("Храна и снакс", "Food and snacks")) + '</dt><dd data-kitchen-custom-value="food">' + money(metrics.foodTotal) + '</dd></div>' +
         '<div><dt>' + esc(tr("Welcome просеко", "Welcome prosecco")) + '</dt><dd data-kitchen-custom-value="welcome">' + money(metrics.welcomeTotal) + '</dd></div>' +
+        '<div><dt>' + esc(tr("Други напитки", "Additional drinks")) + '</dt><dd data-kitchen-custom-value="drinkTotal">' + money(metrics.drinkTotal) + '</dd></div>' +
         '<div><dt>' + esc(tr("Сервиз 7%", "7% service")) + '</dt><dd data-kitchen-custom-value="service">' + money(metrics.service) + '</dd></div>' +
         '<div><dt>' + esc(tr("Наем на зала", "Hall rental")) + '</dt><dd>' + esc(tr("не е посочен", "not stated")) + '</dd></div>' +
       '</dl>' +
@@ -2180,19 +2383,19 @@ const SOURCES = [
   }
 
   function kitchen59CustomHtml() {
-    return '<details class="offer-plan__drinks kitchen59-personalized"><summary>' +
-      esc(tr("Персонализирай количествата", "Customize quantities")) +
-      '</summary><div class="offer-plan__drinks-body">' + kitchen59CustomBodyHtml() + '</div></details>';
+    return '<div class="kitchen59-personalized">' + kitchen59CustomBodyHtml() +
+      kitchen59DrinkCalculatorHtml("custom") + '</div>';
   }
 
   function renderKitchen59Custom(root) {
     if (!root) return;
-    var host = root.closest(".kitchen59-quote") || root;
+    var host = root.closest(".offer-plan") || root;
     var metrics = kitchen59CustomMetrics();
     kitchen59CustomItems.forEach(function (item, index) {
       var line = $('[data-kitchen-custom-line="' + index + '"]', root);
       if (line) line.textContent = money(Math.max(0, Number(item.quantity) || 0) * item.price);
     });
+    renderKitchen59DrinkCalculator(root, "custom");
     var values = {
       perGuest: money(metrics.totalPerGuest), group: money(metrics.totalGroup),
       headroom: money(Math.abs(metrics.capHeadroom)),
@@ -2203,6 +2406,7 @@ const SOURCES = [
         minimumFractionDigits: 2, maximumFractionDigits: 2
       }),
       food: money(metrics.foodTotal), welcome: money(metrics.welcomeTotal),
+      drinkTotal: money(metrics.drinkTotal),
       service: money(metrics.service), baseList: money(metrics.baseListTotal),
       packageDiscount: (metrics.packageDiscount < 0 ? "−" : "") + money(Math.abs(metrics.packageDiscount)),
       baseTotal: money(metrics.baseTotal)
@@ -2229,6 +2433,71 @@ const SOURCES = [
     }
   }
 
+  function renderKitchen59Original(root) {
+    if (!root) return;
+    var metrics = kitchen59OriginalMetrics();
+    renderKitchen59DrinkCalculator(root, "original");
+    var values = {
+      perGuest: money(metrics.totalPerGuest), perGuestLine: money(metrics.totalPerGuest),
+      group: money(metrics.totalGroup), headroom: money(Math.abs(metrics.capHeadroom)),
+      headroomGroup: money(Math.abs(metrics.capHeadroom) * KITCHEN59_QUOTE.guests),
+      drinkTotal: money(metrics.drinkTotal), service: money(metrics.service)
+    };
+    Object.keys(values).forEach(function (key) {
+      var node = $('[data-kitchen-original-value="' + key + '"]', root);
+      if (node) node.textContent = values[key];
+    });
+    var overCap = metrics.capHeadroom < 0;
+    var presents = $("[data-kitchen-original-presents]", root);
+    if (presents) presents.classList.toggle("is-over-cap", overCap);
+    var budgetLabel = $("[data-kitchen-original-budget-label]", root);
+    if (budgetLabel) budgetLabel.textContent = t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget");
+    var groupLabel = $("[data-kitchen-original-group-label]", root);
+    if (groupLabel) groupLabel.textContent = t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup");
+  }
+
+  function renderKitchen59DrinkCalculator(root, mode) {
+    if (!root) return;
+    var selections = kitchen59DrinkItems(mode);
+    selections.forEach(function (selection, index) {
+      var drink = KITCHEN59_DRINK_MENU[selection.categoryIndex].items[selection.itemIndex];
+      var line = $('[data-kitchen-drink-line="' + mode + '-' + index + '"]', root);
+      if (line) line.textContent = money((Number(selection.quantity) || 0) * drink.price);
+    });
+    var total = $('[data-kitchen-drink-total="' + mode + '"]', root);
+    if (total) total.textContent = money(kitchen59DrinkTotal(mode));
+  }
+
+  function bindKitchen59DrinkCalculator(root, mode) {
+    if (!root) return;
+    $$('[data-kitchen-drink-qty][data-kitchen-drink-mode="' + mode + '"]', root).forEach(function (input) {
+      input.addEventListener("input", function () {
+        var index = parseInt(input.getAttribute("data-kitchen-drink-qty"), 10);
+        var item = kitchen59DrinkItems(mode)[index];
+        if (!item) return;
+        item.quantity = input.value === "" ? 0 : Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
+        if (mode === "original") renderKitchen59Original(root);
+        else renderKitchen59Custom(root);
+        renderCalc();
+        renderCompare();
+      });
+    });
+    var reset = $('[data-kitchen-drink-reset="' + mode + '"]', root);
+    if (reset) reset.addEventListener("click", function () {
+      var selections = kitchen59DrinkItems(mode);
+      selections.forEach(function (item, index) {
+        item.quantity = 0;
+        var input = $('[data-kitchen-drink-qty="' + index + '"][data-kitchen-drink-mode="' + mode + '"]', root);
+        if (input) input.value = "0";
+      });
+      if (mode === "original") renderKitchen59Original(root);
+      else renderKitchen59Custom(root);
+      renderCalc();
+      renderCompare();
+    });
+    renderKitchen59DrinkCalculator(root, mode);
+  }
+
   function bindKitchen59Custom(root) {
     if (!root) return;
     $$('[data-kitchen-custom-qty]', root).forEach(function (input) {
@@ -2249,169 +2518,42 @@ const SOURCES = [
         var input = $('[data-kitchen-custom-qty="' + index + '"]', root);
         if (input) input.value = item.quantity;
       });
+      kitchen59CustomDrinks = initialKitchen59DrinkItems();
+      $$('[data-kitchen-drink-qty][data-kitchen-drink-mode="custom"]', root).forEach(function (input) {
+        input.value = "0";
+      });
       renderKitchen59Custom(root);
       renderCalc();
       renderCompare();
     });
+    bindKitchen59DrinkCalculator(root, "custom");
     renderKitchen59Custom(root);
   }
 
   function kitchen59QuoteHtml() {
-    var metrics = kitchen59QuoteMetrics();
-    var signedMoney = function (amount) {
-      return (amount < 0 ? "−" : "") + money(Math.abs(amount));
-    };
-    var presentHeadroom = 60 - metrics.totalPerGuest;
-    var presentGroupHeadroom = 60 * KITCHEN59_QUOTE.guests - metrics.totalGroup;
-    var overCap = presentHeadroom < 0;
-    var biteRows = function (items) {
-      return items.map(function (item) {
-        var quantity = KITCHEN59_QUOTE.guests;
-        return '<tr><td>' + esc(pick(item.name)) + '</td>' +
-          '<td class="num">' + quantity + ' × 40 g</td>' +
-          '<td class="num">' + money(item.price) + '</td>' +
-          '<td class="num">' + money(item.price * quantity) + '</td></tr>';
-      }).join("");
-    };
-    var baseRows = biteRows(KITCHEN59_QUOTE.baseBites);
-    var extraRows = biteRows(KITCHEN59_QUOTE.extraBites);
-    var platterRows = KITCHEN59_QUOTE.platters.map(function (item) {
-      return '<tr><td>' + esc(pick(item.name)) + '</td>' +
-        '<td class="num">' + item.quantity + ' × ' + item.grams + ' g</td>' +
-        '<td class="num">' + money(item.price) + '</td>' +
-        '<td class="num">' + money(item.quantity * item.price) + '</td></tr>';
-    }).join("");
-    var drinks = KITCHEN59_DRINK_MENU.map(function (category) {
-      var rows = category.items.map(function (item) {
-        return '<li><span>' + esc(pick(item.name)) + '</span><b>' + money(item.price) + '</b></li>';
-      }).join("");
-      return '<div class="kitchen59-drinks__category"><h4>' + esc(pick(category.category)) +
-        '</h4><ul>' + rows + '</ul></div>';
-    }).join("");
     return '<section class="kitchen59-quote">' +
       '<div class="kitchen59-quote__head"><div>' +
         '<h3>' + esc(tr("Оферта за меню · Kitchen59", "Kitchen59 menu offer")) + '</h3>' +
         '<p>' + esc(pick(KITCHEN59_QUOTE.reservation)) + '</p>' +
         '<p>' + esc(pick(KITCHEN59_QUOTE.mealRationale)) + '</p>' +
-        '<p>' + esc(tr("Другите напитки се плащат индивидуално на бара; пълният ценови списък е по-долу.",
-          "Other drinks are paid for individually at the bar; the full price list is below.")) + '</p>' +
+        '<p>' + esc(tr("Другите напитки се плащат индивидуално на бара. Количествата могат да се калкулират във всяка опция.",
+          "Other drinks are paid for individually at the bar. Add quantities to either option to calculate them.")) + '</p>' +
       '</div><span class="badge badge--offer">' + esc(t("st.offer")) + '</span></div>' +
       '<h4 class="kitchen59-quote__section-title">' + esc(tr("Сравнение на вариантите", "Compare the two options")) + '</h4>' +
       '<div class="offer-plans kitchen59-plan-comparison">' +
-      '<article class="offer-plan kitchen59-summary kitchen59-summary--original">' +
-        '<div class="offer-plan__head"><h4>' + esc(tr("Оригинална оферта", "Original offer")) + '</h4>' +
-          '<span class="offer-plan__badge">' + esc(t("st.offer")) + '</span></div>' +
-        '<p class="offer-plan__price"><span class="offer-plan__amount">' + money(metrics.totalPerGuest) + '</span> ' +
-          '<small>' + esc(tr("сервиз и welcome drink · на гост", "service and welcome drink · per guest")) + '</small></p>' +
-        '<p class="offer-plan__total"><b>' + money(metrics.totalGroup) + '</b> ' +
-          esc(lang === "en" ? "total for " : "общо за ") + KITCHEN59_QUOTE.guests + ' ' + esc(lang === "en" ? "guests" : "гости") + '</p>' +
-        '<div class="offer-plan__final-breakdown"><div><dt>' +
-          esc(tr("Меню, welcome drink и сервиз / гост", "Menu, welcome drink and service / guest")) +
-          '</dt><dd>' + money(metrics.totalPerGuest) + '</dd></div></div>' +
-        '<div class="offer-plan__presents' + (overCap ? ' is-over-cap' : '') + '">' +
-          '<div class="offer-plan__presents-row"><span>' + esc(t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
-            '<b>' + money(Math.abs(presentHeadroom)) + '</b></div>' +
-          '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' +
-            esc(t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup")) + ' · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</span>' +
-            '<b>' + money(Math.abs(presentGroupHeadroom)) + '</b></div>' +
-        '</div>' +
-        '<div class="offer-plan__perguest-pair">' +
-          '<p class="offer-plan__foodpp"><b>' + money(metrics.foodPerGuest) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
-          '<p class="offer-plan__foodpp"><b>' + money(metrics.welcomePerGuest) + '</b> ' + esc(tr("Welcome просеко / гост", "Welcome prosecco / guest")) + '</p>' +
-        '</div>' +
-        '<div class="offer-plan__weight-pair">' +
-          '<p class="offer-plan__weight">≈ ' + num(metrics.foodGramsPerGuest) + ' ' + esc(lang === "en" ? "g" : "г") +
-            '<small>' + esc(tr("храна на гост · без снакса", "food per guest · excludes snacks")) + '</small></p>' +
-          '<p class="offer-plan__weight">' + metrics.welcomeGlassesPerGuest.toLocaleString(lang === "en" ? "en-US" : "bg-BG", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
-            '<small>' + esc(tr("чаши просеко / гост", "welcome prosecco glasses / guest")) + '</small></p>' +
-        '</div>' +
-        '<dl class="offer-plan__breakdown">' +
-          '<div><dt>' + esc(tr("Храна + allowance за снакс", "Food + snack allowance")) + '</dt><dd>' + money(metrics.foodTotal) + '</dd></div>' +
-          '<div><dt>' + esc(tr("Welcome просеко · 40 чаши", "Welcome prosecco · 40 glasses")) + '</dt><dd>' + money(metrics.welcomeTotal) + '</dd></div>' +
-          '<div><dt>' + esc(tr("Сервиз 7%", "7% service")) + '</dt><dd>' + money(metrics.service) + '</dd></div>' +
-          '<div><dt>' + esc(tr("Наем на зала", "Hall rental")) + '</dt><dd>' + esc(tr("не е посочен", "not stated")) + '</dd></div>' +
-        '</dl>' +
-        '<a class="btn btn--ghost kitchen59-summary__link" href="#kitchen59-original-details">' + esc(tr("Виж разбивката на офертата ↓", "View itemized offer ↓")) + '</a>' +
-        '<p class="kitchen59-quote__note">' + esc(tr("Оценка за теглото: 14 хапки × 40 г плюс среден дял от платата; порцията снакс не е уточнена. Обемът на чашата просеко не е посочен. Другите напитки се плащат отделно на бара.",
-          "Food weight estimate: 14 bites × 40 g plus an average share of the platters; snack portions are unspecified. Prosecco glass volume is not stated. Other drinks are paid separately at the bar.")) + '</p>' +
-      '</article>' +
-      kitchen59CustomSummaryHtml() +
+        kitchen59OriginalSummaryHtml() + kitchen59CustomSummaryHtml() +
       '</div>' +
-      '<p class="kitchen59-quote__note kitchen59-compare-note">' + esc(tr("Персонализираната опция започва със същите количества като офертата. Отвори „Персонализирай количествата“, за да я промениш; сметката е ориентировъчна до потвърждение от Kitchen59.",
-        "The personalised option starts with the same quantities as the quote. Open “Customize quantities” to change it; the estimate is subject to confirmation by Kitchen59.")) + '</p>' +
-      '<h4 class="kitchen59-quote__section-title" id="kitchen59-original-details">' + esc(tr("Оригинална оферта · подробно меню", "Original offer · itemized menu")) + '</h4>' +
-      '<h4 class="kitchen59-quote__section-title">' + esc(tr("Основен пакет · 10 хапки на човек", "Base package · 10 bites per guest")) + '</h4>' +
-      '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table"><thead><tr>' +
-        '<th>' + esc(tr("Хапка", "Bite")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
-        '<th class="num">' + esc(tr("€/бр.", "€/pc")) + '</th><th class="num">' + esc(tr("Общо", "Total")) + '</th>' +
-      '</tr></thead><tbody>' + baseRows +
-        '<tr><td><strong>' + esc(tr("Сбор по меню цени", "Menu-price subtotal")) + '</strong></td><td></td>' +
-          '<td class="num">' + money(metrics.baseListPerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td>' +
-          '<td class="num">' + money(metrics.baseListTotal) + '</td></tr>' +
-        '<tr><td>' + esc(tr("Пакетна отстъпка", "Package discount")) + '</td><td></td>' +
-          '<td class="num">' + signedMoney(metrics.baseDiscountPerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td>' +
-          '<td class="num">' + signedMoney(metrics.baseDiscountTotal) + '</td></tr>' +
-        '<tr class="row-total"><td>' + esc(tr("Цена на пакет от 10 хапки", "Quoted 10-bite package")) + '</td>' +
-          '<td></td><td class="num">' + money(metrics.basePackagePerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td>' +
-          '<td class="num">' + money(metrics.basePackageTotal) + '</td></tr>' +
-      '</tbody></table></div>' +
-      '<p class="kitchen59-quote__note">' + esc(tr("30 броя от всеки вид за 30 гости · 40 г на хапка · общо 300 основни хапки (12 кг).",
-        "30 of each type for 30 guests · 40 g each · 300 base bites total (12 kg).")) + '</p>' +
-      '<h4 class="kitchen59-quote__section-title">' + esc(tr("4 допълнителни хапки на човек", "4 extra bites per guest")) + '</h4>' +
-      '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table"><thead><tr>' +
-        '<th>' + esc(tr("Допълнителна хапка", "Extra bite")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
-        '<th class="num">' + esc(tr("€/бр.", "€/pc")) + '</th><th class="num">' + esc(tr("Общо", "Total")) + '</th>' +
-      '</tr></thead><tbody>' + extraRows +
-        '<tr class="row-total"><td>' + esc(tr("4 допълнителни хапки", "4 extra bites")) + '</td><td></td>' +
-          '<td class="num">' + money(metrics.extrasPerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td>' +
-          '<td class="num">' + money(metrics.extrasTotal) + '</td></tr>' +
-      '</tbody></table></div>' +
-      '<p class="kitchen59-quote__note">' + esc(tr("30 броя от всеки вид · 120 допълнителни хапки общо; с основните — 14 на човек, от които 8 топли.",
-        "30 of each type · 120 extra bites total; 14 per guest including the base package, 8 hot.")) + '</p>' +
-      '<h4 class="kitchen59-quote__section-title">' + esc(tr("Плата и късни снаксове", "Sharing platters and late snacks")) + '</h4>' +
-      '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table"><thead><tr>' +
-        '<th>' + esc(tr("Позиция", "Item")) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
-        '<th class="num">' + esc(tr("€/бр.", "€/unit")) + '</th><th class="num">' + esc(tr("Общо", "Total")) + '</th>' +
-      '</tr></thead><tbody>' + platterRows +
-        '<tr><td>' + esc(tr("Снакс за късната част · офертен allowance", "Late-night snack allowance in quote")) +
-          '<small class="kitchen59-quote__item-detail">' + esc(pick(KITCHEN59_QUOTE.snackDetail)) + '</small></td>' +
-          '<td class="num">' + KITCHEN59_QUOTE.guests + ' × ' + money(KITCHEN59_QUOTE.snackPerGuest) + ' / ' + esc(tr("гост", "guest")) + '</td>' +
-          '<td class="num">—</td><td class="num">' + money(metrics.snackTotal) + '</td></tr>' +
-        '<tr><td>' + esc(pick(KITCHEN59_QUOTE.snackNuts.name)) +
-          '<small class="kitchen59-quote__item-detail">' + esc(tr("Меню цена за единица; количеството предстои да се потвърди.", "Menu unit price; quantity to be confirmed.")) + '</small></td>' +
-          '<td class="num">' + esc(tr("за уточняване", "TBC")) + '</td>' +
-          '<td class="num">' + money(KITCHEN59_QUOTE.snackNuts.price) + '</td><td class="num">—</td></tr>' +
-        '<tr class="row-total"><td>' + esc(tr("Плата + снакс", "Platters + snacks")) + '</td><td></td><td></td>' +
-          '<td class="num">' + money(metrics.platterTotal + metrics.snackTotal) + '</td></tr>' +
-      '</tbody></table></div>' +
-      '<p class="kitchen59-quote__note">' + esc(tr("За да не се предполага количество, ядките са показани като единична цена и не са добавени втори път към общата сума; запазен е предишният allowance за снакс от €2,14/гост.",
-        "To avoid assuming a quantity, nuts are shown at their unit price and are not added a second time to the total; the earlier €2.14/guest snack allowance is retained.")) + '</p>' +
-      '<h4 class="kitchen59-quote__section-title">' + esc(tr("Напитка за добре дошли", "Welcome drink")) + '</h4>' +
-      '<div class="tbl-wrap"><table class="tbl tbl--tight kitchen59-quote__table"><thead><tr>' +
-        '<th>' + esc(pick(KITCHEN59_QUOTE.welcomeDrink.name)) + '</th><th class="num">' + esc(tr("Количество", "Quantity")) + '</th>' +
-        '<th class="num">' + esc(tr("€/чаша", "€/glass")) + '</th><th class="num">' + esc(tr("Общо", "Total")) + '</th>' +
-      '</tr></thead><tbody><tr><td>' + esc(pick(KITCHEN59_QUOTE.welcomeDrink.name)) + '</td>' +
-        '<td class="num">' + KITCHEN59_QUOTE.welcomeDrink.quantity + '</td><td class="num">' + money(KITCHEN59_QUOTE.welcomeDrink.price) + '</td>' +
-        '<td class="num">' + money(metrics.welcomeTotal) + '</td></tr></tbody></table></div>' +
-      '<table class="tbl tbl--tight kitchen59-quote__totals"><tbody>' +
-        '<tr><td>' + esc(tr("Междинна сума преди сервиз", "Subtotal before service")) + '</td><td class="num">' + money(metrics.subtotal) + '</td></tr>' +
-        '<tr><td>' + esc(tr("Сервиз 7%", "7% service charge")) + '</td><td class="num">' + money(metrics.service) + '</td></tr>' +
-        '<tr class="row-total"><td>' + esc(tr("Общо с включен сервиз", "Total including service")) + '</td><td class="num">' + money(metrics.totalGroup) + '</td></tr>' +
-        '<tr><td>' + esc(tr("Общо на гост", "Total per guest")) + '</td><td class="num">' + money(metrics.totalPerGuest) + '</td></tr>' +
-      '</tbody></table>' +
-      '<div class="kitchen59-quote__meta">' +
-        '<div><p><strong>' + esc(tr("Кетъринг и плащане", "Catering and payment")) + '</strong></p>' +
-          '<p>' + esc(pick(KITCHEN59_QUOTE.deadline)) + '</p><p>' + esc(pick(KITCHEN59_QUOTE.deposit)) + '</p>' +
-          '<p>' + esc(pick(KITCHEN59_QUOTE.minimum)) + '</p></div>' +
-        '<div><p><strong>' + esc(tr("Диетични опции и сервиране", "Dietary options and serving")) + '</strong></p>' +
-          '<p>' + esc(pick(KITCHEN59_QUOTE.vegetarian)) + '</p><p>' + esc(pick(KITCHEN59_QUOTE.serving)) + '</p></div>' +
-      '</div>' +
-      '<details class="acc kitchen59-drinks"><summary>' + esc(tr("Напитки · меню с цени, плащат се отделно на бара", "Drinks · menu prices, paid separately at the bar")) + '</summary>' +
-        '<div class="acc__body"><div class="kitchen59-drinks__grid">' + drinks + '</div>' +
-          '<p class="kitchen59-quote__drive">' + esc(pick(KITCHEN59_QUOTE.drive)) + ' <a href="https://drive.google.com/file/d/1HI4zVgRkRRvzkv8TIYsrhNle7qsCy5V6/view" target="_blank" rel="noopener">' +
-            esc(tr("Отвори менюто с напитки ↗", "Open drinks menu ↗")) + '</a></p></div></details>' +
-      '<p class="kitchen59-quote__drive"><a href="https://drive.google.com/drive/u/0/folders/1ejgnL7LVPfUf4cNWWobc9ot7qJ8VEklL" target="_blank" rel="noopener">' +
-        esc(tr("Отвори всички менюта в Google Drive ↗", "Open all menus in Google Drive ↗")) + '</a></p>' +
+      '<details class="acc kitchen59-terms"><summary>' + esc(tr("Условия, сервиране и източници", "Terms, serving and sources")) + '</summary>' +
+        '<div class="acc__body"><div class="kitchen59-quote__meta">' +
+          '<div><p><strong>' + esc(tr("Кетъринг и плащане", "Catering and payment")) + '</strong></p>' +
+            '<p>' + esc(pick(KITCHEN59_QUOTE.deadline)) + '</p><p>' + esc(pick(KITCHEN59_QUOTE.deposit)) + '</p>' +
+            '<p>' + esc(pick(KITCHEN59_QUOTE.minimum)) + '</p></div>' +
+          '<div><p><strong>' + esc(tr("Диетични опции и сервиране", "Dietary options and serving")) + '</strong></p>' +
+            '<p>' + esc(pick(KITCHEN59_QUOTE.vegetarian)) + '</p><p>' + esc(pick(KITCHEN59_QUOTE.serving)) + '</p></div>' +
+        '</div>' +
+        '<p class="kitchen59-quote__drive">' + esc(pick(KITCHEN59_QUOTE.drive)) + ' ' +
+          '<a href="https://drive.google.com/drive/u/0/folders/1ejgnL7LVPfUf4cNWWobc9ot7qJ8VEklL" target="_blank" rel="noopener">' +
+            esc(tr("Отвори всички менюта в Google Drive ↗", "Open all menus in Google Drive ↗")) + '</a></p></div></details>' +
     '</section>';
   }
 
@@ -2696,7 +2838,7 @@ const SOURCES = [
       return { card: card, offer: offer, metrics: offerMetrics(offer, guests) };
     });
     var bestBalkanTotal = models.reduce(function (m, x) { return Math.min(m, x.metrics.totalWithDrinksGroup); }, Infinity);
-    var kitchenQuote = kitchen59QuoteMetrics();
+    var kitchenQuote = kitchen59OriginalMetrics();
     var kitchenCustom = kitchen59CustomMetrics();
     var lowestTotal = Math.min(bestBalkanTotal, kitchenQuote.totalGroup, kitchenCustom.totalGroup);
     var perGuest = models.map(function (x) { return x.metrics.totalWithDrinks; });
@@ -2793,7 +2935,7 @@ const SOURCES = [
       } else if (v.id === "kitchen59") {
         r.hall = tr("отделен наем не е посочен", "no separate rent stated");
         r.minspend = tr("минимум 30 бр. от вид хапка", "30-piece minimum per bite type");
-        var kitchenPrices = [kitchen59QuoteMetrics().totalPerGuest, kitchen59CustomMetrics().totalPerGuest];
+        var kitchenPrices = [kitchen59OriginalMetrics().totalPerGuest, kitchen59CustomMetrics().totalPerGuest];
         r.pp = Math.min.apply(Math, kitchenPrices);
         var highestKitchenPrice = Math.max.apply(Math, kitchenPrices);
         r.ppText = r.pp === highestKitchenPrice ? money(r.pp) : money(r.pp) + "–" + money(highestKitchenPrice);
