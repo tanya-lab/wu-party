@@ -824,7 +824,6 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
       <a href="#map" class="active" data-i18n="navMap">Карта</a>
       <a href="#offers" data-i18n="navOffers">Оферти</a>
       <a href="#program" data-i18n="navProgram">Програма</a>
-      <a href="#compare" data-i18n="navCompare">Сравнение</a>
       <a href="#sources" data-i18n="navSources">Документи</a>
       <a href="#contact" data-i18n="navContact">Контакти</a>
     </nav>
@@ -875,23 +874,6 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
     </div>
   </section>
 
-  <section class="section" id="map">
-    <div class="container">
-      <div class="section__row">
-        <div class="section__head">
-          <p class="eyebrow" data-i18n="mapEyebrow">Map</p>
-          <h2 data-i18n="mapTitle">Two venues, one city</h2>
-          <p data-i18n="mapLead">Click a pin or a name to open details. Directions open in Google Maps.</p>
-        </div>
-      </div>
-      <div class="map-wrap">
-        <div id="venue-map"></div>
-        <div class="map-side" id="map-side"></div>
-      </div>
-      <div class="map-legend" id="map-legend"></div>
-    </div>
-  </section>
-
   <section class="section section--fog" id="offers">
     <div class="container">
       <div class="section__row">
@@ -919,6 +901,23 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
         <p data-i18n="vocalEntertainmentHint">This cost is deducted from the remaining budget for presents; it is not part of the venue quote.</p>
       </div>
       <div class="status-list" id="status-list"></div>
+    </div>
+  </section>
+
+  <section class="section" id="map">
+    <div class="container">
+      <div class="section__row">
+        <div class="section__head">
+          <p class="eyebrow" data-i18n="mapEyebrow">Map</p>
+          <h2 data-i18n="mapTitle">Two venues, one city</h2>
+          <p data-i18n="mapLead">Click a pin or a name to open details. Directions open in Google Maps.</p>
+        </div>
+      </div>
+      <div class="map-wrap">
+        <div id="venue-map"></div>
+        <div class="map-side" id="map-side"></div>
+      </div>
+      <div class="map-legend" id="map-legend"></div>
     </div>
   </section>
 
@@ -971,25 +970,6 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section section--fog" id="compare">
-    <div class="container">
-      <div class="section__row">
-        <div class="section__head">
-          <p class="eyebrow" data-i18n="cmpEyebrow">Compare</p>
-          <h2 data-i18n="cmpTitle">Two options, side by side</h2>
-          <p data-i18n="cmpLead">Click a column header to sort. €/guest is calculated for 30 guests; drinks beyond the Kitchen59 welcome drink are paid separately.</p>
-        </div>
-      </div>
-      <div class="cmp-wrap">
-        <table class="cmp" id="cmp">
-          <thead><tr id="cmp-head"></tr></thead>
-          <tbody id="cmp-body"></tbody>
-        </table>
-      </div>
-      <p class="cmp-legend" data-i18n="cmpLegend">Balkan Falsch: quoted and personalised block tables. Kitchen59: about €49.90/guest including 7% service and 30 welcome proseccos; other drinks are paid separately.</p>
     </div>
   </section>
 
