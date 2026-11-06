@@ -3,13 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WU Alumni X-mas Party 2026 · Sofia · 1 December</title>
-<meta name="description" content="Venue options, offers and menus for the WU X-mas Party on 1 December 2026 in Sofia.">
+<title>WU Alumni · Коледно парти 2026 · София · 1 декември</title>
+<meta name="description" content="Места, оферти и менюта за коледното парти на WU Alumni на 1 декември 2026 г. в София.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto+Slab:wght@400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <style>
 /* ============================================================
@@ -284,7 +283,7 @@ body.no-effects #snow{display:none}
 .program-time{font-family:var(--slab);font-size:14px;font-weight:800;line-height:1.5;color:var(--wu);white-space:nowrap}
 .program-item p{margin:0;font-size:13px;line-height:1.55}
 .program-status{display:inline-block;margin:0 0 6px;padding:3px 7px;background:rgba(217,165,33,.12);color:#8B6710;font-size:8px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-.program-status--progress{background:rgba(11,128,167,.08);color:var(--st-progress)}
+.program-status--confirmed{background:rgba(47,125,79,.1);color:var(--st-offer)}
 
 /* ---------- stats strip ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -321,11 +320,8 @@ body.no-effects #snow{display:none}
   letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--ink-soft);
 }
 .status-hint::before{content:"↳";font-size:14px;color:var(--wu)}
-.event-budget-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:9px 20px;align-items:end;margin:0 0 18px;padding:12px 14px;border:1px solid var(--line);background:#fff}
-.event-budget-controls__cap>span,.event-budget-controls__vocal>span:first-child{display:block;margin-bottom:6px;color:var(--ink-soft);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-.event-budget-controls__cap [role="group"]{display:flex;gap:6px}
-.event-budget-controls__cap button{min-width:54px;padding:7px 10px;border:1px solid var(--line);background:#fff;color:var(--ink);font:700 11px var(--ui);cursor:pointer}
-.event-budget-controls__cap button[aria-pressed="true"]{border-color:var(--wu);background:var(--wu);color:#fff}
+.event-budget-controls{display:grid;grid-template-columns:minmax(240px,420px);gap:9px 20px;align-items:end;margin:0 0 18px;padding:12px 14px;border:1px solid var(--line);background:#fff}
+.event-budget-controls__vocal>span:first-child{display:block;margin-bottom:6px;color:var(--ink-soft);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
 .event-budget-controls__vocal{display:grid;grid-template-columns:minmax(0,1fr) auto 78px;align-items:center;gap:8px;font-size:11px}
 .event-budget-controls__vocal>span:first-child{grid-column:1/-1;margin:0}
 .event-budget-controls__money{font-weight:700;color:var(--ink-soft)}
@@ -345,6 +341,9 @@ body.no-effects #snow{display:none}
 .status-name:hover,.status-name:focus-visible{color:var(--wu);border-bottom-color:var(--wu)}
 .status-name:hover::after,.status-name:focus-visible::after{opacity:1}
 .status-name:focus-visible{outline:2px solid var(--wu);outline-offset:3px}
+.status-name--static{cursor:default}
+.status-name--static::after{display:none}
+.status-name--static:hover{color:var(--ink);border-bottom-color:transparent}
 .badge{
   display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:800;
   letter-spacing:.12em;text-transform:uppercase;padding:5px 9px;border:1px solid;white-space:nowrap;
@@ -449,7 +448,11 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .tbl .row-total td{background:#F4FAFC;font-weight:800;border-top:1px solid var(--line)}
 .tbl--tight td,.tbl--tight th{padding:6px 8px;font-size:12px}
 .menu-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 26px}
-.offer-plans{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.offer-plans{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.offer-plan__menus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:12px;margin-top:12px}
+.offer-plan__menus>.offer-plan__menu{min-width:0;margin:0;padding:12px;border:1px solid var(--line-soft);background:#fff}
+.offer-plan__menus .offer-plan__menu-title{margin:0 0 8px}
+.offer-plan__menus .offer-plan__drinks-body{margin-top:0}
 .offer-plan{
   min-width:0;display:flex;flex-direction:column;padding:16px;border:1px solid var(--line);
   background:#fff;box-shadow:0 3px 12px rgba(0,0,0,.035)
@@ -488,11 +491,39 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__rent-editor{display:flex;align-items:center;justify-content:flex-end;gap:3px;white-space:nowrap;font-size:10px;font-weight:700}
 .offer-plan__rent-editor input{width:42px;min-width:0;padding:3px 2px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);text-align:right;color:var(--ink)}
 .offer-plan__rent-editor input[data-budget-hall-field="hours"]{width:34px}
+.offer-plan__workshop-editor{display:flex;align-items:center;justify-content:flex-end;gap:4px;white-space:nowrap;font-size:10px;font-weight:700}
+.offer-plan__workshop-editor input{width:58px;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:600 10px var(--ui);text-align:right;color:var(--ink)}
 .offer-plan__adjustment dd{color:#9A7412}
 .offer-plan__menu{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft)}
 .offer-plan__menu-title{margin:0 0 8px;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
 .offer-plan__export{align-self:flex-start;margin-top:12px;font-size:9px}
 .balkan-offer-full__title{margin:0 0 10px;padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--slab);font-size:18px;color:var(--ink)}
+.break-even-chart{margin:18px 0;padding:16px;border:1px solid var(--line);background:#fff}
+.break-even-chart__head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px}
+.break-even-chart__head h4{margin:0 0 5px;font-family:var(--slab);font-size:17px}
+.break-even-chart__head p{margin:0;color:var(--ink-soft);font-size:11px;line-height:1.45}
+.break-even-chart__control{display:grid;grid-template-columns:auto auto;align-items:center;gap:5px 9px;color:var(--ink-soft);font-size:10px;font-weight:700;white-space:nowrap}
+.break-even-chart__control b{color:var(--wu);font-size:12px}
+.break-even-chart__control small{grid-column:1/-1;max-width:220px;color:var(--ink-soft);font-size:9px;font-weight:500;line-height:1.35;white-space:normal}
+.break-even-chart__plot{position:relative;width:100%;overflow-x:auto;margin-top:10px}
+.break-even-chart__plot svg{display:block;width:100%;min-width:580px;height:auto}
+.break-even-chart__plot svg{touch-action:pan-y}
+.break-even-chart__tooltip{position:absolute;z-index:2;width:270px;max-width:calc(100% - 12px);padding:10px 12px;background:rgba(31,43,46,.97);color:#fff;box-shadow:0 5px 18px rgba(0,0,0,.22);font-size:9px;line-height:1.45;pointer-events:none}
+.break-even-chart__tooltip[hidden]{display:none}
+.break-even-chart__tooltip>strong{display:block;margin-bottom:5px;color:#fff;font-size:11px}
+.break-even-chart__tooltip>div{display:flex;justify-content:space-between;gap:9px;padding:2px 0;border-top:1px solid rgba(255,255,255,.13)}
+.break-even-chart__tooltip>div span{color:rgba(255,255,255,.78)}
+.break-even-chart__tooltip>div b{text-align:right;white-space:nowrap}
+.break-even-chart__tooltip .break-even-chart__tooltip-gifts{color:#B6D7B9}
+.break-even-chart__tick{fill:var(--ink-soft);font:10px var(--ui)}
+.break-even-chart__axis{fill:var(--ink);font:700 10px var(--ui)}
+.break-even-chart__axis-label{fill:var(--ink-soft);font:700 9px var(--ui)}
+.break-even-chart__breakeven-label{fill:#0B80A7;font:700 9px var(--ui)}
+.break-even-chart__key{display:flex;flex-wrap:wrap;gap:7px 16px;margin-top:10px;color:var(--ink-soft);font-size:10px}
+.break-even-chart__key span{display:inline-flex;align-items:center;gap:6px}
+.break-even-chart__key i{display:inline-block;width:19px;height:0;border-top:3px solid;flex:none}
+.break-even-chart__key .break-even-chart__key--blue{border-color:#0B80A7}
+.break-even-chart__key .break-even-chart__key--gray{border-color:#AEB8BA;border-top-style:dashed}
 .balkan-offer-full__title{margin:0 0 10px;padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--slab);font-size:18px;color:var(--ink)}
 .pdf-export-page{display:none}
 .offer-plan__menu .tbl td,.offer-plan__menu .tbl th{padding:5px 4px;font-size:10px}
@@ -533,10 +564,10 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .drink-menu__table th:nth-child(4){width:24%}
 .drink-menu__table th:nth-child(5){width:8%}
 .drink-menu__table td:first-child{min-width:0}
-.offer-plan__drinks .drink-menu__table th,.offer-plan__drinks .drink-menu__table td{padding:4px 2px!important;font-size:9px!important}
-.offer-plan__drinks .drink-menu__table .drink-menu__size{font-size:8px}
-.offer-plan__drinks .drink-menu__actions-cell .custom-menu__commit,.offer-plan__drinks .drink-menu__actions-cell .custom-menu__remove{display:block;margin-left:auto}
-.offer-plan__drinks .drink-menu__actions-cell .custom-menu__commit{margin-bottom:2px}
+.offer-plan__menu--drinks .drink-menu__table th,.offer-plan__menu--drinks .drink-menu__table td{padding:4px 2px!important;font-size:9px!important}
+.offer-plan__menu--drinks .drink-menu__table .drink-menu__size{font-size:8px}
+.offer-plan__menu--drinks .drink-menu__actions-cell .custom-menu__commit,.offer-plan__menu--drinks .drink-menu__actions-cell .custom-menu__remove{display:block;margin-left:auto}
+.offer-plan__menu--drinks .drink-menu__actions-cell .custom-menu__commit{margin-bottom:2px}
 .drink-menu__qty{display:flex;justify-content:flex-end;align-items:center;gap:3px;white-space:nowrap}
 .drink-menu__qty input{width:38px;min-width:0;padding:4px 2px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);text-align:right}
 .drink-menu__unit{font-size:8px;color:var(--ink-soft)}
@@ -735,7 +766,6 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 @media (max-width:1000px){
   .map-wrap{grid-template-columns:1fr}
   .program-grid{grid-template-columns:minmax(0,1fr)}
-  .offer-plans{grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side{border-left:0;border-top:1px solid var(--line);max-height:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
   .map-side__item{border-right:1px solid var(--line-soft)}
   .status-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr);row-gap:8px}
@@ -754,6 +784,8 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 @media (max-width:760px){
   html{scroll-padding-top:84px}
   .event-budget-controls{grid-template-columns:1fr}
+  .break-even-chart__head{align-items:stretch;flex-direction:column}
+  .offer-plan__menus{grid-template-columns:minmax(0,1fr)}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .status-row{grid-template-columns:minmax(0,1fr)}
   #venue-map{height:420px}
@@ -797,9 +829,6 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
   <div class="topbar__inner">
     <div class="topbar__brand">WU ALUMNI X-MAS PARTY 2026 <span>· Sofia</span></div>
     <div class="topbar__right">
-      <button class="tb-btn" data-lang="bg" aria-pressed="true" title="Български">BG</button>
-      <button class="tb-btn" data-lang="en" aria-pressed="false" title="English">EN</button>
-      <span class="tb-sep" aria-hidden="true"></span>
       <button class="tb-btn" id="fx-toggle" aria-pressed="true"><span aria-hidden="true">❄</span>&nbsp;<span data-i18n="fxLabel">Snow</span></button>
     </div>
   </div>
@@ -821,8 +850,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
     </a>
     <button class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav" data-i18n="menu">Menu</button>
     <nav class="nav" id="nav" aria-label="Sections">
-      <a href="#map" class="active" data-i18n="navMap">Карта</a>
-      <a href="#offers" data-i18n="navOffers">Оферти</a>
+      <a href="#offers" class="active" data-i18n="navOffers">Оферти</a>
       <a href="#program" data-i18n="navProgram">Програма</a>
       <a href="#sources" data-i18n="navSources">Документи</a>
       <a href="#contact" data-i18n="navContact">Контакти</a>
@@ -867,9 +895,9 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
     <div class="container">
       <div class="stats">
         <div><b>2</b><span data-i18n="statVenues">venue options</span></div>
-        <div><b>2</b><span data-i18n="statOffers">Balkan Falsch options</span></div>
+        <div><b>1</b><span data-i18n="statOffers">Balkan Falsch option</span></div>
         <div><b id="stat-cheapest-value">€1 411.70</b><span data-i18n="statCheapest">lowest total including drinks at selected headcount</span></div>
-        <div><b>01.12.2026</b><span data-i18n="statDate">Tuesday · 19:00–24:00</span></div>
+        <div><b>01.12.2026</b><span data-i18n="statDate">Tuesday · 19:00–23:00</span></div>
       </div>
     </div>
   </section>
@@ -884,40 +912,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
         </div>
       </div>
       <p class="status-hint" data-i18n="ovHint">Click a venue name to open its details right here</p>
-      <div class="event-budget-controls" aria-label="Event budget settings">
-        <div class="event-budget-controls__cap">
-          <span data-i18n="budgetCapTitle">Budget cap per guest</span>
-          <div role="group" aria-label="Budget cap per guest">
-            <button type="button" data-budget-cap="50" aria-pressed="false">€50</button>
-            <button type="button" data-budget-cap="55" aria-pressed="false">€55</button>
-            <button type="button" data-budget-cap="60" aria-pressed="true">€60</button>
-          </div>
-        </div>
-        <label class="event-budget-controls__vocal" for="vocal-entertainment-cost">
-          <span data-i18n="vocalEntertainmentTitle">Vocal workshop / entertainment · total</span>
-          <span class="event-budget-controls__money">€</span>
-          <input id="vocal-entertainment-cost" type="number" min="0" max="10000" step="0.01" inputmode="decimal" value="170" aria-label="Vocal workshop cost in euros">
-        </label>
-        <p data-i18n="vocalEntertainmentHint">This cost is deducted from the remaining budget for presents; it is not part of the venue quote.</p>
-      </div>
       <div class="status-list" id="status-list"></div>
-    </div>
-  </section>
-
-  <section class="section" id="map">
-    <div class="container">
-      <div class="section__row">
-        <div class="section__head">
-          <p class="eyebrow" data-i18n="mapEyebrow">Map</p>
-          <h2 data-i18n="mapTitle">Two venues, one city</h2>
-          <p data-i18n="mapLead">Click a pin or a name to open details. Directions open in Google Maps.</p>
-        </div>
-      </div>
-      <div class="map-wrap">
-        <div id="venue-map"></div>
-        <div class="map-side" id="map-side"></div>
-      </div>
-      <div class="map-legend" id="map-legend"></div>
     </div>
   </section>
 
@@ -953,18 +948,18 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
               <p data-i18n="progWelcome">Посрещане на гостите</p>
             </div>
             <div class="program-item">
-              <time class="program-time">19:30–20:30</time>
+              <time class="program-time">19:30–20:00</time>
               <p data-i18n="progDinner">Вечеря, нетуоркинг и кратка, ненатоварваща игра за разчупване на леда.</p>
             </div>
             <div class="program-item">
-              <time class="program-time">20:30–21:00</time>
+              <time class="program-time">20:10–20:50</time>
               <div>
-                <span class="program-status program-status--progress" data-i18n="progPending">В процес</span>
-                <p data-i18n="progVoice">Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.</p>
+                <span class="program-status program-status--confirmed" data-i18n="progConfirmed">Потвърдено</span>
+                <p data-i18n="progVoice">Вокалните забавления ще бъдат на тема „Цветовете и гласа“, като програмата ще включва както практични насоки за овладяване на гласа, така и упражнения по двойки или в група.</p>
               </div>
             </div>
             <div class="program-item">
-              <time class="program-time">21:00–TBD</time>
+              <time class="program-time">20:50–23:00</time>
               <p data-i18n="progParty">Парти — крайният час предстои да се уточни.</p>
             </div>
           </div>
@@ -1014,8 +1009,6 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
   </div>
 </footer>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
 /* ============================================================
    WU X-mas Party 2026 — data + rendering
@@ -1035,14 +1028,12 @@ const UI = {
     cdDays: "дни", cdHours: "часа", cdMins: "мин",
     bandTitle: "Къде празнуваме на 1 декември?",
     bandNote: "2 варианта · 2 получени оферти",
-    statVenues: "варианта за място", statOffers: "варианта за Balkan Falsch",
-    statCheapest: "най-ниско общо с напитки при избрания брой гости", statDate: "вторник · 19:00–24:00",
+    statVenues: "варианта за място", statOffers: "вариант за Balkan Falsch",
+    statCheapest: "най-ниско общо с напитки при избрания брой гости", statDate: "вторник · 19:00–23:00",
     offersEyebrow: "Оферти", ovTitle: "Оферти от местата",
     ovLead: "И Balkan Falsch, и Kitchen59 изпратиха оферти за 30 гости. Сравни менюто, сервиза и условията на двете места.",
-    ovHint: "Натисни върху името на мястото, за да отвориш детайлите му тук.",
-    budgetCapTitle: "Лимит на гост",
+    ovHint: "Офертата на Balkan Falsch е отворена; натисни върху Kitchen59, за да отвориш детайлите му.",
     vocalEntertainmentTitle: "Вокален уъркшоп / забавление · общ разход",
-    vocalEntertainmentHint: "Този разход се приспада от оставащия бюджет за подаръци; не е включен в офертата на заведението.",
     mapEyebrow: "Карта", mapTitle: "Две места, един град",
     mapLead: "Кликни pin или име, за да отвориш детайлите. Упътванията се отварят в Google Maps.",
     progEyebrow: "Програма", progTitle: "Идеи и план за вечерта",
@@ -1055,12 +1046,12 @@ const UI = {
     progScheduleTitle: "План за вечерта",
     progWelcome: "Посрещане на гостите",
     progDinner: "Вечеря, нетуоркинг и кратка, ненатоварваща игра за разчупване на леда.",
-    progPending: "В процес",
-    progVoice: "Таня ще попита свой познат за кратка демонстрация на техники за контрол на гласа. Ако не стане, ще изберем друга кратка активност.",
-    progParty: "Парти — крайният час предстои да се уточни.",
+    progConfirmed: "Потвърдено",
+    progVoice: "Вокалните забавления ще бъдат на тема „Цветовете и гласа“, като програмата ще включва както практични насоки за овладяване на гласа, така и упражнения по двойки или в група.",
+    progParty: "Парти до 23:00.",
     cmpEyebrow: "Сравнение", cmpTitle: "Две опции една до друга",
     cmpLead: "Кликни върху заглавие на колона, за да сортираш. €/гост е изчислено за 30 гости; напитките извън welcome drink в Kitchen59 се плащат отделно.",
-    cmpLegend: "Balkan Falsch: офертна и персонализирана блок маса. Kitchen59: около 49,90 €/гост с 7% сервиз и 30 welcome просеко; останалите напитки се плащат отделно.",
+    cmpLegend: "Balkan Falsch: персонализирана блок маса. Kitchen59: около 49,90 €/гост с 7% сервиз и 30 welcome просеко; останалите напитки се плащат отделно.",
     srcEyebrow: "Документи", srcTitle: "Източници",
     srcLead: "Офертата на Balkan Falsch, офертата на Kitchen59 и информацията за събитията му. Менютата на Kitchen59 са в споделения Google Drive.",
     footAbout: "X-mas Party 2026 · София. Планираща страница за организаторите: две места, оферти и бюджет.",
@@ -1069,8 +1060,8 @@ const UI = {
     st: { offer: "Получена оферта", progress: "В процес", waiting: "Чакаме", unlikely: "Малко вероятно", unavailable: "Заето" },
     f: { capacity: "Капацитет", price: "Цена / наем", drinks: "Напитки", catering: "Кетъринг", parking: "Паркинг", concept: "Концепция", notes: "Забележки", contact: "Контакт", contacted: "Контакт на", next: "Следваща стъпка", venueDetails: "Информация за мястото" },
     a: { directions: "Упътвания", details: "Виж на картата", email: "Имейл", phone: "Телефон", more: "Виж детайли", less: "Скрий" },
-    offer: { title: "Пълна оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
-      block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", menuPerGuest: "Меню, сервиз и наем / гост", drinksPerGuestLabel: "Напитки / гост", presentsBudget: "Остатък за подаръци / гост (от 60 €)", overPresentsBudget: "Над лимита 60 €/гост с", presentsGroup: "Общо за подаръци", overPresentsGroup: "Общо над лимита", belowCap: "под лимита 60 €/гост", gramNote: "Количествата на храната се променят; грамажът и единичните цени са фиксирани. Часовете и цената на час за персонализираната маса се редактират. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
+    offer: { title: "Персонализирана оферта · Balkan Falsch", alt: "Алтернатива", food: "Храна", service: "Сервиз 10%", hall: "Наем", total: "Общо", pp: "общо на гост", lowest: "Най-ниска цена", gramsPerGuest: "прибл. храна на гост", foodPerGuest: "храна на гост",
+      block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", menuPerGuest: "Меню, сервиз и наем / гост", drinksPerGuestLabel: "Напитки / гост", presentsBudget: "Остатък за подаръци / гост", overPresentsBudget: "Над капарото с", presentsGroup: "Общо за подаръци", overPresentsGroup: "Общо над капарото", belowCap: "под капарото", gramNote: "Количествата на храната се променят; грамажът и единичните цени са фиксирани. Часовете и цената на час за персонализираната маса се редактират. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
         menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо за ястието", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", saveMenuItem: "Добави ред", resetMenu: "Върни предложените количества",
         drinkName: "Напитка", drinkQty: "Бутилки", drinkQtyShort: "Бут.", drinkSize: "Размер бутилка", drinkSizeShort: "Обем", drinkUnitPrice: "€ / бутилка", drinkUnitPriceShort: "€ / бут.", drinkLitersPerGuestLabel: "Обем напитки / гост", addDrink: "Добави напитка", removeDrink: "Премахни напитка", saveDrink: "Запази напитка", resetDrinks: "Върни предложените напитки", drinkBuilderHint: "Всеки вариант има собствен списък напитки. Променяй броя бутилки. За нова напитка въведи име, брой бутилки, размер (напр. 750 ml или 1 л) и цена за бутилка.",
        alcohol: "Напитки · цени по меню", terms: "Условия",
@@ -1092,14 +1083,12 @@ const UI = {
     cdDays: "days", cdHours: "hours", cdMins: "min",
     bandTitle: "Where do we celebrate on 1 December?",
     bandNote: "2 venues · 2 offers received",
-    statVenues: "venue options", statOffers: "Balkan Falsch options",
-    statCheapest: "lowest total including drinks at selected headcount", statDate: "Tuesday · 19:00–24:00",
+    statVenues: "venue options", statOffers: "Balkan Falsch option",
+    statCheapest: "lowest total including drinks at selected headcount", statDate: "Tuesday · 19:00–23:00",
     offersEyebrow: "Offers", ovTitle: "Venue offers",
     ovLead: "Both Balkan Falsch and Kitchen59 have submitted offers for 30 guests. Compare their menus, service charges and venue terms.",
-    ovHint: "Click a venue name to expand its details here.",
-    budgetCapTitle: "Budget cap per guest",
-    vocalEntertainmentTitle: "Vocal workshop / entertainment · total cost",
-    vocalEntertainmentHint: "This cost is deducted from the remaining budget for presents; it is not part of the venue quote.",
+    ovHint: "Balkan Falsch is open; click Kitchen59 to expand its details here.",
+     vocalEntertainmentTitle: "Vocal workshop / entertainment · total cost",
     mapEyebrow: "Map", mapTitle: "Two venues, one city",
     mapLead: "Click a pin or a name to open details. Directions open in Google Maps.",
     progEyebrow: "Program", progTitle: "Ideas and evening schedule",
@@ -1112,12 +1101,12 @@ const UI = {
     progScheduleTitle: "Evening schedule",
     progWelcome: "Welcome guests",
     progDinner: "Dinner, networking, and a brief, low-pressure icebreaker game.",
-    progPending: "In progress",
-    progVoice: "Tanya will ask an acquaintance about a short demonstration of voice-control techniques. If it doesn’t work out, we’ll choose another brief activity.",
-    progParty: "Party—the end time is still to be decided.",
+     progConfirmed: "Confirmed",
+    progVoice: "The vocal entertainment will be themed ‘Colors and Voice’; the program will include practical guidance on vocal control as well as exercises in pairs or as a group.",
+    progParty: "Party until 23:00.",
     cmpEyebrow: "Compare", cmpTitle: "Two options, side by side",
     cmpLead: "Click a column header to sort. €/guest is calculated for 30 guests; drinks beyond the Kitchen59 welcome drink are paid separately.",
-    cmpLegend: "Balkan Falsch: quoted and personalised block tables. Kitchen59: about €49.90/guest including 7% service and 30 welcome proseccos; other drinks are paid separately.",
+    cmpLegend: "Balkan Falsch: personalised block table. Kitchen59: about €49.90/guest including 7% service and 30 welcome proseccos; other drinks are paid separately.",
     srcEyebrow: "Documents", srcTitle: "Sources",
     srcLead: "The Balkan Falsch and Kitchen59 offers, plus Kitchen59’s event information. Kitchen59’s full menus are in the shared Google Drive.",
     footAbout: "X-mas Party 2026 · Sofia. A planning page for the organising team: two venues, offers and budget.",
@@ -1126,7 +1115,7 @@ const UI = {
     st: { offer: "Offer received", progress: "In progress", waiting: "Waiting", unlikely: "Unlikely", unavailable: "Unavailable" },
     f: { capacity: "Capacity", price: "Price / rental", drinks: "Drinks", catering: "Catering", parking: "Parking", concept: "Party concept", notes: "Notes", contact: "Contact", contacted: "Contacted", next: "Next step", venueDetails: "Venue details" },
     a: { directions: "Directions", details: "Show on map", email: "Email", phone: "Phone", more: "Show details", less: "Hide" },
-    offer: { title: "Full offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
+     offer: { title: "Personalised offer · Balkan Falsch", alt: "Alternative", food: "Food", service: "Service 10%", hall: "Hall", total: "Total", pp: "per guest total", lowest: "Lowest total", gramsPerGuest: "approx. food per guest", foodPerGuest: "food per guest",
       block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", menuPerGuest: "Menu, service and rent / guest", drinksPerGuestLabel: "Drinks / guest", presentsBudget: "Remaining for presents / guest (from €60)", overPresentsBudget: "Over the €60/guest cap by", presentsGroup: "Total for presents", overPresentsGroup: "Total over cap", belowCap: "under €60/guest cap", gramNote: "Only food quantities can be changed; food weights and unit prices are fixed. Rental hours and hourly rate are editable on the personalised table. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
         menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities",
         drinkName: "Drink", drinkQty: "Bottles", drinkQtyShort: "Btls", drinkSize: "Bottle size", drinkSizeShort: "Size", drinkUnitPrice: "€ / bottle", drinkUnitPriceShort: "€ / btl", drinkLitersPerGuestLabel: "Drink volume / guest", addDrink: "Add drink", removeDrink: "Remove drink", saveDrink: "Save drink", resetDrinks: "Reset suggested drinks", drinkBuilderHint: "Each menu option has its own drinks list. Change the bottle count. To add a drink, enter its name, bottle count, size (e.g. 750 ml or 1 L) and price per bottle.",
@@ -1185,8 +1174,7 @@ const VENUES = [
 const OFFER = {
   guests: 30,
     alt: [
-    { id: "block",   name: { bg: "Блок маса", en: "Block table" },      food: 1193, service: 119.30, hall: 160, total: 1472.30, pp: 49.08 },
-    { id: "budgetBlock", name: { bg: "Блок маса · персонализирана", en: "Custom block table" } }
+    { id: "budgetBlock", name: { bg: "Персонализирана блок маса", en: "Personalised block" }, personalised: true, editableMenu: true, menuKey: "budgetBlock" }
   ],
   alcohol: [
     { id: "brut", n: { bg: "Пенливо вино Brut", en: "Sparkling Brut" }, size: "750 ml", price: 11 },
@@ -1200,7 +1188,11 @@ const OFFER = {
     { id: "plumRakia", n: { bg: "Сръбска сливова ракия", en: "Serbian plum rakia" }, size: "750 ml", price: 18 },
     { n: { bg: "Сръбска крушова ракия", en: "Serbian pear rakia" }, size: "750 ml", price: 18 },
     { id: "mineral330", n: { bg: "Минерална вода", en: "Mineral water" }, size: "330 ml", price: 2 },
-    { id: "sparkling330", n: { bg: "Газирана вода", en: "Sparkling water" }, size: "330 ml", price: 2 }
+    { id: "mineral1000", n: { bg: "Минерална вода", en: "Mineral water" }, size: "1 л", price: 3 },
+    { id: "sparkling250", n: { bg: "Газирана вода", en: "Sparkling water" }, size: "250 мл", price: 2 },
+    { id: "sparkling330", n: { bg: "Газирана вода", en: "Sparkling water" }, size: "330 ml", price: 2 },
+    { id: "sparkling1000", n: { bg: "Газирана вода", en: "Sparkling water" }, size: "1 л", price: 4 },
+    { id: "sparkling750", n: { bg: "Газирана вода", en: "Sparkling water" }, size: "750 мл", price: 4 }
   ],
    terms: [
     { bg: "19:00–23:00 · Малка зала · до 40 седящи.", en: "19:00–23:00 · small hall · up to 40 seated." },
@@ -1345,8 +1337,12 @@ const KITCHEN59_DRINK_MENU = [
 
 const DRINK_PACKAGE = [
   { id: "brut", bottles: 6 },
-  { id: "mineral330", bottles: 90 },
-  { id: "sparkling330", bottles: 40 }
+  { id: "mineral330", bottles: 0 },
+  { id: "mineral1000", bottles: 15 },
+  { id: "sparkling250", bottles: 0 },
+  { id: "sparkling330", bottles: 0 },
+  { id: "sparkling1000", bottles: 15 },
+  { id: "sparkling750", bottles: 0 }
 ];
 
 const BALKAN_MENU = {
@@ -1382,20 +1378,20 @@ const BALKAN_MENU = {
     { bg: "Микс мини сладки", en: "Mini sweets mix", q: "60 бр", p: 2 }
   ],
   budgetBlock: [
-    { bg: "Катък", en: "Katak (yoghurt dip)", q: "4 × 140 г", p: 8 },
-    { bg: "Кьопоолу", en: "Kyopoolu", q: "4 × 140 г", p: 8 },
-    { bg: "Лютеница", en: "Lyutenitsa", q: "4 × 140 г", p: 6 },
+    { bg: "Катък", en: "Katak (yoghurt dip)", q: "5 × 140 г", p: 8 },
+    { bg: "Кьопоолу", en: "Kyopoolu", q: "5 × 140 г", p: 8 },
+    { bg: "Лютеница", en: "Lyutenitsa", q: "5 × 140 г", p: 6 },
     { bg: "Микс хляб със 100% квас", en: "Sourdough bread mix", q: "15 × 250 г", p: 3 },
     { bg: "Салата с печени чушки, балсамико, билков зехтин и фета", en: "Roasted pepper salad, balsamic, herb oil, feta", q: "4 × 350 г", p: 11 },
     { bg: "Гръцка салата", en: "Greek salad", q: "4 × 400 г", p: 11 },
-    { bg: "Качамак с бабек, диви гъби и крокмач", en: "Kachamak with babek, wild mushrooms, croquette", q: "8 × 220 г", p: 13 },
+    { bg: "Качамак с бабек, диви гъби и крокмач", en: "Kachamak with babek, wild mushrooms, croquette", q: "9 × 220 г", p: 13 },
     { bg: "Мини глазирани кюфтенца с пюре от кестени и билково крема сирене", en: "Mini glazed meatballs, chestnut purée, herb cream cheese", q: "8 × 220 г", p: 17 },
-    { bg: "Свинско филе с гъбено рагу, сушени домати и маринован лук", en: "Pork fillet, mushroom ragout, sun-dried tomato, pickled onion", q: "10 × 200 г", p: 14 },
+    { bg: "Свинско филе с гъбено рагу, сушени домати и маринован лук", en: "Pork fillet, mushroom ragout, sun-dried tomato, pickled onion", q: "11 × 200 г", p: 14 },
     { bg: "Маринована пилешка пържола на скара", en: "Marinated grilled chicken steak", q: "11 × 200 г", p: 10 },
-    { bg: "Стек от карфиол с гъбено рагу, задушен спанак и пюре от кестени", en: "Cauliflower steak, mushroom ragout, spinach, chestnut purée", q: "7 × 350 г", p: 13 },
-    { bg: "Пресни картофи с масло, копър и розмарин", en: "New potatoes, butter, dill, rosemary", q: "7 × 160 г", p: 3 },
-    { bg: "Микс от оризи с ядки и билки", en: "Rice mix with nuts and herbs", q: "4 × 160 г", p: 3 },
-    { bg: "Печени моркови със соев глейз", en: "Roasted carrots, soy glaze", q: "4 × 160 г", p: 3 },
+    { bg: "Стек от карфиол с гъбено рагу, задушен спанак и пюре от кестени", en: "Cauliflower steak, mushroom ragout, spinach, chestnut purée", q: "8 × 350 г", p: 13 },
+    { bg: "Пресни картофи с масло, копър и розмарин", en: "New potatoes, butter, dill, rosemary", q: "10 × 160 г", p: 3 },
+    { bg: "Микс от оризи с ядки и билки", en: "Rice mix with nuts and herbs", q: "6 × 160 г", p: 3 },
+    { bg: "Печени моркови със соев глейз", en: "Roasted carrots, soy glaze", q: "6 × 160 г", p: 3 },
     { bg: "Микс мини сладки", en: "Mini sweets mix", q: "60 бр", p: 2 }
   ]
 };
@@ -1424,10 +1420,6 @@ const SOURCES = [
   var LS_FX   = "wuXmas2026.fx";
 
   var lang = "bg";
-  try {
-    var stored = localStorage.getItem(LS_LANG);
-    if (stored === "en" || stored === "bg") lang = stored;
-  } catch (e) {}
 
   /* ---------- helpers ---------- */
   function t(key) {
@@ -1440,13 +1432,21 @@ const SOURCES = [
     return cur == null ? "" : String(cur);
   }
   function tr(bg, en) { return lang === "en" ? en : bg; }
-  function presentsBudgetLabel(overCap) {
+  function presentsBudgetLabel(overCap, cap) {
+    cap = cap == null ? budgetCapPerGuest : cap;
+    var capText = Number(cap).toLocaleString(lang === "en" ? "en-US" : "bg-BG", { maximumFractionDigits: 2 });
     return overCap ?
-      tr("Над лимита " + budgetCapPerGuest + " €/гост с", "Over the €" + budgetCapPerGuest + "/guest cap by") :
-      tr("Остатък за подаръци / гост (от " + budgetCapPerGuest + " €)", "Remaining for presents / guest (from €" + budgetCapPerGuest + ")");
+      tr("Над капарото от " + capText + " €/гост с", "Over the €" + capText + "/guest cap by") :
+      tr("Остатък за подаръци / гост (от капаро " + capText + " €)", "Remaining for presents / guest (from €" + capText + ")");
   }
   function presentsGroupLabel(overCap) {
     return overCap ? t("offer.overPresentsGroup") : t("offer.presentsGroup");
+  }
+  function personalizedBlockCap(offerId) {
+    for (var i = 0; i < OFFER.alt.length; i++) {
+      if (OFFER.alt[i].id === offerId && OFFER.alt[i].personalised) return roundMoney(breakEvenCap);
+    }
+    return budgetCapPerGuest;
   }
   function pick(o) { return typeof o === "string" ? o : (o ? (o[lang] != null ? o[lang] : o.bg) : ""); }
   function esc(s) {
@@ -1478,8 +1478,9 @@ const SOURCES = [
     };
   }
 
-  function initialBudgetMenuItems() {
-    return BALKAN_MENU.budgetBlock.map(function (item) {
+  function initialBudgetMenuItems(menuKey) {
+    var sourceMenu = BALKAN_MENU[menuKey] || BALKAN_MENU.budgetBlock;
+    return sourceMenu.map(function (item) {
       var quantity = parseMenuQuantity(item.q);
       return {
         name: item,
@@ -1491,11 +1492,15 @@ const SOURCES = [
     });
   }
 
-  var budgetMenuItems = initialBudgetMenuItems();
+  var budgetMenuItems = {};
+  OFFER.alt.forEach(function (offer) {
+    if (offer.editableMenu) budgetMenuItems[offer.id] = initialBudgetMenuItems(offer.menuKey);
+  });
   var budgetHallHourlyRate = 40;
   var budgetHallHours = 4;
   var budgetCapPerGuest = 60;
   var vocalEntertainmentCost = 170;
+  var breakEvenCap = 55;
 
   function initialKitchen59CustomItems() {
     var items = [];
@@ -1687,7 +1692,7 @@ const SOURCES = [
       drinkLitersPerGuest: roundMoney(welcomeQuantity * KITCHEN59_QUOTE.welcomeDrink.sizeMl / 1000 / guests),
       subtotal: subtotal, service: service, totalGroup: totalGroup,
       totalPerGuest: roundMoney(totalGroup / guests),
-      capHeadroom: budgetCapPerGuest - totalGroup / guests - vocalEntertainmentCost / guests
+      capHeadroom: roundMoney(budgetCapPerGuest - totalGroup / guests - vocalEntertainmentCost / guests)
     };
   }
 
@@ -1727,7 +1732,9 @@ const SOURCES = [
     var count = Math.max(1, parseInt(guests, 10) || OFFER.guests);
     var food = 0;
     var grams = 0;
-    budgetMenuItems.forEach(function (item) {
+    var menuItems = budgetMenuItems[offerId] || [];
+    var budgetCap = personalizedBlockCap(offerId);
+    menuItems.forEach(function (item) {
       if (item.isDraft) return;
       var quantity = Math.max(0, Number(item.quantity) || 0);
       food += quantity * Math.max(0, Number(item.price) || 0);
@@ -1741,18 +1748,18 @@ const SOURCES = [
     var perGuest = total / count;
     var totalWithDrinksGroup = roundMoney(total + drinkTotal);
     return {
-      guests: count, food: food, service: service, hall: hall, total: total,
+      guests: count, food: food, service: service, hall: hall, total: total, budgetCap: budgetCap,
       foodPerGuest: food / count, perGuest: perGuest,
       gramsPerGuest: grams / count, drinkTotal: drinkTotal,
       drinkLitersPerGuest: drinkLitersPerGuest(drinkMenus[offerId], count),
       totalWithDrinks: totalWithDrinksGroup / count,
       totalWithDrinksGroup: totalWithDrinksGroup,
-      capHeadroom: budgetCapPerGuest - totalWithDrinksGroup / count - vocalEntertainmentCost / count
+      capHeadroom: roundMoney(budgetCap - totalWithDrinksGroup / count - vocalEntertainmentCost / count)
     };
   }
 
   function offerMetrics(offer, guests) {
-    if (offer.id === "budgetBlock") return budgetMenuMetrics(guests, offer.id);
+    if (offer.editableMenu) return budgetMenuMetrics(guests, offer.id);
     var count = Math.max(1, parseInt(guests, 10) || OFFER.guests);
     var food = offer.food * count / OFFER.guests;
     var service = roundMoney(food * 0.1);
@@ -1768,7 +1775,8 @@ const SOURCES = [
       drinkLitersPerGuest: drinkLitersPerGuest(drinkMenus[offer.id], count),
       totalWithDrinks: totalWithDrinksGroup / count,
       totalWithDrinksGroup: totalWithDrinksGroup,
-      capHeadroom: budgetCapPerGuest - totalWithDrinksGroup / count - vocalEntertainmentCost / count
+      budgetCap: budgetCapPerGuest,
+      capHeadroom: roundMoney(budgetCapPerGuest - totalWithDrinksGroup / count - vocalEntertainmentCost / count)
     };
   }
 
@@ -1836,7 +1844,7 @@ const SOURCES = [
   }
 
   /* ---------- status list ---------- */
-  var openPanels = {};
+  var openPanels = { balkan: true };
 
   function byId(id) {
     for (var i = 0; i < VENUES.length; i++) if (VENUES[i].id === id) return VENUES[i];
@@ -1844,6 +1852,7 @@ const SOURCES = [
   }
 
   function toggleVenue(id) {
+    if (id === "balkan") return;
     var btn = $('.status-name[data-venue="' + id + '"]');
     var panel = document.getElementById("panel-" + id);
     var v = byId(id);
@@ -1852,8 +1861,8 @@ const SOURCES = [
     if (willOpen) {
       panel.innerHTML = bodyHtml(v);
        panel.removeAttribute("hidden");
-       var customPlan = $('.offer-plan[data-plan-id="budgetBlock"]', panel);
-       bindCustomMenu(customPlan);
+       $$('.offer-plan[data-editable-menu="true"]', panel).forEach(bindCustomMenu);
+       bindBreakEvenGraph($("#balkan-break-even", panel));
        bindKitchen59DrinkCalculator($('.kitchen59-summary--original', panel), "original");
        bindKitchen59Custom($('.kitchen59-personalized', panel));
        bindOfferPdfExport(panel);
@@ -1877,11 +1886,13 @@ const SOURCES = [
     if (!host) return;
     host.innerHTML = ordered().map(function (v) {
       var isOpen = !!openPanels[v.id];
+      var nameControl = v.id === "balkan" ?
+        '<span class="status-name status-name--static" aria-controls="panel-' + v.id + '">' + esc(v.name) + '</span>' :
+        '<button type="button" class="status-name" data-venue="' + v.id + '"' +
+          ' aria-expanded="' + isOpen + '" aria-controls="panel-' + v.id + '">' + esc(v.name) + '</button>';
       return '<div class="status-item">' +
         '<div class="status-row">' +
-          '<button type="button" class="status-name" data-venue="' + v.id + '"' +
-            ' aria-expanded="' + isOpen + '" aria-controls="panel-' + v.id + '">' +
-            esc(v.name) + '</button>' +
+          nameControl +
           '<span class="badge badge--' + v.status + '">' + esc(t("st." + v.status)) + '</span>' +
           '<span class="when">' + esc(pick(v.next)) + '</span>' +
           '<span class="when">' + esc(t("f.contacted") + " · " + v.contacted) + '</span>' +
@@ -1891,10 +1902,11 @@ const SOURCES = [
           (isOpen ? '' : ' hidden') + '>' + (isOpen ? bodyHtml(v) : '') + '</div>' +
       '</div>';
     }).join("");
-    $$(".status-name", host).forEach(function (btn) {
+    $$("button.status-name[data-venue]", host).forEach(function (btn) {
       btn.addEventListener("click", function () { toggleVenue(btn.getAttribute("data-venue")); });
     });
-    $$(".venue-panel:not([hidden]) .offer-plan[data-plan-id=\"budgetBlock\"]", host).forEach(bindCustomMenu);
+    $$(".venue-panel:not([hidden]) .offer-plan[data-editable-menu=\"true\"]", host).forEach(bindCustomMenu);
+    $$(".venue-panel:not([hidden]) #balkan-break-even", host).forEach(bindBreakEvenGraph);
     $$(".venue-panel:not([hidden]) .kitchen59-summary--original", host).forEach(function (card) {
       bindKitchen59DrinkCalculator(card, "original");
     });
@@ -2137,7 +2149,182 @@ const SOURCES = [
     '</div>';
   }
 
-  /* Balkan Falsch — three priced alternatives, alcohol, terms */
+  function breakEvenGraphHtml() {
+    return '<section class="break-even-chart" id="balkan-break-even">' +
+      '<div class="break-even-chart__head"><div>' +
+        '<h4>Покритие на разходите и бюджет за подаръци</h4>' +
+        '<p>Капарото покрива първо храната, сервиза, наема и напитките, после целия разход за вокалния уъркшоп. Пари за подаръци се показват само след пълното му покриване.</p>' +
+      '</div><div class="break-even-chart__control"><span>Капаро на гост</span>' +
+        '<b data-break-even-cap-value>' + money(breakEvenCap, breakEvenCap % 1 ? 2 : 0) + '</b>' +
+        '<small>Посочи за разбивка на разходите; кликни или докосни точка, за да зададеш капарото.</small></div></div>' +
+      '<div class="break-even-chart__key" aria-label="Легенда на графиката">' +
+        '<span><i class="break-even-chart__key--blue"></i>Общ остатък след всички разходи (вкл. уъркшопа)</span>' +
+        '<span><i class="break-even-chart__key--gray"></i>За подаръци</span>' +
+      '</div>' +
+      '<div class="break-even-chart__plot"><svg data-break-even-svg viewBox="0 0 720 300" role="img" aria-label="' +
+        'Хоризонтална ос: капаро на гост. Вертикална ос: остатък на гост. Вертикалната линия показва капарото, което покрива офертата и вокалния уъркшоп."></svg>' +
+        '<div class="break-even-chart__tooltip" data-break-even-tooltip role="status" hidden></div></div>' +
+    '</section>';
+  }
+
+  function renderBreakEvenGraph(root) {
+    root = root || $("#balkan-break-even");
+    if (!root) return;
+    var plans = OFFER.alt.filter(function (offer) { return offer.personalised; });
+    if (!plans.length) return;
+    var guestCount = OFFER.guests;
+    var offer = plans[0];
+    var metrics = offerMetrics(offer, guestCount);
+    var offerCostPerGuest = metrics.totalWithDrinksGroup / guestCount;
+    var workshopPerGuest = vocalEntertainmentCost / guestCount;
+    var selectedCap = Math.max(50, Math.min(60, Number(breakEvenCap) || 55));
+    var minY = Math.min(0, 50 - offerCostPerGuest - workshopPerGuest) - 1;
+    var maxY = Math.max(0, 60 - offerCostPerGuest) + 1;
+    var yStep = Math.max(1, Math.ceil((maxY - minY) / 5 / 2) * 2);
+    var tickMin = Math.floor(minY / yStep) * yStep;
+    var tickMax = Math.ceil(maxY / yStep) * yStep;
+    var left = 62, right = 700, top = 20, bottom = 246;
+    var x = function (cap) { return left + (cap - 50) / 10 * (right - left); };
+    var y = function (value) { return top + (tickMax - value) / (tickMax - tickMin) * (bottom - top); };
+    var afterWorkshop = function (cap) { return cap - offerCostPerGuest - workshopPerGuest; };
+    var presentsPerGuest = function (cap) { return Math.max(0, afterWorkshop(cap)); };
+    var svg = ['<rect x="' + left + '" y="' + top + '" width="' + (right - left) + '" height="' + (bottom - top) + '" fill="#fff"/>'];
+    for (var tick = tickMin; tick <= tickMax; tick += yStep) {
+      svg.push('<line x1="' + left + '" y1="' + y(tick) + '" x2="' + right + '" y2="' + y(tick) + '" stroke="' + (tick === 0 ? '#6C7478' : '#E4E8E8') + '" stroke-width="' + (tick === 0 ? '1.5' : '1') + '"' +
+        (tick === 0 ? '' : ' stroke-dasharray="3 4"') + '/>');
+      svg.push('<text x="' + (left - 9) + '" y="' + (y(tick) + 4) + '" text-anchor="end" class="break-even-chart__tick">' +
+        (tick < 0 ? '−' : '') + money(Math.abs(tick), 0).replace("€", "") + '</text>');
+    }
+    [50, 52.5, 55, 57.5, 60].forEach(function (cap) {
+      svg.push('<line x1="' + x(cap) + '" y1="' + top + '" x2="' + x(cap) + '" y2="' + bottom + '" stroke="#E4E8E8" stroke-width="1"/>');
+      svg.push('<text x="' + x(cap) + '" y="' + (bottom + 20) + '" text-anchor="middle" class="break-even-chart__tick">€' +
+        Number(cap).toLocaleString(lang === "en" ? "en-US" : "bg-BG", { maximumFractionDigits: 1 }) + '</text>');
+    });
+    var giftBreakEvenCap = roundMoney(offerCostPerGuest + workshopPerGuest);
+    var giftPath;
+    if (giftBreakEvenCap <= 50) {
+      giftPath = 'M ' + x(50) + ' ' + y(presentsPerGuest(50)) + ' L ' + x(60) + ' ' + y(presentsPerGuest(60));
+    } else if (giftBreakEvenCap >= 60) {
+      giftPath = 'M ' + x(50) + ' ' + y(0) + ' L ' + x(60) + ' ' + y(0);
+    } else {
+      giftPath = 'M ' + x(50) + ' ' + y(0) + ' L ' + x(giftBreakEvenCap) + ' ' + y(0) +
+        ' L ' + x(60) + ' ' + y(presentsPerGuest(60));
+    }
+    svg.push('<path d="M ' + x(50) + ' ' + y(afterWorkshop(50)) + ' L ' + x(60) + ' ' + y(afterWorkshop(60)) + '" fill="none" stroke="#0B80A7" stroke-width="4"/>');
+    svg.push('<path d="' + giftPath + '" fill="none" stroke="#AEB8BA" stroke-width="3" stroke-dasharray="7 4"/>');
+    var visibleBreakEvenCap = Math.max(50, Math.min(60, giftBreakEvenCap));
+    var breakEvenLabel = giftBreakEvenCap < 50 ? "Прагът е под €50" :
+      (giftBreakEvenCap > 60 ? "Прагът е над €60" : "Оферта + уъркшоп покрити · " + money(giftBreakEvenCap) + " / гост");
+    var labelOnRight = visibleBreakEvenCap < 53;
+    svg.push('<line x1="' + x(visibleBreakEvenCap) + '" y1="' + top + '" x2="' + x(visibleBreakEvenCap) + '" y2="' + bottom + '" stroke="#202629" stroke-width="2" stroke-dasharray="5 4"><title>Капарото, при което са покрити разходите по офертата и целият вокален уъркшоп.</title></line>');
+    svg.push('<text x="' + (x(visibleBreakEvenCap) + (labelOnRight ? 8 : -8)) + '" y="' + (top + 11) + '" text-anchor="' + (labelOnRight ? 'start' : 'end') + '" class="break-even-chart__breakeven-label">' +
+      esc(breakEvenLabel) + '</text>');
+    svg.push('<defs><linearGradient id="break-even-split-marker" x1="0" y1="0" x2="1" y2="0">' +
+      '<stop offset="50%" stop-color="#0B80A7"/><stop offset="50%" stop-color="#AEB8BA"/></linearGradient></defs>');
+    if (giftBreakEvenCap >= 50 && giftBreakEvenCap <= 60) {
+      svg.push('<circle data-break-even-point="true" data-break-even-value="' + giftBreakEvenCap + '" cx="' + x(giftBreakEvenCap) + '" cy="' + y(0) + '" r="6" fill="url(#break-even-split-marker)" stroke="#fff" stroke-width="2"/>');
+    }
+    svg.push('<text x="' + ((left + right) / 2) + '" y="286" text-anchor="middle" class="break-even-chart__axis">' +
+      'Капаро на гост (€)' + '</text>');
+    var axisMid = (top + bottom) / 2;
+    svg.push('<text x="14" y="' + axisMid + '" transform="rotate(-90 14 ' + axisMid + ')" text-anchor="middle" class="break-even-chart__axis-label">' +
+      'Остатък / гост (€)' + '</text>');
+    var svgNode = $("[data-break-even-svg]", root);
+    if (svgNode) svgNode.innerHTML = svg.join("");
+    var capLabel = $("[data-break-even-cap-value]", root);
+    if (capLabel) capLabel.textContent = money(selectedCap, selectedCap % 1 ? 2 : 0);
+  }
+
+  function bindBreakEvenGraph(root) {
+    if (!root || root.getAttribute("data-bound") === "true") return;
+    root.setAttribute("data-bound", "true");
+    var svg = $("[data-break-even-svg]", root);
+    var tooltip = $("[data-break-even-tooltip]", root);
+    function inspectPoint(event, commit) {
+      if (!svg) return;
+      var matrix = svg.getScreenCTM();
+      if (!matrix) return;
+      var point = svg.createSVGPoint();
+      point.x = event.clientX;
+      point.y = event.clientY;
+      point = point.matrixTransform(matrix.inverse());
+      if (point.x < 61.5 || point.x > 700.5 || point.y < 19.5 || point.y > 246.5) return;
+      var breakEvenPoint = svg.querySelector('[data-break-even-point]');
+      var isBreakEvenPoint = false;
+      var cap;
+      if (breakEvenPoint) {
+        var markerX = Number(breakEvenPoint.getAttribute("cx"));
+        var markerY = Number(breakEvenPoint.getAttribute("cy"));
+        isBreakEvenPoint = Math.pow(point.x - markerX, 2) + Math.pow(point.y - markerY, 2) <= 100;
+      }
+      if (isBreakEvenPoint) {
+        cap = Number(breakEvenPoint.getAttribute("data-break-even-value"));
+      } else {
+        cap = Math.round((50 + (point.x - 62) / (700 - 62) * 10) * 2) / 2;
+        cap = Math.max(50, Math.min(60, cap));
+      }
+      var capLabel = $("[data-break-even-cap-value]", root);
+      if (commit && cap !== breakEvenCap) {
+        breakEvenCap = cap;
+        renderCalc();
+      } else if (!commit && capLabel) {
+        capLabel.textContent = money(cap, cap % 1 ? 2 : 0);
+      }
+      if (tooltip) {
+        tooltip.innerHTML = breakEvenTooltipHtml(cap);
+        tooltip.hidden = false;
+        var plot = svg.parentElement;
+        var plotRect = plot.getBoundingClientRect();
+        var tipRect = tooltip.getBoundingClientRect();
+        var left = event.clientX - plotRect.left + 14;
+        var top = event.clientY - plotRect.top - tipRect.height / 2;
+        tooltip.style.left = Math.max(6, Math.min(plot.clientWidth - tipRect.width - 6, left)) + "px";
+        tooltip.style.top = Math.max(6, Math.min(plot.clientHeight - tipRect.height - 6, top)) + "px";
+      }
+    }
+    if (svg) {
+      svg.addEventListener("pointermove", function (event) { inspectPoint(event, false); });
+      svg.addEventListener("click", function (event) { inspectPoint(event, true); });
+      svg.addEventListener("pointerleave", function () {
+        if (tooltip) tooltip.hidden = true;
+        var capLabel = $("[data-break-even-cap-value]", root);
+        if (capLabel) capLabel.textContent = money(breakEvenCap, breakEvenCap % 1 ? 2 : 0);
+      });
+    }
+    renderBreakEvenGraph(root);
+  }
+
+  function breakEvenTooltipHtml(cap) {
+    var offer = OFFER.alt.filter(function (item) { return item.personalised; })[0];
+    if (!offer) return "";
+    var guests = OFFER.guests;
+    var metrics = offerMetrics(offer, guests);
+    var availableAfterOffer = roundMoney(cap * guests - metrics.totalWithDrinksGroup);
+    var workshopCovered = roundMoney(Math.min(vocalEntertainmentCost, Math.max(0, availableAfterOffer)));
+    var workshopShortfall = roundMoney(Math.max(0, vocalEntertainmentCost - workshopCovered));
+    var presentsTotal = roundMoney(Math.max(0, availableAfterOffer - vocalEntertainmentCost));
+    var totalEventCost = metrics.totalWithDrinksGroup + vocalEntertainmentCost;
+    var overallRemainder = roundMoney(cap * guests - totalEventCost);
+    function costRow(label, total) {
+      return '<div><span>' + label + '</span><b>' + money(total / guests) + ' / гост · ' + money(total) + ' общо</b></div>';
+    }
+    return '<strong>Капаро: ' + money(cap, cap % 1 ? 2 : 0) + ' / гост</strong>' +
+      costRow("Храна", metrics.food) +
+      costRow("Напитки", metrics.drinkTotal) +
+      costRow("Сервиз", metrics.service) +
+      costRow("Наем на зала", metrics.hall) +
+      costRow("Вокален уъркшоп · разход", vocalEntertainmentCost) +
+      '<div><span>Капаро за всички гости</span><b>' + money(cap * guests) + '</b></div>' +
+      '<div><span>Общо разходи · оферта + уъркшоп</span><b>' + money(totalEventCost / guests) + ' / гост · ' + money(totalEventCost) + ' общо</b></div>' +
+      '<div><span>Общ остатък след всички разходи</span><b>' + (overallRemainder < 0 ? '−' : '') + money(Math.abs(overallRemainder) / guests) + ' / гост · ' +
+        (overallRemainder < 0 ? '−' : '') + money(Math.abs(overallRemainder)) + ' общо</b></div>' +
+      '<div><span>Покрито от капарото</span><b>' + money(workshopCovered) + ' от ' + money(vocalEntertainmentCost) + '</b></div>' +
+      (workshopShortfall ? '<div><span>Недостиг за уъркшопа</span><b>' + money(workshopShortfall) + '</b></div>' : '') +
+      '<div class="break-even-chart__tooltip-gifts"><span>За подаръци · след уъркшопа</span><b>' +
+        money(presentsTotal / guests) + ' / гост · ' + money(presentsTotal) + ' общо</b></div>';
+  }
+
+  /* Balkan Falsch — original offer and three personalised cap scenarios */
   function offerHtml() {
     var guestCount = readCalc().g;
     var initialMetrics = OFFER.alt.map(function (a) { return offerMetrics(a, guestCount); });
@@ -2146,19 +2333,24 @@ const SOURCES = [
       var metrics = offerMetrics(a, guestCount);
       var best = metrics.totalWithDrinksGroup === lowestTotal;
       var grams = Math.round(metrics.gramsPerGuest);
-      var menuRows = a.id === "budgetBlock" ? customBudgetMenuHtml() : menuTable(BALKAN_MENU[a.id]);
+      var menuRows = a.editableMenu ? customBudgetMenuHtml(a.id) : menuTable(BALKAN_MENU[a.id]);
       var drinkTotal = metrics.drinkTotal;
       var allInWithDrinks = metrics.totalWithDrinks;
-      var capHeadroom = metrics.capHeadroom;
-      var hallRow = a.id === "budgetBlock" ?
+      var hallRow = a.editableMenu ?
         '<div class="offer-plan__rent-row"><dt>' + esc(t("offer.hall")) + '</dt><dd><div class="offer-plan__rent-editor">' +
           '<input type="number" min="0" max="1000" step="0.01" inputmode="decimal" data-budget-hall-field="rate" value="' + esc(budgetHallHourlyRate) + '" aria-label="' + esc(tr("Цена наема за час в евро", "Hourly rent in euros")) + '">' +
           esc(tr("€ / час ×", "€ / hour ×")) +
           '<input type="number" min="0" max="24" step="0.5" inputmode="decimal" data-budget-hall-field="hours" value="' + esc(budgetHallHours) + '" aria-label="' + esc(tr("Часове наем", "Rental hours")) + '">' +
           esc(tr("часа =", "hours =")) + ' <span data-budget-value="hall">' + money(metrics.hall, metrics.hall % 1 ? 2 : 0) + '</span>' +
-        '</div></dd></div>' :
+         '</div></dd></div>' :
         '<div><dt>' + esc(t("offer.hall")) + '</dt><dd data-budget-value="hall">' + money(metrics.hall, 0) + '</dd></div>';
-      return '<article class="offer-plan' + (best ? ' offer-plan--best' : '') + '" data-plan-id="' + a.id + '">' +
+      var vocalRow = a.personalised ?
+        '<div class="offer-plan__workshop-row"><dt><label for="vocal-entertainment-cost">' + esc(t("vocalEntertainmentTitle")) + '</label></dt><dd>' +
+          '<div class="offer-plan__workshop-editor"><span>€</span>' +
+            '<input id="vocal-entertainment-cost" type="number" min="0" max="10000" step="0.01" inputmode="decimal" value="' + esc(vocalEntertainmentCost) + '" aria-label="Цена на вокалния уъркшоп в евро">' +
+          '</div></dd></div>' : '';
+      return '<article class="offer-plan' + (best ? ' offer-plan--best' : '') + '" data-plan-id="' + a.id + '"' +
+        (a.editableMenu ? ' data-editable-menu="true"' : '') + '>' +
         '<div class="offer-plan__head"><h4>' + esc(pick(a.name)) + '</h4>' +
           '<span class="offer-plan__badge" data-best-badge' + (best ? '' : ' hidden') + '>' + esc(t("offer.lowest")) + '</span>' +
         '</div>' +
@@ -2168,18 +2360,6 @@ const SOURCES = [
         '<dl class="offer-plan__final-breakdown">' +
           '<div><dt>' + esc(t("offer.menuPerGuest")) + '</dt><dd data-budget-value="perGuest">' + money(metrics.perGuest) + '</dd></div>' +
         '</dl>' +
-        '<div class="offer-plan__presents' + (capHeadroom < 0 ? ' is-over-cap' : '') + '">' +
-          '<div class="offer-plan__presents-row"><span>' + esc(tr("Вокален уъркшоп / гост", "Vocal Workshop / guest")) + '</span>' +
-            '<b data-vocal-cost-per-guest>' + money(vocalEntertainmentCost / guestCount) + '</b></div>' +
-          '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' + esc(tr("Вокален уъркшоп · общо", "Vocal Workshop · total")) + '</span>' +
-            '<b data-vocal-cost-total>' + money(vocalEntertainmentCost) + '</b></div>' +
-          '<div class="offer-plan__presents-row"><span data-presents-label>' + esc(presentsBudgetLabel(capHeadroom < 0)) + '</span>' +
-            '<b data-presents-amount>' + money(Math.abs(capHeadroom)) + '</b></div>' +
-          '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span><span data-presents-total-label>' +
-            esc(presentsGroupLabel(capHeadroom < 0)) + '</span> · ' +
-            '<span data-budget-guests>' + guestCount + '</span> ' + esc(lang === "en" ? "guests" : "гости") + '</span>' +
-            '<b data-presents-total-amount>' + money(Math.abs(capHeadroom) * guestCount) + '</b></div>' +
-        '</div>' +
         '<div class="offer-plan__perguest-pair">' +
           '<p class="offer-plan__foodpp"><b data-budget-value="foodPerGuest">' + money(metrics.foodPerGuest) + '</b> ' + esc(t("offer.foodPerGuest")) + '</p>' +
           '<p class="offer-plan__foodpp"><b data-budget-value="drinksPerGuest">' + money(drinkTotal / guestCount) + '</b> ' + esc(t("offer.drinksPerGuestLabel")) + '</p>' +
@@ -2193,17 +2373,19 @@ const SOURCES = [
         '<dl class="offer-plan__breakdown">' +
           '<div><dt>' + esc(t("offer.food")) + '</dt><dd data-budget-value="food">' + money(metrics.food, metrics.food % 1 ? 2 : 0) + '</dd></div>' +
           '<div><dt>' + esc(t("offer.service")) + '</dt><dd data-budget-value="service">' + money(metrics.service) + '</dd></div>' +
-          hallRow +
+          hallRow + vocalRow +
         '</dl>' +
-        (a.id === "budgetBlock" ? '<button type="button" class="btn btn--ghost offer-plan__export" data-export-offer data-export-venue="Balkan Falsch">' +
+        (a.personalised ? '<button type="button" class="btn btn--ghost offer-plan__export" data-export-offer data-export-venue="Balkan Falsch">' +
           esc(tr("Експортирай персонализираната оферта като PDF", "Export personalised offer as PDF")) + '</button>' : '') +
-        '<div class="offer-plan__menu"><h5 class="offer-plan__menu-title">' + esc(t("offer.menuTitle")) + '</h5>' + menuRows + '</div>' +
-        '<details class="offer-plan__drinks"><summary>' + esc(t("offer.alcohol")) + '</summary>' +
-          '<div class="offer-plan__drinks-body">' + drinkMenuHtml(a.id) +
+        '<div class="offer-plan__menus">' +
+          '<div class="offer-plan__menu"><h5 class="offer-plan__menu-title">' + esc(tr("Храна", "Food")) + '</h5>' + menuRows + '</div>' +
+          '<div class="offer-plan__menu offer-plan__menu--drinks"><h5 class="offer-plan__menu-title">' + esc(t("offer.alcohol")) + '</h5>' +
+            '<div class="offer-plan__drinks-body">' + drinkMenuHtml(a.id) +
             '<p class="offer-drinks__total"><strong>' + esc(t("offer.drinksTotal")) + '</strong> · ' +
               '<span data-budget-value="drinkTotal">' + money(drinkTotal, drinkTotal % 1 ? 2 : 0) + '</span></p>' +
+            '</div>' +
           '</div>' +
-        '</details>' +
+        '</div>' +
       '</article>';
     }).join("");
 
@@ -2211,6 +2393,7 @@ const SOURCES = [
 
     return '<section class="balkan-offer-full"><h3 class="balkan-offer-full__title">' + esc(t("offer.title")) + '</h3>' +
       '<div class="balkan-offer-full__body">' +
+        breakEvenGraphHtml() +
         '<div class="offer-plans">' + plans + '</div>' +
         '<p class="offer-gram-note">' + esc(t("offer.gramNote")) + '</p>' +
         '<div style="margin-top:16px"><h4>' + esc(t("offer.terms")) + '</h4><ul style="margin:0;padding-left:16px;font-size:12.5px;line-height:1.6">' + terms + '</ul></div>' +
@@ -2974,15 +3157,19 @@ const SOURCES = [
     });
   }
 
-  function customBudgetMenuHtml() {
+  function customBudgetMenuHtml(offerId) {
+    var items = budgetMenuItems[offerId] || [];
     return '<div class="custom-menu">' +
       '<table class="tbl tbl--tight custom-menu__table"><thead><tr>' +
         '<th>' + esc(tr("Позиция", "Item")) + '</th>' +
         '<th class="num">' + esc(t("offer.menuQty")) + '</th>' +
         '<th class="num">' + esc(tr("€ / бр.", "€ / pc")) + '</th><th></th>' +
-      '</tr></thead><tbody>' + budgetMenuItems.map(function (item, i) {
+      '</tr></thead><tbody>' + items.map(function (item, i) {
+        var customHeading = item.isCustom && (!i || !items[i - 1].isCustom) ?
+          '<tr class="kitchen59-custom__group"><th colspan="4">' +
+            esc(tr("Нови персонализирани ястия", "New personalised dishes")) + '</th></tr>' : '';
         if (item.isDraft) {
-          return '<tr class="custom-menu__draft">' +
+          return customHeading + '<tr class="custom-menu__draft">' +
             '<td><input type="text" class="custom-menu__draft-name" maxlength="120" data-budget-field="draft-name" data-budget-index="' + i + '" value="' + esc(item.customName || "") + '" placeholder="' + esc(t("offer.menuItem")) + '" aria-label="' + esc(t("offer.menuItem")) + '"></td>' +
             '<td class="num"><div class="custom-menu__qty custom-menu__qty--draft">' +
               '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="draft-quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.menuQty")) + '">' +
@@ -3001,7 +3188,7 @@ const SOURCES = [
         var unit = item.unit === "grams" ?
           '× ' + num(item.grams) + ' ' + esc(tr("г", "g")) :
           (item.unit === "pieces" ? esc(tr("бр.", "pcs")) : '× ' + num(item.grams) + ' ' + esc(tr("г", "g")));
-        return '<tr>' +
+        return customHeading + '<tr>' +
           '<td><span class="custom-menu__item-name">' + esc(name) + '</span></td>' +
           '<td class="num"><div class="custom-menu__qty">' +
             '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.menuQty")) + ' · ' + esc(name) + '">' +
@@ -3024,9 +3211,10 @@ const SOURCES = [
   function refreshCustomMenu(root) {
     var plan = root.closest(".offer-plan");
     if (!plan) return;
+    var offerId = plan.getAttribute("data-plan-id");
     var menu = $(".custom-menu", plan);
     if (!menu) return;
-    menu.outerHTML = customBudgetMenuHtml();
+    menu.outerHTML = customBudgetMenuHtml(offerId);
     bindCustomMenu(plan);
     renderCalc();
     renderCompare();
@@ -3034,6 +3222,9 @@ const SOURCES = [
 
   function bindCustomMenu(root) {
     if (!root) return;
+    var offerId = root.getAttribute("data-plan-id");
+    var items = budgetMenuItems[offerId];
+    if (!items) return;
     $$('[data-budget-hall-field]', root).forEach(function (input) {
       input.addEventListener("input", function () {
         var field = input.getAttribute("data-budget-hall-field");
@@ -3047,7 +3238,7 @@ const SOURCES = [
     $$("[data-budget-field]", root).forEach(function (input) {
       input.addEventListener("input", function () {
         var i = parseInt(input.getAttribute("data-budget-index"), 10);
-        var item = budgetMenuItems[i];
+        var item = items[i];
         if (!item) return;
         var field = input.getAttribute("data-budget-field");
         if (field === "quantity") item.quantity = Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
@@ -3062,7 +3253,7 @@ const SOURCES = [
     $$('[data-budget-commit]', root).forEach(function (button) {
       button.addEventListener("click", function () {
         var i = parseInt(button.getAttribute("data-budget-commit"), 10);
-        var item = budgetMenuItems[i];
+        var item = items[i];
         if (!item || !item.isDraft) return;
         var name = $('[data-budget-field="draft-name"][data-budget-index="' + i + '"]', root);
         var quantity = $('[data-budget-field="draft-quantity"][data-budget-index="' + i + '"]', root);
@@ -3084,14 +3275,14 @@ const SOURCES = [
     $$("[data-budget-remove]", root).forEach(function (button) {
       button.addEventListener("click", function () {
         var i = parseInt(button.getAttribute("data-budget-remove"), 10);
-        budgetMenuItems.splice(i, 1);
+        items.splice(i, 1);
         refreshCustomMenu(root);
       });
     });
     var add = $("[data-budget-add]", root);
     if (add) add.addEventListener("click", function () {
-      budgetMenuItems.push({
-        name: null, customName: "", isDraft: true,
+      items.push({
+        name: null, customName: "", isDraft: true, isCustom: true,
         quantity: 1, grams: "", unit: "grams", price: ""
       });
       refreshCustomMenu(root);
@@ -3100,7 +3291,8 @@ const SOURCES = [
     });
     var reset = $("[data-budget-reset]", root);
     if (reset) reset.addEventListener("click", function () {
-      budgetMenuItems = initialBudgetMenuItems();
+      var offer = OFFER.alt.filter(function (item) { return item.id === offerId; })[0];
+      budgetMenuItems[offerId] = initialBudgetMenuItems(offer ? offer.menuKey : "budgetBlock");
       refreshCustomMenu(root);
     });
   }
@@ -3160,7 +3352,7 @@ const SOURCES = [
       var presentsAmount = $("[data-presents-amount]", card);
       var presentsRow = $(".offer-plan__presents", card);
       var overCap = m.capHeadroom < 0;
-      if (presentsLabel) presentsLabel.textContent = presentsBudgetLabel(overCap);
+      if (presentsLabel) presentsLabel.textContent = presentsBudgetLabel(overCap, m.budgetCap);
       if (presentsAmount) presentsAmount.textContent = money(Math.abs(m.capHeadroom));
       var presentsTotalLabel = $("[data-presents-total-label]", card);
       var presentsTotalAmount = $("[data-presents-total-amount]", card);
@@ -3171,9 +3363,10 @@ const SOURCES = [
       if (vocalTotal) vocalTotal.textContent = money(vocalEntertainmentCost);
       if (presentsTotalAmount) presentsTotalAmount.textContent = money(Math.abs(m.capHeadroom) * m.guests);
       if (presentsRow) presentsRow.classList.toggle("is-over-cap", overCap);
+      var planMenuItems = budgetMenuItems[model.offer.id] || [];
       $$("[data-budget-line]", card).forEach(function (line) {
         var i = parseInt(line.getAttribute("data-budget-line"), 10);
-        var item = budgetMenuItems[i];
+        var item = planMenuItems[i];
         if (item) line.textContent = money(item.quantity * item.price);
       });
       var menuItems = drinkMenus[model.offer.id] || [];
@@ -3190,21 +3383,7 @@ const SOURCES = [
     return { g: OFFER.guests };
   }
 
-  function syncBudgetCapButtons() {
-    $$('[data-budget-cap]').forEach(function (button) {
-      button.setAttribute("aria-pressed", String(Number(button.getAttribute("data-budget-cap")) === budgetCapPerGuest));
-    });
-  }
-
   function bindEventBudgetControls() {
-    $$('[data-budget-cap]').forEach(function (button) {
-      button.addEventListener("click", function () {
-        budgetCapPerGuest = parseFloat(button.getAttribute("data-budget-cap")) || 60;
-        syncBudgetCapButtons();
-        renderCalc();
-        renderCompare();
-      });
-    });
     var vocalInput = $("#vocal-entertainment-cost");
     if (vocalInput) {
       vocalInput.value = vocalEntertainmentCost;
@@ -3215,12 +3394,11 @@ const SOURCES = [
         renderCompare();
       });
     }
-    syncBudgetCapButtons();
   }
 
   function renderCalc() {
     updateOfferPlanMetrics(readCalc().g);
-    syncBudgetCapButtons();
+    renderBreakEvenGraph();
     var panel = $("#panel-kitchen59");
     if (panel && !panel.hidden) {
       renderKitchen59Original($(".kitchen59-summary--original", panel));
@@ -3348,9 +3526,6 @@ const SOURCES = [
     });
 
     renderStatus();
-    renderMapSide();
-    renderLegend();
-    drawMarkers(false);
     renderCalc();
     renderCompare();
     renderSources();
@@ -3377,11 +3552,6 @@ const SOURCES = [
   setInterval(tick, 30000);
   applyLang(lang);
   bindEventBudgetControls();
-  bootMap();
-
-  $$("[data-lang]").forEach(function (b) {
-    b.addEventListener("click", function () { applyLang(b.getAttribute("data-lang")); });
-  });
   var fxBtn = $("#fx-toggle");
   if (fxBtn) fxBtn.addEventListener("click", function () {
     applyFx(document.body.classList.contains("no-effects"));
