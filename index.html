@@ -502,9 +502,6 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .break-even-chart__head{display:flex;justify-content:space-between;align-items:flex-end;gap:18px}
 .break-even-chart__head h4{margin:0 0 5px;font-family:var(--slab);font-size:17px}
 .break-even-chart__head p{margin:0;color:var(--ink-soft);font-size:11px;line-height:1.45}
-.break-even-chart__control{display:grid;grid-template-columns:auto auto;align-items:center;gap:5px 9px;color:var(--ink-soft);font-size:10px;font-weight:700;white-space:nowrap}
-.break-even-chart__control b{color:var(--wu);font-size:12px}
-.break-even-chart__control small{grid-column:1/-1;max-width:220px;color:var(--ink-soft);font-size:9px;font-weight:500;line-height:1.35;white-space:normal}
 .break-even-chart__plot{position:relative;width:100%;overflow-x:auto;margin-top:10px}
 .break-even-chart__plot svg{display:block;width:100%;min-width:580px;height:auto}
 .break-even-chart__plot svg{touch-action:pan-y}
@@ -2154,9 +2151,7 @@ const SOURCES = [
       '<div class="break-even-chart__head"><div>' +
         '<h4>Покритие на разходите и бюджет за подаръци</h4>' +
         '<p>Капарото покрива първо храната, сервиза, наема и напитките, после целия разход за вокалния уъркшоп. Пари за подаръци се показват само след пълното му покриване.</p>' +
-      '</div><div class="break-even-chart__control"><span>Капаро на гост</span>' +
-        '<b data-break-even-cap-value>' + money(breakEvenCap, breakEvenCap % 1 ? 2 : 0) + '</b>' +
-        '<small>Посочи за разбивка на разходите; кликни или докосни точка, за да зададеш капарото.</small></div></div>' +
+      '</div></div>' +
       '<div class="break-even-chart__key" aria-label="Легенда на графиката">' +
         '<span><i class="break-even-chart__key--blue"></i>Общ остатък след всички разходи (вкл. уъркшопа)</span>' +
         '<span><i class="break-even-chart__key--gray"></i>За подаръци</span>' +
@@ -2177,7 +2172,6 @@ const SOURCES = [
     var metrics = offerMetrics(offer, guestCount);
     var offerCostPerGuest = metrics.totalWithDrinksGroup / guestCount;
     var workshopPerGuest = vocalEntertainmentCost / guestCount;
-    var selectedCap = Math.max(50, Math.min(60, Number(breakEvenCap) || 55));
     var minY = Math.min(0, 50 - offerCostPerGuest - workshopPerGuest) - 1;
     var maxY = Math.max(0, 60 - offerCostPerGuest) + 1;
     var yStep = Math.max(1, Math.ceil((maxY - minY) / 5 / 2) * 2);
@@ -2231,8 +2225,6 @@ const SOURCES = [
       'Остатък / гост (€)' + '</text>');
     var svgNode = $("[data-break-even-svg]", root);
     if (svgNode) svgNode.innerHTML = svg.join("");
-    var capLabel = $("[data-break-even-cap-value]", root);
-    if (capLabel) capLabel.textContent = money(selectedCap, selectedCap % 1 ? 2 : 0);
   }
 
   function bindBreakEvenGraph(root) {
@@ -2240,7 +2232,7 @@ const SOURCES = [
     root.setAttribute("data-bound", "true");
     var svg = $("[data-break-even-svg]", root);
     var tooltip = $("[data-break-even-tooltip]", root);
-    function inspectPoint(event, commit) {
+    function inspectPoint(event) {
       if (!svg) return;
       var matrix = svg.getScreenCTM();
       if (!matrix) return;
@@ -2263,13 +2255,6 @@ const SOURCES = [
         cap = Math.round((50 + (point.x - 62) / (700 - 62) * 10) * 2) / 2;
         cap = Math.max(50, Math.min(60, cap));
       }
-      var capLabel = $("[data-break-even-cap-value]", root);
-      if (commit && cap !== breakEvenCap) {
-        breakEvenCap = cap;
-        renderCalc();
-      } else if (!commit && capLabel) {
-        capLabel.textContent = money(cap, cap % 1 ? 2 : 0);
-      }
       if (tooltip) {
         tooltip.innerHTML = breakEvenTooltipHtml(cap);
         tooltip.hidden = false;
@@ -2283,13 +2268,8 @@ const SOURCES = [
       }
     }
     if (svg) {
-      svg.addEventListener("pointermove", function (event) { inspectPoint(event, false); });
-      svg.addEventListener("click", function (event) { inspectPoint(event, true); });
-      svg.addEventListener("pointerleave", function () {
-        if (tooltip) tooltip.hidden = true;
-        var capLabel = $("[data-break-even-cap-value]", root);
-        if (capLabel) capLabel.textContent = money(breakEvenCap, breakEvenCap % 1 ? 2 : 0);
-      });
+      svg.addEventListener("pointermove", inspectPoint);
+      svg.addEventListener("pointerleave", function () { if (tooltip) tooltip.hidden = true; });
     }
     renderBreakEvenGraph(root);
   }
