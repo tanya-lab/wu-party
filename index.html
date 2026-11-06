@@ -321,6 +321,16 @@ body.no-effects #snow{display:none}
   letter-spacing:.06em;text-transform:uppercase;font-weight:800;color:var(--ink-soft);
 }
 .status-hint::before{content:"↳";font-size:14px;color:var(--wu)}
+.event-budget-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:9px 20px;align-items:end;margin:0 0 18px;padding:12px 14px;border:1px solid var(--line);background:#fff}
+.event-budget-controls__cap>span,.event-budget-controls__vocal>span:first-child{display:block;margin-bottom:6px;color:var(--ink-soft);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.event-budget-controls__cap [role="group"]{display:flex;gap:6px}
+.event-budget-controls__cap button{min-width:54px;padding:7px 10px;border:1px solid var(--line);background:#fff;color:var(--ink);font:700 11px var(--ui);cursor:pointer}
+.event-budget-controls__cap button[aria-pressed="true"]{border-color:var(--wu);background:var(--wu);color:#fff}
+.event-budget-controls__vocal{display:grid;grid-template-columns:minmax(0,1fr) auto 78px;align-items:center;gap:8px;font-size:11px}
+.event-budget-controls__vocal>span:first-child{grid-column:1/-1;margin:0}
+.event-budget-controls__money{font-weight:700;color:var(--ink-soft)}
+.event-budget-controls__vocal input{width:100%;padding:6px 7px;border:1px solid var(--line);background:#fff;font:600 11px var(--ui);text-align:right}
+.event-budget-controls>p{grid-column:1/-1;margin:0;color:var(--ink-soft);font-size:10px;line-height:1.4}
 .status-row b{font-family:var(--slab);font-weight:700;font-size:15px}
 .status-row .when{font-size:12px;color:var(--ink-soft);letter-spacing:.04em}
 .status-row .owner{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
@@ -482,6 +492,8 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__menu{margin-top:12px;padding-top:10px;border-top:1px solid var(--line-soft)}
 .offer-plan__menu-title{margin:0 0 8px;color:var(--wu);font-size:9px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
 .offer-plan__export{align-self:flex-start;margin-top:12px;font-size:9px}
+.balkan-offer-full__title{margin:0 0 10px;padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--slab);font-size:18px;color:var(--ink)}
+.balkan-offer-full__title{margin:0 0 10px;padding:0 0 8px;border-bottom:1px solid var(--line);font-family:var(--slab);font-size:18px;color:var(--ink)}
 .pdf-export-page{display:none}
 .offer-plan__menu .tbl td,.offer-plan__menu .tbl th{padding:5px 4px;font-size:10px}
 .offer-plan__menu .tbl td:first-child{min-width:110px}
@@ -741,6 +753,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 }
 @media (max-width:760px){
   html{scroll-padding-top:84px}
+  .event-budget-controls{grid-template-columns:1fr}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .status-row{grid-template-columns:minmax(0,1fr)}
   #venue-map{height:420px}
@@ -889,6 +902,22 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
         </div>
       </div>
       <p class="status-hint" data-i18n="ovHint">Click a venue name to open its details right here</p>
+      <div class="event-budget-controls" aria-label="Event budget settings">
+        <div class="event-budget-controls__cap">
+          <span data-i18n="budgetCapTitle">Budget cap per guest</span>
+          <div role="group" aria-label="Budget cap per guest">
+            <button type="button" data-budget-cap="50" aria-pressed="false">€50</button>
+            <button type="button" data-budget-cap="55" aria-pressed="false">€55</button>
+            <button type="button" data-budget-cap="60" aria-pressed="true">€60</button>
+          </div>
+        </div>
+        <label class="event-budget-controls__vocal" for="vocal-entertainment-cost">
+          <span data-i18n="vocalEntertainmentTitle">Vocal workshop / entertainment · total</span>
+          <span class="event-budget-controls__money">€</span>
+          <input id="vocal-entertainment-cost" type="number" min="0" max="10000" step="0.01" inputmode="decimal" value="170" aria-label="Vocal workshop cost in euros">
+        </label>
+        <p data-i18n="vocalEntertainmentHint">This cost is deducted from the remaining budget for presents; it is not part of the venue quote.</p>
+      </div>
       <div class="status-list" id="status-list"></div>
     </div>
   </section>
@@ -1031,6 +1060,9 @@ const UI = {
     offersEyebrow: "Оферти", ovTitle: "Оферти от местата",
     ovLead: "И Balkan Falsch, и Kitchen59 изпратиха оферти за 30 гости. Сравни менюто, сервиза и условията на двете места.",
     ovHint: "Натисни върху името на мястото, за да отвориш детайлите му тук.",
+    budgetCapTitle: "Лимит на гост",
+    vocalEntertainmentTitle: "Вокален уъркшоп / забавление · общ разход",
+    vocalEntertainmentHint: "Този разход се приспада от оставащия бюджет за подаръци; не е включен в офертата на заведението.",
     mapEyebrow: "Карта", mapTitle: "Две места, един град",
     mapLead: "Кликни pin или име, за да отвориш детайлите. Упътванията се отварят в Google Maps.",
     progEyebrow: "Програма", progTitle: "Идеи и план за вечерта",
@@ -1061,7 +1093,7 @@ const UI = {
       block: "Блок маса", mix: "Микс", drinksSuggestion: "Общ пакет напитки · 30 гости", drinksTotal: "Напитки общо", totalWithDrinks: "Общо с напитки", menuPerGuest: "Меню, сервиз и наем / гост", drinksPerGuestLabel: "Напитки / гост", presentsBudget: "Остатък за подаръци / гост (от 60 €)", overPresentsBudget: "Над лимита 60 €/гост с", presentsGroup: "Общо за подаръци", overPresentsGroup: "Общо над лимита", belowCap: "под лимита 60 €/гост", gramNote: "Количествата на храната се променят; грамажът и единичните цени са фиксирани. Часовете и цената на час за персонализираната маса се редактират. Началните количества са за 30 гости. Мини сладките са включени в цената, но без посочен грамаж.", menuTitle: "Меню",
         menuItem: "Ястие", menuQty: "Количество", menuWeight: "г / бр.", menuUnitPrice: "€ / ед.", menuLineTotal: "Общо за ястието", addMenuItem: "Добави ястие", removeMenuItem: "Премахни", saveMenuItem: "Добави ред", resetMenu: "Върни предложените количества",
         drinkName: "Напитка", drinkQty: "Бутилки", drinkQtyShort: "Бут.", drinkSize: "Размер бутилка", drinkSizeShort: "Обем", drinkUnitPrice: "€ / бутилка", drinkUnitPriceShort: "€ / бут.", drinkLitersPerGuestLabel: "Обем напитки / гост", addDrink: "Добави напитка", removeDrink: "Премахни напитка", saveDrink: "Запази напитка", resetDrinks: "Върни предложените напитки", drinkBuilderHint: "Всеки вариант има собствен списък напитки. Променяй броя бутилки. За нова напитка въведи име, брой бутилки, размер (напр. 750 ml или 1 л) и цена за бутилка.",
-      alcohol: "Алкохол · преференциални цени за бутилка", terms: "Условия",
+       alcohol: "Напитки · цени по меню", terms: "Условия",
        perGuest: "на гост", serviceIncl: "вкл. 10% сервиз" },
     calc: { perGuest: "на гост", total: "общо", minimum: "минимум", noguest: "без фиксирана цена", guests: "гости" },
     cmp: { venue: "Място", status: "Статус", area: "Район", capacity: "Капацитет", hall: "Наем / цена", minspend: "Мин. консумация", drinks: "Напитки", catering: "Кетъринг", parking: "Паркинг", pp: "€/гост", contact: "Контакт" },
@@ -1085,6 +1117,9 @@ const UI = {
     offersEyebrow: "Offers", ovTitle: "Venue offers",
     ovLead: "Both Balkan Falsch and Kitchen59 have submitted offers for 30 guests. Compare their menus, service charges and venue terms.",
     ovHint: "Click a venue name to expand its details here.",
+    budgetCapTitle: "Budget cap per guest",
+    vocalEntertainmentTitle: "Vocal workshop / entertainment · total cost",
+    vocalEntertainmentHint: "This cost is deducted from the remaining budget for presents; it is not part of the venue quote.",
     mapEyebrow: "Map", mapTitle: "Two venues, one city",
     mapLead: "Click a pin or a name to open details. Directions open in Google Maps.",
     progEyebrow: "Program", progTitle: "Ideas and evening schedule",
@@ -1115,7 +1150,7 @@ const UI = {
       block: "Block table", mix: "Mixed", drinksSuggestion: "Shared drinks pack · 30 guests", drinksTotal: "Drinks total", totalWithDrinks: "Total with drinks", menuPerGuest: "Menu, service and rent / guest", drinksPerGuestLabel: "Drinks / guest", presentsBudget: "Remaining for presents / guest (from €60)", overPresentsBudget: "Over the €60/guest cap by", presentsGroup: "Total for presents", overPresentsGroup: "Total over cap", belowCap: "under €60/guest cap", gramNote: "Only food quantities can be changed; food weights and unit prices are fixed. Rental hours and hourly rate are editable on the personalised table. Starter quantities are for 30 guests. Mini sweets are included in the price but have no stated weight.", menuTitle: "Menu",
         menuItem: "Dish", menuQty: "Quantity", menuWeight: "g / unit", menuUnitPrice: "€ / unit", menuLineTotal: "Dish total", addMenuItem: "Add dish", removeMenuItem: "Remove", saveMenuItem: "Add row", resetMenu: "Reset suggested quantities",
         drinkName: "Drink", drinkQty: "Bottles", drinkQtyShort: "Btls", drinkSize: "Bottle size", drinkSizeShort: "Size", drinkUnitPrice: "€ / bottle", drinkUnitPriceShort: "€ / btl", drinkLitersPerGuestLabel: "Drink volume / guest", addDrink: "Add drink", removeDrink: "Remove drink", saveDrink: "Save drink", resetDrinks: "Reset suggested drinks", drinkBuilderHint: "Each menu option has its own drinks list. Change the bottle count. To add a drink, enter its name, bottle count, size (e.g. 750 ml or 1 L) and price per bottle.",
-      alcohol: "Alcohol · preferential price per bottle", terms: "Terms",
+       alcohol: "Drinks · menu prices", terms: "Terms",
        perGuest: "per guest", serviceIncl: "incl. 10% service" },
     calc: { perGuest: "per guest", total: "total", minimum: "minimum", noguest: "no fixed price", guests: "guests" },
     cmp: { venue: "Venue", status: "Status", area: "Area", capacity: "Capacity", hall: "Rental / price", minspend: "Min. spend", drinks: "Drinks", catering: "Catering", parking: "Parking", pp: "€/guest", contact: "Contact" },
@@ -1183,7 +1218,9 @@ const OFFER = {
     { n: { bg: "Уиски Jack Daniel’s", en: "Whisky Jack Daniel’s" }, size: "1 л", price: 35 },
     { n: { bg: "Уиски Proper No. Twelve", en: "Whisky Proper No. Twelve" }, size: "1 л", price: 20 },
     { id: "plumRakia", n: { bg: "Сръбска сливова ракия", en: "Serbian plum rakia" }, size: "750 ml", price: 18 },
-    { n: { bg: "Сръбска крушова ракия", en: "Serbian pear rakia" }, size: "750 ml", price: 18 }
+    { n: { bg: "Сръбска крушова ракия", en: "Serbian pear rakia" }, size: "750 ml", price: 18 },
+    { id: "mineral330", n: { bg: "Минерална вода", en: "Mineral water" }, size: "330 ml", price: 2 },
+    { id: "sparkling330", n: { bg: "Газирана вода", en: "Sparkling water" }, size: "330 ml", price: 2 }
   ],
    terms: [
     { bg: "19:00–23:00 · Малка зала · до 40 седящи.", en: "19:00–23:00 · small hall · up to 40 seated." },
@@ -1327,12 +1364,9 @@ const KITCHEN59_DRINK_MENU = [
 ];
 
 const DRINK_PACKAGE = [
-  { id: "brut", bottles: 3 },
-  { id: "white", bottles: 4 },
-  { id: "red", bottles: 3 },
-  { id: "finlandia", bottles: 2 },
-  { id: "dewars", bottles: 1 },
-  { id: "plumRakia", bottles: 1 }
+  { id: "brut", bottles: 6 },
+  { id: "mineral330", bottles: 90 },
+  { id: "sparkling330", bottles: 40 }
 ];
 
 const BALKAN_MENU = {
@@ -1426,6 +1460,14 @@ const SOURCES = [
     return cur == null ? "" : String(cur);
   }
   function tr(bg, en) { return lang === "en" ? en : bg; }
+  function presentsBudgetLabel(overCap) {
+    return overCap ?
+      tr("Над лимита " + budgetCapPerGuest + " €/гост с", "Over the €" + budgetCapPerGuest + "/guest cap by") :
+      tr("Остатък за подаръци / гост (от " + budgetCapPerGuest + " €)", "Remaining for presents / guest (from €" + budgetCapPerGuest + ")");
+  }
+  function presentsGroupLabel(overCap) {
+    return overCap ? t("offer.overPresentsGroup") : t("offer.presentsGroup");
+  }
   function pick(o) { return typeof o === "string" ? o : (o ? (o[lang] != null ? o[lang] : o.bg) : ""); }
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
@@ -1472,6 +1514,8 @@ const SOURCES = [
   var budgetMenuItems = initialBudgetMenuItems();
   var budgetHallHourlyRate = 40;
   var budgetHallHours = 4;
+  var budgetCapPerGuest = 60;
+  var vocalEntertainmentCost = 170;
 
   function initialKitchen59CustomItems() {
     var items = [];
@@ -1598,7 +1642,7 @@ const SOURCES = [
     base.service = service;
     base.totalGroup = totalGroup;
     base.totalPerGuest = roundMoney(totalGroup / KITCHEN59_QUOTE.guests);
-    base.capHeadroom = 60 - totalGroup / KITCHEN59_QUOTE.guests;
+    base.capHeadroom = budgetCapPerGuest - totalGroup / KITCHEN59_QUOTE.guests - vocalEntertainmentCost / KITCHEN59_QUOTE.guests;
     return base;
   }
 
@@ -1663,7 +1707,7 @@ const SOURCES = [
       drinkLitersPerGuest: roundMoney(welcomeQuantity * KITCHEN59_QUOTE.welcomeDrink.sizeMl / 1000 / guests),
       subtotal: subtotal, service: service, totalGroup: totalGroup,
       totalPerGuest: roundMoney(totalGroup / guests),
-      capHeadroom: 60 - totalGroup / guests
+      capHeadroom: budgetCapPerGuest - totalGroup / guests - vocalEntertainmentCost / guests
     };
   }
 
@@ -1723,7 +1767,7 @@ const SOURCES = [
       drinkLitersPerGuest: drinkLitersPerGuest(drinkMenus[offerId], count),
       totalWithDrinks: totalWithDrinksGroup / count,
       totalWithDrinksGroup: totalWithDrinksGroup,
-      capHeadroom: 60 - totalWithDrinksGroup / count
+      capHeadroom: budgetCapPerGuest - totalWithDrinksGroup / count - vocalEntertainmentCost / count
     };
   }
 
@@ -1744,7 +1788,7 @@ const SOURCES = [
       drinkLitersPerGuest: drinkLitersPerGuest(drinkMenus[offer.id], count),
       totalWithDrinks: totalWithDrinksGroup / count,
       totalWithDrinksGroup: totalWithDrinksGroup,
-      capHeadroom: 60 - totalWithDrinksGroup / count
+      capHeadroom: budgetCapPerGuest - totalWithDrinksGroup / count - vocalEntertainmentCost / count
     };
   }
 
@@ -2145,10 +2189,14 @@ const SOURCES = [
           '<div><dt>' + esc(t("offer.menuPerGuest")) + '</dt><dd data-budget-value="perGuest">' + money(metrics.perGuest) + '</dd></div>' +
         '</dl>' +
         '<div class="offer-plan__presents' + (capHeadroom < 0 ? ' is-over-cap' : '') + '">' +
-          '<div class="offer-plan__presents-row"><span data-presents-label>' + esc(t(capHeadroom < 0 ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
+          '<div class="offer-plan__presents-row"><span>' + esc(tr("Вокален уъркшоп / гост", "Vocal Workshop / guest")) + '</span>' +
+            '<b data-vocal-cost-per-guest>' + money(vocalEntertainmentCost / guestCount) + '</b></div>' +
+          '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' + esc(tr("Вокален уъркшоп · общо", "Vocal Workshop · total")) + '</span>' +
+            '<b data-vocal-cost-total>' + money(vocalEntertainmentCost) + '</b></div>' +
+          '<div class="offer-plan__presents-row"><span data-presents-label>' + esc(presentsBudgetLabel(capHeadroom < 0)) + '</span>' +
             '<b data-presents-amount>' + money(Math.abs(capHeadroom)) + '</b></div>' +
           '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span><span data-presents-total-label>' +
-            esc(t(capHeadroom < 0 ? "offer.overPresentsGroup" : "offer.presentsGroup")) + '</span> · ' +
+            esc(presentsGroupLabel(capHeadroom < 0)) + '</span> · ' +
             '<span data-budget-guests>' + guestCount + '</span> ' + esc(lang === "en" ? "guests" : "гости") + '</span>' +
             '<b data-presents-total-amount>' + money(Math.abs(capHeadroom) * guestCount) + '</b></div>' +
         '</div>' +
@@ -2181,13 +2229,13 @@ const SOURCES = [
 
     var terms = OFFER.terms.map(function (x) { return '<li>' + esc(pick(x)) + '</li>'; }).join("");
 
-    return '<details class="acc" open><summary>' + esc(t("offer.title")) + '</summary>' +
-      '<div class="acc__body">' +
+    return '<section class="balkan-offer-full"><h3 class="balkan-offer-full__title">' + esc(t("offer.title")) + '</h3>' +
+      '<div class="balkan-offer-full__body">' +
         '<div class="offer-plans">' + plans + '</div>' +
         '<p class="offer-gram-note">' + esc(t("offer.gramNote")) + '</p>' +
         '<div style="margin-top:16px"><h4>' + esc(t("offer.terms")) + '</h4><ul style="margin:0;padding-left:16px;font-size:12.5px;line-height:1.6">' + terms + '</ul></div>' +
       '</div>' +
-    '</details>';
+    '</section>';
   }
 
   function kitchen59CustomBodyHtml() {
@@ -2379,11 +2427,15 @@ const SOURCES = [
         esc(tr("Оферта + избрани напитки / гост", "Offer + selected drinks / guest")) +
         '</dt><dd data-kitchen-original-value="perGuestLine">' + money(metrics.totalPerGuest) + '</dd></div></div>' +
       '<div class="offer-plan__presents' + (overCap ? ' is-over-cap' : '') + '" data-kitchen-original-presents>' +
+        '<div class="offer-plan__presents-row"><span>' + esc(tr("Вокален уъркшоп / гост", "Vocal Workshop / guest")) + '</span>' +
+          '<b data-kitchen-original-value="vocalPerGuest">' + money(vocalEntertainmentCost / KITCHEN59_QUOTE.guests) + '</b></div>' +
+        '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' + esc(tr("Вокален уъркшоп · общо", "Vocal Workshop · total")) + '</span>' +
+          '<b data-kitchen-original-value="vocalTotal">' + money(vocalEntertainmentCost) + '</b></div>' +
         '<div class="offer-plan__presents-row"><span data-kitchen-original-budget-label>' +
-          esc(t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
+          esc(presentsBudgetLabel(overCap)) + '</span>' +
           '<b data-kitchen-original-value="headroom">' + money(Math.abs(metrics.capHeadroom)) + '</b></div>' +
         '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' +
-          '<span data-kitchen-original-group-label>' + esc(t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup")) +
+          '<span data-kitchen-original-group-label>' + esc(presentsGroupLabel(overCap)) +
           '</span> · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</span>' +
           '<b data-kitchen-original-value="headroomGroup">' + money(Math.abs(metrics.capHeadroom) * KITCHEN59_QUOTE.guests) + '</b></div>' +
       '</div>' +
@@ -2423,11 +2475,15 @@ const SOURCES = [
       '<p class="offer-plan__total"><b data-kitchen-custom-value="group">' + money(metrics.totalGroup) + '</b> ' +
         esc(lang === "en" ? "total for " : "общо за ") + KITCHEN59_QUOTE.guests + ' ' + esc(lang === "en" ? "guests" : "гости") + '</p>' +
       '<div class="offer-plan__presents' + (overCap ? ' is-over-cap' : '') + '" data-kitchen-custom-presents>' +
+        '<div class="offer-plan__presents-row"><span>' + esc(tr("Вокален уъркшоп / гост", "Vocal Workshop / guest")) + '</span>' +
+          '<b data-kitchen-custom-value="vocalPerGuest">' + money(vocalEntertainmentCost / KITCHEN59_QUOTE.guests) + '</b></div>' +
+        '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' + esc(tr("Вокален уъркшоп · общо", "Vocal Workshop · total")) + '</span>' +
+          '<b data-kitchen-custom-value="vocalTotal">' + money(vocalEntertainmentCost) + '</b></div>' +
         '<div class="offer-plan__presents-row"><span data-kitchen-custom-budget-label>' +
-          esc(t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget")) + '</span>' +
+          esc(presentsBudgetLabel(overCap)) + '</span>' +
           '<b data-kitchen-custom-value="headroom">' + money(Math.abs(metrics.capHeadroom)) + '</b></div>' +
         '<div class="offer-plan__presents-row offer-plan__presents-row--group"><span>' +
-          '<span data-kitchen-custom-group-label>' + esc(t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup")) +
+          '<span data-kitchen-custom-group-label>' + esc(presentsGroupLabel(overCap)) +
           '</span> · ' + KITCHEN59_QUOTE.guests + ' ' + esc(tr("гости", "guests")) + '</span>' +
           '<b data-kitchen-custom-value="headroomGroup">' + money(Math.abs(metrics.capHeadroom) * KITCHEN59_QUOTE.guests) + '</b></div>' +
       '</div>' +
@@ -2473,6 +2529,8 @@ const SOURCES = [
       perGuest: money(metrics.totalPerGuest), group: money(metrics.totalGroup),
       headroom: money(Math.abs(metrics.capHeadroom)),
       headroomGroup: money(Math.abs(metrics.capHeadroom) * KITCHEN59_QUOTE.guests),
+      vocalPerGuest: money(vocalEntertainmentCost / KITCHEN59_QUOTE.guests),
+      vocalTotal: money(vocalEntertainmentCost),
       foodPerGuest: money(metrics.foodPerGuest), welcomePerGuest: money(metrics.welcomePerGuest),
       grams: num(metrics.foodGramsPerGuest),
       glasses: metrics.welcomeGlassesPerGuest.toLocaleString(lang === "en" ? "en-US" : "bg-BG", {
@@ -2499,9 +2557,9 @@ const SOURCES = [
     var presents = $$("[data-kitchen-custom-presents]", host);
     presents.forEach(function (node) { node.classList.toggle("is-over-cap", overCap); });
     var budgetLabel = $$("[data-kitchen-custom-budget-label]", host);
-    budgetLabel.forEach(function (node) { node.textContent = t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget"); });
+    budgetLabel.forEach(function (node) { node.textContent = presentsBudgetLabel(overCap); });
     var groupLabel = $$("[data-kitchen-custom-group-label]", host);
-    groupLabel.forEach(function (node) { node.textContent = t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup"); });
+    groupLabel.forEach(function (node) { node.textContent = presentsGroupLabel(overCap); });
   }
 
   function renderKitchen59Original(root) {
@@ -2512,6 +2570,8 @@ const SOURCES = [
       perGuest: money(metrics.totalPerGuest), perGuestLine: money(metrics.totalPerGuest),
       group: money(metrics.totalGroup), headroom: money(Math.abs(metrics.capHeadroom)),
       headroomGroup: money(Math.abs(metrics.capHeadroom) * KITCHEN59_QUOTE.guests),
+      vocalPerGuest: money(vocalEntertainmentCost / KITCHEN59_QUOTE.guests),
+      vocalTotal: money(vocalEntertainmentCost),
       drinkTotal: money(metrics.drinkTotal), service: money(metrics.service),
       drinkLitersPerGuest: liters(metrics.drinkLitersPerGuest)
     };
@@ -2523,9 +2583,9 @@ const SOURCES = [
     var presents = $("[data-kitchen-original-presents]", root);
     if (presents) presents.classList.toggle("is-over-cap", overCap);
     var budgetLabel = $("[data-kitchen-original-budget-label]", root);
-    if (budgetLabel) budgetLabel.textContent = t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget");
+    if (budgetLabel) budgetLabel.textContent = presentsBudgetLabel(overCap);
     var groupLabel = $("[data-kitchen-original-group-label]", root);
-    if (groupLabel) groupLabel.textContent = t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup");
+    if (groupLabel) groupLabel.textContent = presentsGroupLabel(overCap);
   }
 
   function renderKitchen59DrinkCalculator(root, mode) {
@@ -3120,11 +3180,15 @@ const SOURCES = [
       var presentsAmount = $("[data-presents-amount]", card);
       var presentsRow = $(".offer-plan__presents", card);
       var overCap = m.capHeadroom < 0;
-      if (presentsLabel) presentsLabel.textContent = t(overCap ? "offer.overPresentsBudget" : "offer.presentsBudget");
+      if (presentsLabel) presentsLabel.textContent = presentsBudgetLabel(overCap);
       if (presentsAmount) presentsAmount.textContent = money(Math.abs(m.capHeadroom));
       var presentsTotalLabel = $("[data-presents-total-label]", card);
       var presentsTotalAmount = $("[data-presents-total-amount]", card);
-      if (presentsTotalLabel) presentsTotalLabel.textContent = t(overCap ? "offer.overPresentsGroup" : "offer.presentsGroup");
+      if (presentsTotalLabel) presentsTotalLabel.textContent = presentsGroupLabel(overCap);
+      var vocalPerGuest = $("[data-vocal-cost-per-guest]", card);
+      var vocalTotal = $("[data-vocal-cost-total]", card);
+      if (vocalPerGuest) vocalPerGuest.textContent = money(vocalEntertainmentCost / guests);
+      if (vocalTotal) vocalTotal.textContent = money(vocalEntertainmentCost);
       if (presentsTotalAmount) presentsTotalAmount.textContent = money(Math.abs(m.capHeadroom) * m.guests);
       if (presentsRow) presentsRow.classList.toggle("is-over-cap", overCap);
       $$("[data-budget-line]", card).forEach(function (line) {
@@ -3146,8 +3210,42 @@ const SOURCES = [
     return { g: OFFER.guests };
   }
 
+  function syncBudgetCapButtons() {
+    $$('[data-budget-cap]').forEach(function (button) {
+      button.setAttribute("aria-pressed", String(Number(button.getAttribute("data-budget-cap")) === budgetCapPerGuest));
+    });
+  }
+
+  function bindEventBudgetControls() {
+    $$('[data-budget-cap]').forEach(function (button) {
+      button.addEventListener("click", function () {
+        budgetCapPerGuest = parseFloat(button.getAttribute("data-budget-cap")) || 60;
+        syncBudgetCapButtons();
+        renderCalc();
+        renderCompare();
+      });
+    });
+    var vocalInput = $("#vocal-entertainment-cost");
+    if (vocalInput) {
+      vocalInput.value = vocalEntertainmentCost;
+      vocalInput.addEventListener("input", function () {
+        var value = vocalInput.value === "" ? 0 : parseFloat(vocalInput.value) || 0;
+        vocalEntertainmentCost = roundMoney(Math.min(10000, Math.max(0, value)));
+        renderCalc();
+        renderCompare();
+      });
+    }
+    syncBudgetCapButtons();
+  }
+
   function renderCalc() {
     updateOfferPlanMetrics(readCalc().g);
+    syncBudgetCapButtons();
+    var panel = $("#panel-kitchen59");
+    if (panel && !panel.hidden) {
+      renderKitchen59Original($(".kitchen59-summary--original", panel));
+      renderKitchen59Custom($(".kitchen59-personalized", panel));
+    }
   }
 
   /* ---------- comparison ---------- */
@@ -3298,6 +3396,7 @@ const SOURCES = [
   tick();
   setInterval(tick, 30000);
   applyLang(lang);
+  bindEventBudgetControls();
   bootMap();
 
   $$("[data-lang]").forEach(function (b) {
