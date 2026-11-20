@@ -459,6 +459,8 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 }
 .offer-plan--best{border:2px solid var(--wu);padding:15px;background:linear-gradient(180deg,#F3FAFC 0,#fff 42%)}
 .offer-plan__head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;min-height:36px}
+.offer-plan__guests-editor{display:flex;align-items:center;gap:8px;margin:12px 0 0;color:var(--ink-soft);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.offer-plan__guests-editor input{width:64px;padding:6px 7px;border:1px solid var(--line);background:#fff;font:600 12px var(--ui);text-align:right;color:var(--ink)}
 .offer-plan__head h4{font-family:var(--slab);font-size:15px;line-height:1.3;margin:0;color:var(--ink)}
 .offer-plan__badge{flex:none;padding:4px 6px;background:var(--wu);color:#fff;font-size:8px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .offer-plan__price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 7px;margin:14px 0 1px;font-family:var(--slab);font-size:clamp(1.5rem,2.3vw,2rem);font-weight:800;line-height:1.1;color:var(--wu)}
@@ -536,6 +538,7 @@ details.acc .acc__body{padding:0 0 16px;overflow-x:auto}
 .offer-plan__menu .custom-menu__table td:first-child{min-width:0}
 .custom-menu__item{display:flex;align-items:flex-start;gap:3px;min-width:0}
 .custom-menu__item-name{flex:1;min-width:0;overflow-wrap:anywhere;line-height:1.35}
+.custom-menu__course{display:block;margin-top:2px;color:var(--ink-soft);font-size:8px;line-height:1.25;letter-spacing:.05em;text-transform:uppercase}
 .custom-menu__draft-name{width:100%;min-width:0;padding:4px 3px;border:1px solid var(--line);background:#fff;font:500 9px/1.3 var(--ui);color:var(--ink)}
 .custom-menu__qty{display:flex;justify-content:flex-end;align-items:center;gap:2px;white-space:nowrap}
 .custom-menu__qty input{width:30px;min-width:0;padding:4px 2px;border:1px solid var(--line);background:#fff;font:500 10px var(--ui);color:var(--ink);text-align:right}
@@ -1169,7 +1172,7 @@ const VENUES = [
 <script>
 /* ---------- Balkan Falsch offer (PDF, 03.11.2026) ---------- */
 const OFFER = {
-  guests: 30,
+  guests: 22,
     alt: [
     { id: "budgetBlock", name: { bg: "Персонализирана блок маса", en: "Personalised block" }, personalised: true, editableMenu: true, menuKey: "budgetBlock" }
   ],
@@ -1335,11 +1338,10 @@ const KITCHEN59_DRINK_MENU = [
 const DRINK_PACKAGE = [
   { id: "brut", bottles: 6 },
   { id: "mineral330", bottles: 0 },
-  { id: "mineral1000", bottles: 15 },
+  { id: "mineral1000", bottles: 12 },
   { id: "sparkling250", bottles: 0 },
   { id: "sparkling330", bottles: 0 },
-  { id: "sparkling1000", bottles: 15 },
-  { id: "sparkling750", bottles: 0 }
+  { id: "sparkling750", bottles: 12 }
 ];
 
 const BALKAN_MENU = {
@@ -1375,21 +1377,27 @@ const BALKAN_MENU = {
     { bg: "Микс мини сладки", en: "Mini sweets mix", q: "60 бр", p: 2 }
   ],
   budgetBlock: [
-    { bg: "Катък", en: "Katak (yoghurt dip)", q: "5 × 140 г", p: 8 },
-    { bg: "Кьопоолу", en: "Kyopoolu", q: "5 × 140 г", p: 8 },
-    { bg: "Лютеница", en: "Lyutenitsa", q: "5 × 140 г", p: 6 },
-    { bg: "Микс хляб със 100% квас", en: "Sourdough bread mix", q: "15 × 250 г", p: 3 },
+    { bg: "Катък", en: "Katak (yoghurt dip)", q: "3 × 140 г", p: 8 },
+    { bg: "Кьопоолу", en: "Kyopoolu", q: "3 × 140 г", p: 8 },
+    { bg: "Лютеница", en: "Lyutenitsa", q: "3 × 140 г", p: 6 },
+    { bg: "Микс хляб със 100% квас", en: "Sourdough bread mix", q: "12 × 250 г", p: 3 },
     { bg: "Салата с печени чушки, балсамико, билков зехтин и фета", en: "Roasted pepper salad, balsamic, herb oil, feta", q: "4 × 350 г", p: 11 },
     { bg: "Гръцка салата", en: "Greek salad", q: "4 × 400 г", p: 11 },
-    { bg: "Качамак с бабек, диви гъби и крокмач", en: "Kachamak with babek, wild mushrooms, croquette", q: "9 × 220 г", p: 13 },
-    { bg: "Мини глазирани кюфтенца с пюре от кестени и билково крема сирене", en: "Mini glazed meatballs, chestnut purée, herb cream cheese", q: "8 × 220 г", p: 17 },
-    { bg: "Свинско филе с гъбено рагу, сушени домати и маринован лук", en: "Pork fillet, mushroom ragout, sun-dried tomato, pickled onion", q: "11 × 200 г", p: 14 },
-    { bg: "Маринована пилешка пържола на скара", en: "Marinated grilled chicken steak", q: "11 × 200 г", p: 10 },
-    { bg: "Стек от карфиол с гъбено рагу, задушен спанак и пюре от кестени", en: "Cauliflower steak, mushroom ragout, spinach, chestnut purée", q: "8 × 350 г", p: 13 },
-    { bg: "Пресни картофи с масло, копър и розмарин", en: "New potatoes, butter, dill, rosemary", q: "10 × 160 г", p: 3 },
-    { bg: "Микс от оризи с ядки и билки", en: "Rice mix with nuts and herbs", q: "6 × 160 г", p: 3 },
-    { bg: "Печени моркови със соев глейз", en: "Roasted carrots, soy glaze", q: "6 × 160 г", p: 3 },
-    { bg: "Микс мини сладки", en: "Mini sweets mix", q: "60 бр", p: 2 }
+    { bg: "Качамак с бабек, диви гъби и крокмач", en: "Kachamak with babek, wild mushrooms, croquette", q: "6 × 220 г", p: 13 },
+    { bg: "Мини глазирани кюфтенца с пюре от кестени и билково крема сирене", en: "Mini glazed meatballs, chestnut purée, herb cream cheese", q: "6 × 220 г", p: 17 },
+    { bg: "Свинско филе с гъбено рагу, сушени домати и маринован лук", en: "Pork fillet, mushroom ragout, sun-dried tomato, pickled onion", q: "10 × 200 г", p: 14 },
+    { bg: "Маринована пилешка пържола на скара", en: "Marinated grilled chicken steak", q: "10 × 200 г", p: 10 },
+    { bg: "Стек от карфиол с гъбено рагу, задушен спанак и пюре от кестени", en: "Cauliflower steak, mushroom ragout, spinach, chestnut purée", q: "6 × 350 г", p: 13 },
+    { bg: "Пресни картофи с масло, копър и розмарин", en: "New potatoes, butter, dill, rosemary", q: "6 × 160 г", p: 3 },
+    { bg: "Микс от оризи с ядки и билки", en: "Rice mix with nuts and herbs", q: "5 × 160 г", p: 3 },
+    { bg: "Печени моркови със соев глейз", en: "Roasted carrots, soy glaze", q: "5 × 160 г", p: 3 },
+    { bg: "Микс мини сладки", en: "Mini sweets mix", q: "60 бр", p: 2 },
+    { category: "Постни ястия", course: { bg: "предястие", en: "starter" }, bg: "Постни сармички със зеленчуци, спанак и гъби, поднесени с печени ядки (веган)", en: "Vegan vegetable, spinach and mushroom sarmi with roasted nuts", q: "0 × 200 г", p: 9 },
+    { category: "Постни ястия", course: { bg: "предястие", en: "starter" }, bg: "Шукар бюрек с гъби, печен лук и пушен пипер (веган)", en: "Vegan shukar burek with mushrooms, roasted onion and smoked paprika", q: "0 × 200 г", p: 15 },
+    { category: "Постни ястия", course: { bg: "основно", en: "main course" }, bg: "Качамак с печени чушки, манатарки и мащерка (веган)", en: "Vegan kachamak with roasted peppers, porcini mushrooms and thyme", q: "0 × 200 г", p: 15 },
+    { category: "Постни ястия", course: { bg: "предястие", en: "starter" }, bg: "Фалафели със спанак и сушени домати (веган)", en: "Vegan falafel with spinach and sun-dried tomatoes", q: "0 × 200 г", p: 8 },
+    { category: "Постни ястия", course: { bg: "основно", en: "main course" }, bg: "Мариновани тиквички с пушено тофу със соев глейз и печени чушки с билки, пресен лук и сусам (веган)", en: "Vegan marinated courgettes with smoked tofu, soy glaze, herb-roasted peppers, spring onion and sesame", q: "0 × 200 г", p: 15 },
+    { category: "Постни ястия", course: { bg: "основно", en: "main course" }, bg: "Стек от целина с картофи на фурна, задушен спанак и червено рагу (веган)", en: "Vegan celeriac steak with oven potatoes, braised spinach and red ragout", q: "0 × 200 г", p: 13 }
   ]
 };
 
@@ -1415,6 +1423,7 @@ const SOURCES = [
 
   var LS_LANG = "wuXmas2026.lang";
   var LS_FX   = "wuXmas2026.fx";
+  var LS_STATE = "wuXmas2026.state.v1";
 
   var lang = "bg";
 
@@ -1481,6 +1490,8 @@ const SOURCES = [
       var quantity = parseMenuQuantity(item.q);
       return {
         name: item,
+        category: item.category || "",
+        course: item.course || null,
         quantity: quantity.count,
         grams: quantity.grams,
         unit: quantity.unit,
@@ -1495,9 +1506,40 @@ const SOURCES = [
   });
   var budgetHallHourlyRate = 40;
   var budgetHallHours = 4;
+  var eventGuests = OFFER.guests;
   var budgetCapPerGuest = 60;
   var vocalEntertainmentCost = 170;
   var breakEvenCap = 55;
+
+  function saveState() {
+    try {
+      localStorage.setItem(LS_STATE, JSON.stringify({
+        eventGuests: eventGuests,
+        budgetHallHourlyRate: budgetHallHourlyRate,
+        budgetHallHours: budgetHallHours,
+        vocalEntertainmentCost: vocalEntertainmentCost,
+        budgetMenuItems: budgetMenuItems
+      }));
+    } catch (e) {}
+  }
+
+  function loadState() {
+    try {
+      var saved = JSON.parse(localStorage.getItem(LS_STATE) || "null");
+      if (!saved) return;
+      if (saved.eventGuests != null) eventGuests = Math.min(500, Math.max(1, parseInt(saved.eventGuests, 10) || OFFER.guests));
+      if (saved.budgetHallHourlyRate != null) budgetHallHourlyRate = Math.min(1000, Math.max(0, Number(saved.budgetHallHourlyRate) || 0));
+      if (saved.budgetHallHours != null) budgetHallHours = Math.min(24, Math.max(0, Number(saved.budgetHallHours) || 0));
+      if (saved.vocalEntertainmentCost != null) vocalEntertainmentCost = Math.min(10000, Math.max(0, Number(saved.vocalEntertainmentCost) || 0));
+      if (saved.budgetMenuItems && typeof saved.budgetMenuItems === "object") {
+        Object.keys(saved.budgetMenuItems).forEach(function (offerId) {
+          if (Array.isArray(saved.budgetMenuItems[offerId])) budgetMenuItems[offerId] = saved.budgetMenuItems[offerId];
+        });
+      }
+    } catch (e) {}
+  }
+
+  loadState();
 
   function initialKitchen59CustomItems() {
     var items = [];
@@ -2167,7 +2209,7 @@ const SOURCES = [
     if (!root) return;
     var plans = OFFER.alt.filter(function (offer) { return offer.personalised; });
     if (!plans.length) return;
-    var guestCount = OFFER.guests;
+    var guestCount = eventGuests;
     var offer = plans[0];
     var metrics = offerMetrics(offer, guestCount);
     var offerCostPerGuest = metrics.totalWithDrinksGroup / guestCount;
@@ -2332,8 +2374,10 @@ const SOURCES = [
       return '<article class="offer-plan' + (best ? ' offer-plan--best' : '') + '" data-plan-id="' + a.id + '"' +
         (a.editableMenu ? ' data-editable-menu="true"' : '') + '>' +
         '<div class="offer-plan__head"><h4>' + esc(pick(a.name)) + '</h4>' +
-          '<span class="offer-plan__badge" data-best-badge' + (best ? '' : ' hidden') + '>' + esc(t("offer.lowest")) + '</span>' +
-        '</div>' +
+           '<span class="offer-plan__badge" data-best-badge' + (best ? '' : ' hidden') + '>' + esc(t("offer.lowest")) + '</span>' +
+         '</div>' +
+         (a.personalised ? '<label class="offer-plan__guests-editor">' + esc(tr("Брой гости", "Number of guests")) +
+           ' <input id="event-guests" type="number" min="1" max="500" step="1" inputmode="numeric" value="' + esc(guestCount) + '" aria-label="' + esc(tr("Брой гости", "Number of guests")) + '"></label>' : '') +
         '<p class="offer-plan__price"><span class="offer-plan__amount" data-budget-value="withDrinks">' + money(allInWithDrinks) + '</span> <small>' + esc(t("offer.totalWithDrinks")) + ' · ' + esc(t("calc.perGuest")) + '</small></p>' +
         '<p class="offer-plan__total"><b data-budget-value="totalWithDrinksGroup">' + money(metrics.totalWithDrinksGroup, metrics.totalWithDrinksGroup % 1 ? 2 : 0) + '</b> ' +
           esc((lang === "en" ? "total for " : "общо за ")) + '<span data-budget-guests>' + guestCount + '</span> ' + esc(lang === "en" ? "guests" : "гости") + '</p>' +
@@ -3145,11 +3189,13 @@ const SOURCES = [
         '<th class="num">' + esc(t("offer.menuQty")) + '</th>' +
         '<th class="num">' + esc(tr("€ / бр.", "€ / pc")) + '</th><th></th>' +
       '</tr></thead><tbody>' + items.map(function (item, i) {
+        var categoryHeading = item.category && (!i || items[i - 1].category !== item.category) ?
+          '<tr class="kitchen59-custom__group"><th colspan="4">' + esc(item.category) + '</th></tr>' : '';
         var customHeading = item.isCustom && (!i || !items[i - 1].isCustom) ?
           '<tr class="kitchen59-custom__group"><th colspan="4">' +
             esc(tr("Нови персонализирани ястия", "New personalised dishes")) + '</th></tr>' : '';
         if (item.isDraft) {
-          return customHeading + '<tr class="custom-menu__draft">' +
+          return categoryHeading + customHeading + '<tr class="custom-menu__draft">' +
             '<td><input type="text" class="custom-menu__draft-name" maxlength="120" data-budget-field="draft-name" data-budget-index="' + i + '" value="' + esc(item.customName || "") + '" placeholder="' + esc(t("offer.menuItem")) + '" aria-label="' + esc(t("offer.menuItem")) + '"></td>' +
             '<td class="num"><div class="custom-menu__qty custom-menu__qty--draft">' +
               '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="draft-quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.menuQty")) + '">' +
@@ -3168,8 +3214,8 @@ const SOURCES = [
         var unit = item.unit === "grams" ?
           '× ' + num(item.grams) + ' ' + esc(tr("г", "g")) :
           (item.unit === "pieces" ? esc(tr("бр.", "pcs")) : '× ' + num(item.grams) + ' ' + esc(tr("г", "g")));
-        return customHeading + '<tr>' +
-          '<td><span class="custom-menu__item-name">' + esc(name) + '</span></td>' +
+        return categoryHeading + customHeading + '<tr>' +
+          '<td><span class="custom-menu__item-name">' + esc(name) + (item.course ? '<span class="custom-menu__course">' + esc(pick(item.course)) + '</span>' : '') + '</span></td>' +
           '<td class="num"><div class="custom-menu__qty">' +
             '<input type="number" min="0" max="500" step="1" inputmode="numeric" data-budget-field="quantity" data-budget-index="' + i + '" value="' + esc(item.quantity) + '" aria-label="' + esc(t("offer.menuQty")) + ' · ' + esc(name) + '">' +
             '<span class="custom-menu__unit">' + unit + '</span>' +
@@ -3211,6 +3257,7 @@ const SOURCES = [
         var value = input.value === "" ? 0 : parseFloat(input.value) || 0;
         if (field === "rate") budgetHallHourlyRate = Math.min(1000, Math.max(0, value));
         if (field === "hours") budgetHallHours = Math.min(24, Math.max(0, value));
+        saveState();
         renderCalc();
         renderCompare();
       });
@@ -3226,6 +3273,7 @@ const SOURCES = [
         else if (field === "draft-quantity") item.quantity = input.value === "" ? "" : Math.min(500, Math.max(0, parseInt(input.value, 10) || 0));
         else if (field === "draft-grams") item.grams = input.value === "" ? "" : Math.min(5000, Math.max(0, parseFloat(input.value) || 0));
         else if (field === "draft-price") item.price = input.value === "" ? "" : Math.min(10000, Math.max(0, parseFloat(input.value) || 0));
+        saveState();
         renderCalc();
         renderCompare();
       });
@@ -3249,6 +3297,7 @@ const SOURCES = [
         item.price = Math.min(10000, Math.max(0, parseFloat(price.value) || 0));
         item.unit = "grams";
         item.isDraft = false;
+        saveState();
         refreshCustomMenu(root);
       });
     });
@@ -3256,6 +3305,7 @@ const SOURCES = [
       button.addEventListener("click", function () {
         var i = parseInt(button.getAttribute("data-budget-remove"), 10);
         items.splice(i, 1);
+        saveState();
         refreshCustomMenu(root);
       });
     });
@@ -3265,6 +3315,7 @@ const SOURCES = [
         name: null, customName: "", isDraft: true, isCustom: true,
         quantity: 1, grams: "", unit: "grams", price: ""
       });
+      saveState();
       refreshCustomMenu(root);
       var draftInputs = $$(".custom-menu__draft-name", root);
       if (draftInputs.length) draftInputs[draftInputs.length - 1].focus();
@@ -3273,6 +3324,7 @@ const SOURCES = [
     if (reset) reset.addEventListener("click", function () {
       var offer = OFFER.alt.filter(function (item) { return item.id === offerId; })[0];
       budgetMenuItems[offerId] = initialBudgetMenuItems(offer ? offer.menuKey : "budgetBlock");
+      saveState();
       refreshCustomMenu(root);
     });
   }
@@ -3360,16 +3412,29 @@ const SOURCES = [
 
   /* ---------- calculator ---------- */
   function readCalc() {
-    return { g: OFFER.guests };
+    return { g: eventGuests };
   }
 
   function bindEventBudgetControls() {
+    var guestsInput = $("#event-guests");
+    if (guestsInput) {
+      guestsInput.value = eventGuests;
+      guestsInput.addEventListener("input", function () {
+        var value = guestsInput.value === "" ? OFFER.guests : parseInt(guestsInput.value, 10) || OFFER.guests;
+        eventGuests = Math.min(500, Math.max(1, value));
+        guestsInput.value = eventGuests;
+        saveState();
+        renderCalc();
+        renderCompare();
+      });
+    }
     var vocalInput = $("#vocal-entertainment-cost");
     if (vocalInput) {
       vocalInput.value = vocalEntertainmentCost;
       vocalInput.addEventListener("input", function () {
         var value = vocalInput.value === "" ? 0 : parseFloat(vocalInput.value) || 0;
         vocalEntertainmentCost = roundMoney(Math.min(10000, Math.max(0, value)));
+        saveState();
         renderCalc();
         renderCompare();
       });
@@ -3402,7 +3467,7 @@ const SOURCES = [
         r.hall = tr("160 € офертен наем; персонализираният се смята по цена/час × часове", "€160 quoted rent; custom rent uses an editable rate × hours");
         r.minspend = tr("няма", "none");
         r.capacity = tr("до 40 седящи (оферта за 30)", "up to 40 seated (offer for 30)");
-        var prices = OFFER.alt.map(function (a) { return offerMetrics(a, OFFER.guests).totalWithDrinks; });
+         var prices = OFFER.alt.map(function (a) { return offerMetrics(a, eventGuests).totalWithDrinks; });
         r.pp = Math.min.apply(Math, prices);
         r.ppText = money(r.pp) + "–" + money(Math.max.apply(Math, prices));
       } else if (v.id === "kitchen59") {
